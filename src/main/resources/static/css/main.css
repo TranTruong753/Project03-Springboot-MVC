@@ -38,9 +38,6 @@ button:focus,
   box-shadow: none;
 }
 
-a:hover {
-  color: #365CF5;
-}
 
 button,
 a {
@@ -3200,7 +3197,7 @@ h6,
   }
 }
 .auth-cover-wrapper .auth-cover .title {
-  text-align: cover;
+  /*text-align: cover;*/
   margin-bottom: 40px;
 }
 @media (max-width: 767px) {
@@ -3295,7 +3292,7 @@ h6,
   }
 }
 .auth-cover-wrapper .auth-cover .title {
-  text-align: cover;
+  /*text-align: cover;*/
   margin-bottom: 40px;
 }
 @media (max-width: 767px) {
