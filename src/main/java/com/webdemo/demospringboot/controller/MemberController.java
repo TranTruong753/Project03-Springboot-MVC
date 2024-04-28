@@ -10,5 +10,4 @@ public class MemberController {
 
     @RequestMapping("member/add_member")
     public String add_member() {return "add_member";}
-
 }
