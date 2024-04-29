@@ -28,15 +28,15 @@
     </div>
     <nav class="sidebar-nav">
         <ul>
-            <li class="nav-item">
+<!--            <li class="nav-item">
                 <a href="invoice.html">
                 <span class="icon">
                   <i class="fa-solid fa-chart-pie"></i>
                 </span>
                     <span class="text">Thống Kê</span>
                 </a>
-            </li>
-            <li class="nav-item nav-item-has-children">
+            </li>-->
+<!--            <li class="nav-item nav-item-has-children">
                 <a href="#0" class="collapsed" data-bs-toggle="collapse" data-bs-target="#ddmenu_2" aria-controls="ddmenu_2"
                    aria-expanded="false" aria-label="Toggle navigation">
                 <span class="icon">
@@ -55,23 +55,63 @@
                         <a href="blank-page.html"> Mượn Trả Thiết Bị </a>
                     </li>
                 </ul>
+            </li>-->
+
+            <li class="nav-item">
+                <a href="invoice.html">
+                <span class="icon">
+                  <i class="fa-solid fa-clipboard"></i>
+                </span>
+                    <span class="text">Danh sách Thiết Bị</span>
+                </a>
+            </li>
+            
+            <li class="nav-item">
+                <a href="invoice.html">
+                <span class="icon">
+                  <i class="fa-solid fa-receipt"></i>
+                </span>
+                    <span class="text">Danh sách Phiếu Mượn</span>
+                </a>
             </li>
 
             <li class="nav-item">
                 <a href="invoice.html">
                 <span class="icon">
-                  <i class="fa-solid fa-screwdriver-wrench"></i>
+                  <i class="fa-solid fa-cart-shopping"></i>
                 </span>
-                    <span class="text">Quản Lý Thiết Bị</span>
+                    <span class="text">Giỏ Mượn</span>
                 </a>
             </li>
-
-
 
             <span class="divider">
               <hr />
             </span>
-
+            
+            <li class="nav-item nav-item-has-children">
+                <a href="#0" class="collapsed" data-bs-toggle="collapse" data-bs-target="#ddmenu_2" aria-controls="ddmenu_2"
+                   aria-expanded="false" aria-label="Toggle navigation">
+                <span class="icon">
+                  <i class="fa-solid fa-user"></i>
+                </span>
+                    <span class="text">Tài khoản</span>
+                </a>
+                <ul id="ddmenu_2" class="collapse dropdown-nav">
+                    <li>
+                        <a href="settings.html"> Đổi mật khẩu </a>
+                    </li>
+                    <li>
+                        <a href="settings.html"> Trạng thái vi phạm </a>
+                    </li>
+                    <li>
+                        <a href="blank-page.html"> Đặt chỗ thiết bị </a>
+                    </li>
+                    <li>
+                        <a href="blank-page.html"> Thiết bị đang mượn </a>
+                    </li>
+                </ul>
+            </li>
+            
             <li class="nav-item">
                 <a href="notification.html">
                 <span class="icon">
@@ -233,8 +273,8 @@
                                             <img src="assets/images/profile/profile-image.png" alt="" />
                                         </div>
                                         <div>
-                                            <h6 class="fw-500">Adam Joe</h6>
-                                            <p>Admin</p>
+                                            <h6 class="fw-500">User Joe</h6>
+                                            <p>User</p>
                                         </div>
                                     </div>
                                 </div>
@@ -246,7 +286,7 @@
                                             <img src="assets/images/profile/profile-image.png" alt="image">
                                         </div>
                                         <div class="content">
-                                            <h4 class="text-sm">Adam Joe</h4>
+                                            <h4 class="text-sm">User Joe</h4>
                                             <a class="text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white text-xs"
                                                href="#">Email@gmail.com</a>
                                         </div>
@@ -255,23 +295,23 @@
                                 <li class="divider"></li>
                                 <li>
                                     <a href="#0">
-                                        <i class="lni lni-user"></i> View Profile
+                                        <i class="lni lni-user"></i> Đổi mật khẩu
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#0">
-                                        <i class="lni lni-alarm"></i> Notifications
+                                        <i class="lni lni-alarm"></i> Trạng thái vi phạm
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#0"> <i class="lni lni-inbox"></i> Messages </a>
+                                    <a href="#0"> <i class="lni lni-inbox"></i>  Đặt chỗ thiết bị </a>
                                 </li>
                                 <li>
-                                    <a href="#0"> <i class="lni lni-cog"></i> Settings </a>
+                                    <a href="#0"> <i class="lni lni-cog"></i> Thiết bị đang mượn </a>
                                 </li>
                                 <li class="divider"></li>
                                 <li>
-                                    <a href="#0"> <i class="lni lni-exit"></i> Sign Out </a>
+                                    <a href="#0"> <i class="lni lni-exit"></i> Đăng Xuất </a>
                                 </li>
                             </ul>
                         </div>
@@ -291,7 +331,7 @@
                 <div class="row align-items-center">
                     <div class="col-md-6">
                         <div class="title">
-                            <h2>Quản Lý Thiết Bị</h2>
+                            <h2>Thiết Bị</h2>
                         </div>
                     </div>
                     <!-- end col -->
@@ -323,17 +363,17 @@
                         <div class="card-style mb-30">
                             <div class="card-title d-flex justify-content-between align-items-center mb-3">
                                 <h6 class="mb-10">Danh sách thiết bị</h6>
-                                <div class="">
+<!--                                <div class="">
                                     <button onclick="window.location.href = '/member/add_member';"
                                             class="main-btn primary-btn btn-hover"><i class="fa-solid fa-circle-plus"></i> Thêm</button>
                                     <button class="main-btn success-btn btn-hover"><i class="fa-solid fa-file-excel"></i> Nhập
                                         excel</button>
-                                </div>
+                                </div>-->
 
                             </div>
 
                             <div
-                                    class="table-wrapper table-responsive d-flex flex-column justify-content-center align-items-center">
+                                class="table-wrapper table-responsive d-flex flex-column justify-content-center align-items-center">
                                 <table class="table mb-3">
                                     <thead>
                                     <tr>
@@ -366,12 +406,9 @@
                                         </td>
                                         <td>
                                             <div class="action">
-                                                <button class="text-danger">
-                                                    <i class="fa-solid fa-trash"></i>
-                                                </button>
-                                                <button class="text-warning">
-                                                    <i class="fa-solid fa-pencil"></i>
-                                                </button>
+                                                <button class="text-success">
+                                                   <i class="fa-solid fa-plus"></i>
+                                                </button>                                               
                                             </div>
                                         </td>
                                     </tr>
@@ -389,12 +426,9 @@
                                         </td>
                                         <td>
                                             <div class="action">
-                                                <button class="text-danger">
-                                                    <i class="fa-solid fa-trash"></i>
-                                                </button>
-                                                <button class="text-warning">
-                                                    <i class="fa-solid fa-pencil"></i>
-                                                </button>
+                                                <button class="text-success">
+                                                   <i class="fa-solid fa-plus"></i>
+                                                </button>                                               
                                             </div>
                                         </td>
                                     </tr>
@@ -412,12 +446,9 @@
                                         </td>
                                         <td>
                                             <div class="action">
-                                                <button class="text-danger">
-                                                    <i class="fa-solid fa-trash"></i>
-                                                </button>
-                                                <button class="text-warning">
-                                                    <i class="fa-solid fa-pencil"></i>
-                                                </button>
+                                                <button class="text-success">
+                                                   <i class="fa-solid fa-plus"></i>
+                                                </button>                                               
                                             </div>
                                         </td>
                                     </tr>
@@ -435,12 +466,9 @@
                                         </td>
                                         <td>
                                             <div class="action">
-                                                <button class="text-danger">
-                                                    <i class="fa-solid fa-trash"></i>
-                                                </button>
-                                                <button class="text-warning">
-                                                    <i class="fa-solid fa-pencil"></i>
-                                                </button>
+                                                <button class="text-success">
+                                                   <i class="fa-solid fa-plus"></i>
+                                                </button>                                               
                                             </div>
                                         </td>
                                     </tr>
@@ -458,19 +486,16 @@
                                         </td>
                                         <td>
                                             <div class="action">
-                                                <button class="text-danger">
-                                                    <i class="fa-solid fa-trash"></i>
-                                                </button>
-                                                <button class="text-warning">
-                                                    <i class="fa-solid fa-pencil"></i>
-                                                </button>
+                                                <button class="text-success">
+                                                   <i class="fa-solid fa-plus"></i>
+                                                </button>                                               
                                             </div>
                                         </td>
                                     </tr>
                                     <!-- end table row-->
                                     </tbody>
                                 </table>
-                                <!-- end table -->
+                                <!-- end table -->                                                                                                  
                                 <!-- Pagination -->
                                 <nav aria-label="Page navigation example text-primary">
                                     <ul class="pagination">
@@ -491,6 +516,9 @@
                                 </nav>
                                 <!-- pagination end -->
                             </div>
+                            <div class = "d-flex justify-content-end">
+                                <button class="main-btn active-btn btn-hover"><i class="fa-solid fa-cart-shopping"></i>Giỏ hàng</button>
+                            </div>  
                         </div>
                         <!-- end card -->
                     </div>

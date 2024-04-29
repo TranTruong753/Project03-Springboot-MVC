@@ -11,5 +11,10 @@ public class HomeController {
         return "index";
     }
     
+     @RequestMapping("/user")
+    public String user() {
+        return "user";
+    }
+    
    
 }
