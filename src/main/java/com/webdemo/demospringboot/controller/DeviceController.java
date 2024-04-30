@@ -14,4 +14,10 @@ public class DeviceController {
     public String add_device() {
         return "add_device";
     }
+    
+    @RequestMapping("list_device")
+    public String list()
+    {
+        return "user";
+    }
 }
