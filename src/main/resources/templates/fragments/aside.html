@@ -1,0 +1,41 @@
+<aside class="sidebar-nav-wrapper" th:fragment="aside">
+    <div class="navbar-logo">
+        <a href="index.html">
+            <img th:src="@{/img/logo/logo.svg}" alt="logo" />
+        </a>
+    </div>
+    <nav class="sidebar-nav">
+        <ul>
+            <li class="nav-item nav-item-has-children">
+                <a href="#0" class="collapsed" data-bs-toggle="collapse" data-bs-target="#ddmenu_2"
+                    aria-controls="ddmenu_2" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="icon">
+                        <i class="fa-solid fa-user"></i>
+                    </span>
+                    <span class="text">Thiết Bị</span>
+                </a>
+                <ul id="ddmenu_2" class="collapse dropdown-nav">
+                    <li>
+                        <a th:href="@{home}"> Danh sách thiết bị </a>
+                    </li>
+                    <li>
+                        <a th:href="@{home/datcho}"> Đặt chỗ thiết bị </a>
+                    </li>
+                </ul>
+            </li>
+
+            <span class="divider">
+                <hr />
+            </span>
+
+            <li class="nav-item">
+                <a href="">
+                    <span class="icon">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </span>
+                    <span class="text">Đăng Xuất</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</aside>

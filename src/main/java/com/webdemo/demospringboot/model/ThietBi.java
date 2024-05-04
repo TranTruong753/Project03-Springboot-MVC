@@ -1,42 +1,57 @@
 package com.webdemo.demospringboot.model;
 
-import jakarta.persistence.*;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "thietbi")
 public class ThietBi {
     @Id
-    private int MaTB; // Use Long instead of int for primary key
+    @Column(name = "MaTB")
+    private int maTB;
 
-    private String TenTB;
+    @Column(name = "TenTB", nullable = true)
+    private String tenTB;
 
-    @Column(columnDefinition = "TEXT")
-    private String MoTaTB;
+    @Column(name = "MoTaTB", columnDefinition = "text")
+    private String moTaTB;
+
+    // constructors, getters, and setters
+
+    public ThietBi() {
+    }
+
+    public ThietBi(int maTB, String tenTB, String moTaTB) {
+        this.maTB = maTB;
+        this.tenTB = tenTB;
+        this.moTaTB = moTaTB;
+    }
+
     public int getMaTB() {
-        return MaTB;
+        return maTB;
     }
 
     public void setMaTB(int maTB) {
-        MaTB = maTB;
+        this.maTB = maTB;
     }
 
     public String getTenTB() {
-        return TenTB;
+        return tenTB;
     }
 
     public void setTenTB(String tenTB) {
-        TenTB = tenTB;
+        this.tenTB = tenTB;
     }
 
     public String getMoTaTB() {
-        return MoTaTB;
+        return moTaTB;
     }
 
     public void setMoTaTB(String moTaTB) {
-        MoTaTB = moTaTB;
+        this.moTaTB = moTaTB;
     }
-
-
 }
-
-

@@ -5,24 +5,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class HomeController {
+public class ThietBiController {
 
     @Autowired
     private ThietBiService thietBiService;
 
-    @RequestMapping("home")
+    @GetMapping("/thietbi")
     public String index(Model model) {
         model.addAttribute("danhSachThietBi", thietBiService.layDanhSachThietBi());
-        return "index";
+        return "ThietBi/index";
     }
-
-     @RequestMapping("/user")
-    public String user() {
-        return "user";
-    }
-    
-   
 }
