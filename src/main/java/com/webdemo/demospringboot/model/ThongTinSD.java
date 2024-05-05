@@ -20,7 +20,9 @@ public class ThongTinSD {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MaTV", referencedColumnName = "MaTV")
-    private Thanhvien thanhVien; // Change ThanhVien to Thanhvien
+
+    private Thanhvien thanhVien;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MaTB", referencedColumnName = "MaTB")
@@ -33,7 +35,9 @@ public class ThongTinSD {
     private LocalDateTime thoiGianDatCho;
 
     @Column(name = "TG_Muon")
-    private LocalDateTime thoiGianMuon; 
+
+    private LocalDateTime thoiGianMuon; // Có thể sử dụng kiểu dữ liệu phù hợp cho thời gian mượn
+
 
     @Column(name = "TG_Tra")
     private LocalDateTime thoiGianTra;

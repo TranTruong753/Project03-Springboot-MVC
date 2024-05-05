@@ -1,141 +1,243 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head th:replace="fragments/head :: head"></head>
+    <head th:replace="fragments/head :: head"></head>
+    <style>
+        /* CSS tùy chỉnh */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            padding-top: 50px;
+        }
+        /* CSS cho nút tùy chỉnh */
+        .td_action{
+            width: 300px;
+        }
+        .custom-btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            opacity: 0.6;
+        }
+        .table-wrapper {
+            max-height: 250px; /* Chiều cao tối đa của bảng */
+            overflow-y: auto; /* Hiển thị thanh cuộn dọc khi cần thiết */
+        }
+        .button-container {
+            display: flex;
+            justify-content: space-around; /* Các nút sẽ căn đều trong container */
+            width: 100%; /* Đảm bảo nút bao quát toàn bộ width của ô td */
+        }
+        /* CSS cho nút màu chính (primary) */
+        .primary-btn {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+        }
 
-<body>
-    <!-- ======== sidebar-nav start =========== -->
-    <aside th:replace="fragments/aside :: aside"></aside>
-    <div class="overlay"></div>
-    <!-- ======== sidebar-nav end =========== -->
+        /* CSS cho nút màu thành công (success) */
+        .success-btn {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+        }
 
-    <!-- ======== main-wrapper start =========== -->
-    <main class="main-wrapper">
-        <!-- ========== header start ========== -->
-        <header th:replace="fragments/header :: header"></header>
-        <!-- ========== header end ========== -->
+        /* CSS cho nút màu thông tin (info) */
+        .info-btn {
+            background-color: #17a2b8;
+            color: #fff;
+            border: none;
+        }
+        .search-device{
+            margin-bottom: 20px;
+        }
+        .custom-btn:hover{
+            opacity: 1;
+        }
+        h2 {
+            color: #007bff;
+        }
+        #danhSachThietBiBody td:nth-child(1) {
+            width: 170px;
+        }
+        .container {
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.1);
+        }
 
-        <!-- ========== section start ========== -->
-        <section class="section">
-            <div class="container-fluid">
-                <!-- ========== title-wrapper start ========== -->
-                <div class="title-wrapper pt-30">
-                    <div class="row align-items-center">
-                        <div class="col-md-6">
-                            <div class="title">
-                                <h2>Thông tin đặt chỗ thiết bị</h2>
+        table {
+            background: linear-gradient(to right,#98F5FF,white 30%,white 70%,#98F5FF);
+            width: 100%;
+            box-shadow: 0 0px 12px 3px rgba(0, 0, 0, 0.2);
+        }
+        .loan-return-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .loan-return-section .input-group {
+            width: 100%;
+        }
+        .loan-section,
+        .return-section {
+            width: 49%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .loan-section .input-group,
+        .return-section .input-group {
+            width: 100%;
+        }
+        th, td {
+            text-align: center;
+            padding: 12px;
+        }
+        thead tr{
+            background-color: #98F5FF;
+            border-radius: 20px;
+        }
+        tbody tr td,
+        thead th{
+            vertical-align: middle;
+            border: 6px solid white;
+        }
+
+    </style>
+    <body>
+        <!-- ======== sidebar-nav start =========== -->
+        <aside th:replace="fragments/aside :: aside"></aside>
+        <div class="overlay"></div>
+        <!-- ======== sidebar-nav end =========== -->
+
+        <!-- ======== main-wrapper start =========== -->
+        <main class="main-wrapper">
+            <!-- ========== header start ========== -->
+            <header th:replace="fragments/header :: header"></header>
+            <!-- ========== header end ========== -->
+
+            <!-- ========== section start ========== -->
+            <section class="section">
+                <div class="container-fluid">
+                    <!-- ========== title-wrapper start ========== -->
+                    <div class="title-wrapper pt-30">
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                <div class="title">
+                                    <h2>Thông tin đặt chỗ thiết bị</h2>
+                                </div>
                             </div>
-                        </div>
-                        <!-- end col -->
-                        <div class="col-md-6">
-                            <div class="breadcrumb-wrapper">
-                                <nav aria-label="breadcrumb">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item">
-                                            <a href="#0">Thiết Bị</a>
-                                        </li>
-                                        <li class="breadcrumb-item active" aria-current="page">
-                                            Đặt chỗ thiết bị
-                                        </li>
-                                    </ol>
-                                </nav>
+                            <!-- end col -->
+                            <div class="col-md-6">
+                                <div class="breadcrumb-wrapper">
+                                    <nav aria-label="breadcrumb">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item">
+                                                <a href="#">Thiết Bị</a>
+                                            </li>
+                                            <li class="breadcrumb-item active" aria-current="page">
+                                                Đặt chỗ thiết bị
+                                            </li>
+                                        </ol>
+                                    </nav>
+                                </div>
                             </div>
+                            <!-- end col -->
                         </div>
-                        <!-- end col -->
+                        <!-- end row -->
                     </div>
-                    <!-- end row -->
-                </div>
-                <!-- ========== title-wrapper end ========== -->
+                    <!-- ========== title-wrapper end ========== -->
 
-                <!-- ========== tables-wrapper start ========== -->
-                <div class="tables-wrapper">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="card-style mb-30">
-                                <div class="card-title mb-3">
-                                    <h6 class="mb-10">Danh sách thiết bị</h6>
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="basic-addon1"><i
-                                                class="lni lni-search-alt"></i></span>
-                                        <input type="text" class="form-control" placeholder="Tên thiết bị"
-                                            aria-label="Username" aria-describedby="basic-addon1">
+                    <!-- ========== tables-wrapper start ========== -->
+                    <section>
+                        <div class="container mt-5">
+                            <h2>Quản Lý Mượn Trả Thiết Bị</h2>
+
+                            <!-- Phần Tìm kiếm Thiết Bị -->
+                            <div class="search-device">
+                                <div class="input-group">
+                                    <input type="text" id="tenThietBi" class="form-control" placeholder="Nhập tên thiết bị cần tìm kiếm">
+                                    <div class="input-group-append">
+                                        <button onclick="timKiemThietBi()" class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i> Tìm kiếm</button>
                                     </div>
-
-                                </div>
-                                <div
-                                    class="table-wrapper table-responsive d-flex flex-column justify-content-center align-items-center">
-                                    <table class="table mb-3">
-                                        <thead>
-                                            <tr>
-                                                <th>
-                                                    <h6>Mã Thiết Bị</h6>
-                                                </th>
-                                                <th>
-                                                    <h6>Tên Thiết Bị</h6>
-                                                </th>
-                                                <th>
-                                                    <h6>Ngày đặt</h6>
-                                                </th>
-                                                <th>
-                                                    <h6>Thời gian đặt</h6>
-                                                </th>
-                                                <th>
-                                                    <h6>Thao Tác</h6>
-                                                </th>
-                                            </tr>
-                                            <!-- end table row-->
-                                        </thead>
-                                        <tbody class="bg-white">
-                                            <!-- start table row-->
-                                            <tr>
-                                                <td>
-                                                    <p>1</p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p>
-                                                        Thiết Bị 1
-                                                    </p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <input type="date" class="form-control" />
-                                                </td>
-                                                <td class="min-width">
-                                                    <input type="time" class="form-control" />
-                                                </td>
-                                                <td>
-                                                    <div class="action">
-                                                        <a class="px-3 py-2 rounded btn-datcho">
-                                                            <i class="lni lni-circle-plus"></i> Đặt Chỗ
-                                                        </a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <!-- end table row-->
-                                        </tbody>
-                                    </table>
-                                    <!-- end table -->
                                 </div>
                             </div>
-                            <!-- end card -->
+
+                            <div class="table-wrapper">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Mã Thiết Bị</th>
+                                            <th scope="col">Tên Thiết Bị</th>
+                                            <th scope="col">Mô Tả Thiết Bị</th>
+                                            <th scope="col">Actions</th> <!-- Thêm cột Actions -->
+                                        </tr>
+                                    </thead>
+                                    <tbody id="danhSachThietBiBody">
+                                        <!-- Các dòng của bảng -->
+                                        <tr th:each="thietbi : ${danhSachThietBi}">
+                                            <td th:text="${thietbi.maTB}"></td>
+                                            <td th:text="${thietbi.tenTB}"></td>
+                                            <td th:text="${thietbi.moTaTB}"></td>
+                                            <td class="td_action">
+                                                <div class="button-container">
+                                                    <!--<button class="custom-btn info-btn" th:value="${thietbi.maTB}" onclick="datChoThietBi(this)">Đặt chỗ</button>-->
+                                                    <button class="custom-btn info-btn" th:data-maTB="${thietbi.maTB}" onclick="redirectToBookDevice(this)">
+                                                        Đặt chỗ
+                                                    </button>
+
+                                                </div>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                        <!-- end col -->
-                    </div>
-                    <!-- end row -->
+                    </section>
+
+                    <script>
+                        function redirectToBookDevice(button) {
+                            var maTB = button.getAttribute('data-maTB'); // Lấy giá trị data-maTB từ nút
+                            if (maTB) {
+                                window.location.href = '/home/bookdevice?matb=' + maTB; // Chuyển hướng đến đường dẫn mới
+                            }
+                        }
+                        // Xử lý tìm kiếm thiết bị
+                        function timKiemThietBi() {
+                            var inputTenThietBi = document.getElementById('tenThietBi').value;
+                            var danhSachThietBi = document.querySelectorAll('#danhSachThietBiBody tr');
+                            danhSachThietBi.forEach(function (row) {
+                                var tenTB = row.cells[1].innerText;
+                                if (tenTB.toLowerCase().includes(inputTenThietBi.toLowerCase())) {
+                                    row.style.display = '';
+                                } else {
+                                    row.style.display = 'none';
+                                }
+                            });
+                        }
+                    </script>
+                    <!-- ========== tables-wrapper end ========== -->
+
                 </div>
-                <!-- ========== tables-wrapper end ========== -->
+                <!-- end container -->
+            </section>
+            <!-- ========== section end ========== -->
 
-            </div>
-            <!-- end container -->
-        </section>
-        <!-- ========== section end ========== -->
+            <!-- ========== footer start =========== -->
+            <footer th:replace="fragments/footer :: footer"></footer>
+            <!-- ========== footer end =========== -->
+        </main>
+        <!-- ======== main-wrapper end =========== -->
 
-        <!-- ========== footer start =========== -->
-        <footer th:replace="fragments/footer :: footer"></footer>
-        <!-- ========== footer end =========== -->
-    </main>
-    <!-- ======== main-wrapper end =========== -->
-
-    <div th:replace="fragments/script :: script"></div>
-</body>
+        <div th:replace="fragments/script :: script"></div>
+    </body>
 
 </html>
