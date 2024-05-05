@@ -56,7 +56,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-<<<<<<< HEAD
 
         <groupId>com.sun.mail</groupId>
 
@@ -77,12 +76,12 @@
         <artifactId>activation</artifactId>
 
         <version>1.1.1</version>
-
-        </dependency>
+</dependency>
 
         <!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
 
         <dependency>
+            
 
         <groupId>javax.mail</groupId>
 
@@ -96,14 +95,13 @@
     <artifactId>commons-email</artifactId>
     <version>1.5</version>
 </dependency>-->
-=======
+<dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-jpa</artifactId>
             <version>3.2.5</version>
             <type>jar</type>
         </dependency>
         
->>>>>>> 955f2c7c1655829e7e99debf254dde267ab34813
     </dependencies>
     <build>
         <plugins>
