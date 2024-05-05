@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ThietBiServiceImpl implements  ThietBiService{
+public class ThietBiServiceImpl implements ThietBiService {
 
     @Autowired
     public ThietBiRepository thietBiRepository;
@@ -17,5 +17,15 @@ public class ThietBiServiceImpl implements  ThietBiService{
     @Override
     public List<ThietBi> layDanhSachThietBi() {
         return thietBiRepository.findAll();
+    }
+
+    @Override
+    public List<ThietBi> findAllThietBi() {
+        return thietBiRepository.findAllThietBi();
+    }
+
+    @Override
+    public ThietBi findByMaTB(int maTB) {
+        return thietBiRepository.findByMaTB(maTB);
     }
 }
