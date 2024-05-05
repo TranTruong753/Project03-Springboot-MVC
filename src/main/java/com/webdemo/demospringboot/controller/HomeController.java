@@ -19,7 +19,7 @@ public class HomeController {
         return "index";
     }
 
-     @RequestMapping("/user")
+    @RequestMapping("/user")
     public String user() {
         return "user";
     }
