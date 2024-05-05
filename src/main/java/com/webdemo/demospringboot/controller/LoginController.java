@@ -32,8 +32,10 @@ public class LoginController {
             Thanhvien user = (Thanhvien) loginService.loginThanhVien(maThanhVienInt, matKhau);
             if (user != null) {
                 model.addAttribute("username", maThanhVien);
+                 model.addAttribute("ps", "check");
                 model.remove("message");
-                return "redirect:/home";
+//                return "redirect:/home";
+                    return "index";
             } else {
                 model.addAttribute("message", "Đăng nhập thất bại do Mã Thành Viên hoặc Mật Khẩu sai");
                 return "login";
