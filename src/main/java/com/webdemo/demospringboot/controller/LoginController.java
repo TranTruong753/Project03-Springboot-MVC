@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.webdemo.demospringboot.model.Thanhvien;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.ui.ModelMap;
 
 
@@ -17,7 +18,11 @@ public class LoginController {
     public String index() {
         return "login";
     }
-
+    
+    @Autowired
+    private HttpSession httpSession;
+    
+    
     @Autowired
     private LoginService loginService;
     @PostMapping("/login")
@@ -31,6 +36,9 @@ public class LoginController {
     
             Thanhvien user = (Thanhvien) loginService.loginThanhVien(maThanhVienInt, matKhau);
             if (user != null) {
+                
+                httpSession.setAttribute("maTV", maThanhVien);
+ 
                 model.addAttribute("username", maThanhVien);
                 model.remove("message");
                 return "redirect:/home";
