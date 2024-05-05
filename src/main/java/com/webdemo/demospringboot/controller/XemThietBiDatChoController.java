@@ -26,13 +26,13 @@ import com.webdemo.demospringboot.service.XemThietBiDatChoService;
  * @author ACER
  */
 @Controller
-@RequestMapping("/checkDeviceBooked")
+
 public class XemThietBiDatChoController {
 
     @Autowired
     private XemThietBiDatChoService xemThietBiDatChoService;
-
-    @GetMapping("/xemAllThietBiDaDatCho")
+    //vd: http://localhost:8080/checkDeviceBooked?maTV=1123330257
+    @GetMapping("/checkDeviceBooked")
     public String xemAllThietBiDaDatCho(Model model, @RequestParam("maTV") int maTV) {
         List<ThongTinSD> thongTinSDList = xemThietBiDatChoService.layDanhSachThietBiDatCho(maTV);
         model.addAttribute("thongTinSDList", thongTinSDList);

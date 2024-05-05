@@ -94,6 +94,22 @@
                                         </tbody>
                                     </table>
                                     <!-- end table -->
+                                    <nav aria-label="Page navigation example">
+                                        <ul class="pagination justify-content-center">
+                                            <li class="page-item" th:classappend="${thongTinSDPage.first ? 'disabled' : ''}">
+                                                <a class="page-link" th:href="@{${#httpServletRequest.requestURL}(page=0)}">First</a>
+                                            </li>
+                                            <li class="page-item" th:classappend="${thongTinSDPage.first ? 'disabled' : ''}">
+                                                <a class="page-link" th:href="@{${#httpServletRequest.requestURL}(page=${thongTinSDPage.number - 1})}">Previous</a>
+                                            </li>
+                                            <li class="page-item" th:classappend="${thongTinSDPage.last ? 'disabled' : ''}">
+                                                <a class="page-link" th:href="@{${#httpServletRequest.requestURL}(page=${thongTinSDPage.number + 1})}">Next</a>
+                                            </li>
+                                            <li class="page-item" th:classappend="${thongTinSDPage.last ? 'disabled' : ''}">
+                                                <a class="page-link" th:href="@{${#httpServletRequest.requestURL}(page=${thongTinSDPage.totalPages - 1})}">Last</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
                                 </div>
                             </div>
                             <!-- end card -->
