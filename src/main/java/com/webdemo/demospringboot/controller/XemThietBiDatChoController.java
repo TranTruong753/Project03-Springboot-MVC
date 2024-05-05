@@ -21,19 +21,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.webdemo.demospringboot.service.XemThietBiDatChoService;
+import jakarta.servlet.http.HttpSession;
 /**
  *
  * @author ACER
  */
 @Controller
-@RequestMapping("/checkDeviceBooked")
+@RequestMapping("/home")
 public class XemThietBiDatChoController {
 
     @Autowired
     private XemThietBiDatChoService xemThietBiDatChoService;
 
-    @GetMapping("/xemAllThietBiDaDatCho")
-    public String xemAllThietBiDaDatCho(Model model, @RequestParam("maTV") int maTV) {
+    @Autowired
+    private HttpSession httpSession;
+    
+    @GetMapping("/checkDeviceBooked")
+    public String xemAllThietBiDaDatCho(Model model) {
+        String maTVString = (String) httpSession.getAttribute("maTV");
+        int maTV = Integer.parseInt(maTVString);
+  
         List<ThongTinSD> thongTinSDList = xemThietBiDatChoService.layDanhSachThietBiDatCho(maTV);
         model.addAttribute("thongTinSDList", thongTinSDList);
         return "xemThietBiDatCho";
