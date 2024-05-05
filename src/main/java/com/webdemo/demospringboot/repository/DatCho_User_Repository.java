@@ -19,13 +19,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface DatCho_User_Repository extends JpaRepository<ThongTinSD, Integer> {
 
-//    @Modifying
-//    @Transactional
-//    @Query("UPDATE ThongTinSD t SET t.thoiGianTra = CURRENT_TIMESTAMP WHERE t.thietBi.id = :maTB AND t.thanhVien.id = :maTV AND t.thoiGianTra IS NULL")
-//    void updateThoiGianTraByMaTBAndMaTVAndThoiGianTraIsNull(@Param("maTB") int maTB, @Param("maTV") int maTV);
-
     @Query("SELECT COUNT(t) FROM ThongTinSD t")
     int countThongTinSD();
+
     // kiem tra xem thiet bi truyen vao co ng dat muon truoc do ch
     // thiet bi duoc dat cho nêu: thoigiandatcho khong null và bé hon 1h so vs thoigianhientai || và các thoigian kia phai null
     @Query("SELECT COUNT(t) FROM ThongTinSD t "
@@ -34,15 +30,42 @@ public interface DatCho_User_Repository extends JpaRepository<ThongTinSD, Intege
             + "AND t.thoiGianMuon IS NULL "
             + "AND t.thoiGianVao IS NULL "
             + "AND t.thoiGianDatCho IS NOT NULL "
-            + "AND TIMESTAMPDIFF(SECOND, t.thoiGianDatCho, CURRENT_TIMESTAMP) < 3600")
-    int countCurrentReservationsByMaTB(@Param("maTB") int maTB);
+            + "AND DATE(t.thoiGianDatCho) = CURRENT_DATE()"
+            + "AND t.thoiGianDatCho > DATEADD(HOUR, -1, CURRENT_TIMESTAMP)")
+    int count_trangthai_datmuon_thietbi(@Param("maTB") int maTB);
     //kiem tra xem thiet bi truyen vao co ng dang muon khong 
+    // Định nghĩa phương thức repository với @Query
     
-     @Query("SELECT COUNT(t) FROM ThongTinSD t "
+    @Query("SELECT COUNT(t) FROM ThongTinSD t "
+            + "WHERE t.thietBi.id = :maTB "
+            + "AND t.thoiGianTra IS NULL "
+            + "AND t.thoiGianMuon IS NULL "
+            + "AND t.thoiGianVao IS NULL "
+            + "AND t.thoiGianDatCho IS NOT NULL "
+            + "AND DATE(t.thoiGianDatCho) = DATE(:selectedDate) ")
+//            + "AND t.thoiGianDatCho > DATEADD(HOUR, -1, :selectedDate)")
+    int count_datechosen_not_curent(
+            @Param("maTB") int maTB,
+            @Param("selectedDate") LocalDateTime selectedDate);
+    
+//    @Query("SELECT COUNT(t) FROM ThongTinSD t "
+//            + "WHERE t.thietBi.id = :maT  B "
+//            + "AND t.thoiGianTra IS NULL "
+//            + "AND t.thoiGianMuon IS NULL "
+//            + "AND t.thoiGianVao IS NULL "
+//            + "AND t.thoiGianDatCho IS NOT NULL "
+//            + "AND DATE(t.thoiGianDatCho) = DATE(:selectedDate) "
+//            + "AND t.thoiGianDatCho > DATEADD(HOUR, -1, CURRENT_TIMESTAMP)")
+//    int count_datechosen_curent(
+//            @Param("maTB") int maTB,
+//            @Param("selectedDate") LocalDateTime selectedDate);
+
+    @Query("SELECT COUNT(t) FROM ThongTinSD t "
             + "WHERE t.thietBi.id = :maTB "
             + "AND t.thoiGianMuon IS NOT NULL "
-//            + "AND t.thoiGianDatCho IS NOT NULL "
+            //+ "AND t.thoiGianDatCho IS NOT NULL "
             + "AND t.thoiGianTra IS NULL "
+            + "AND DATE(t.thoiGianMuon) = CURRENT_DATE()"
             + "AND t.thoiGianVao IS NULL")
-    int countCurrentBorrowedReservationsByMaTB(@Param("maTB") int maTB);
+    int count_trangthai_muon_thietbi(@Param("maTB") int maTB);
 }

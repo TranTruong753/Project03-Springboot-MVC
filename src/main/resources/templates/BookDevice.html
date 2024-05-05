@@ -102,12 +102,12 @@
                                     <a href="/home" ><i class="fa-solid fa-circle-left"></i></a>  
                                     <div class="card-title mb-3">
                                         <h6 class="mb-10">Chọn Ngày Đặt Chỗ</h6>
-                                        <!--                                        <div class="input-group mb-3">
-                                                                                    <span class="input-group-text" id="basic-addon1"><i
-                                                                                            class="lni lni-search-alt"></i></span>
-                                                                                    <input type="text" class="form-control" placeholder="Tên thiết bị"
-                                                                                           aria-label="Username" aria-describedby="basic-addon1">
-                                                                                </div>-->
+<!--                                        <div class="input-group mb-3">
+                                            <span class="input-group-text" id="basic-addon1"><i
+                                                    class="lni lni-search-alt"></i></span>
+                                            <input type="text" class="form-control" placeholder="Tên thiết bị"
+                                                   aria-label="Username" aria-describedby="basic-addon1">
+                                        </div>-->
                                     </div>
                                     <div
                                         class="table-wrapper table-responsive d-flex flex-column justify-content-center align-items-center">
@@ -121,7 +121,7 @@
                                                         <h6>Tên Thiết Bị</h6>
                                                     </th>
                                                     <th>
-                                                        <h6>Trạng Thái</h6>
+                                                        <h6>Trạng Thái Hôm Nay</h6>
                                                     </th>
                                                     <th>
                                                         <h6>Ngày đặt</h6>
@@ -169,7 +169,7 @@
                                     var selectedDateTimeInput = document.getElementById("selectedDateTime");
                                     var selectedDateTimeValue = selectedDateTimeInput.value;
                                     var maTBcheck = document.getElementById('matb_id').textContent;
-                                    console.log(maTBcheck)
+//                                    console.log(maTBcheck)
                                     if (maTBcheck.length===0) {
                                         alert("Vui lòng chọn thiết bị trước khi đặt chỗ."); 
                                         event.preventDefault();
@@ -191,16 +191,9 @@
                                         event.preventDefault();
                                         return;
                                     }
-
-                                    var year = selectedDate.getFullYear();
-                                    var month = ('0' + (selectedDate.getMonth() + 1)).slice(-2);
-                                    var day = ('0' + selectedDate.getDate()).slice(-2);
-                                    var hours = ('0' + selectedDate.getHours()).slice(-2);
-                                    var minutes = ('0' + selectedDate.getMinutes()).slice(-2);
-                                    var seconds = ('0' + selectedDate.getSeconds()).slice(-2);
-                                    var formattedDateTime = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
-
-                                    var formData = {selectedDateTime: formattedDateTime};
+//                                    console.log(selectedDate)
+//                                    console.log(selectedDate.toISOString())
+                                    var formData = {selectedDateTime: selectedDate.toISOString()};
                                     var maTB = window.location.search.split('=')[1]; // Lấy giá trị của 'matb' từ đường dẫn URL
 
                                     fetch("/home/bookdevice?matb=" + maTB, {

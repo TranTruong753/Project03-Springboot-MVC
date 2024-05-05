@@ -34,11 +34,11 @@ public class HomeController {
         } else {
             // Đưa mã thiết bị vào model để sử dụng trong bookdevice.html
             String TrangThai = "Còn Trống";
-            int currentReservations = datcho.countCurrentReservationsByMaTB(Integer.parseInt(maTB));
+            int currentReservations = datcho.count_trangthai_datmuon_thietbi(Integer.parseInt(maTB));
             if (currentReservations > 0) {
                 TrangThai = "Đã Được Đặt Mượn";
             }
-            int countCurrentBorrowed = datcho.countCurrentBorrowedReservationsByMaTB(Integer.parseInt(maTB));
+            int countCurrentBorrowed = datcho.count_trangthai_muon_thietbi(Integer.parseInt(maTB));
             if (countCurrentBorrowed > 0) {
                 TrangThai = "Đã Được Mượn";
             }
