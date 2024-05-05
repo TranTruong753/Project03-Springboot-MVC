@@ -142,7 +142,7 @@
                                         <img th:src="@{img/profile/profile-image.png}" alt="" />
                                     </div>
                                     <div>
-                                        <h6 class="fw-500">User Joe</h6>
+                                        <h6 class="fw-500" th:text="${Hoten}"></h6>
                                         <p>User</p>
                                     </div>
                                 </div>
@@ -155,9 +155,9 @@
                                         <img th:src="@{img/profile/profile-image.png}" alt="image">
                                     </div>
                                     <div class="content">
-                                        <h4 class="text-sm">User Joe</h4>
+                                        <h4 class="text-sm" th:text="${Hoten}"></h4>
                                         <a class="text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white text-xs"
-                                           href="#">Email@gmail.com</a>
+                                           href="#" th:text="${Email}">Email@gmail.com</a>
                                     </div>
                                 </div>
                             </li>

@@ -41,6 +41,8 @@ public class LoginController {
  
                 model.addAttribute("username", maThanhVien);
                  model.addAttribute("ps", "check");
+                model.addAttribute("Hoten", loginService.get_Hoten(maThanhVienInt));
+                model.addAttribute("Email", loginService.get_Email(maThanhVienInt));
                 model.remove("message");
 //                return "redirect:/home";
                     return "index";

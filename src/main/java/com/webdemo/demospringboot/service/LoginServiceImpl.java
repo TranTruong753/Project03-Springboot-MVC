@@ -18,4 +18,14 @@ public class LoginServiceImpl implements  LoginService{
     public Thanhvien loginThanhVien(int maTV, String matKhau) {
         return loginRepository.loginThanhVien(maTV, matKhau);
     }
+
+    @Override
+    public String get_Hoten(Integer maTV) {
+        return loginRepository.get_Hoten(maTV);
+    }
+
+    @Override
+    public String get_Email(Integer maTV) {
+        return loginRepository.get_Email(maTV);
+    }
 }
