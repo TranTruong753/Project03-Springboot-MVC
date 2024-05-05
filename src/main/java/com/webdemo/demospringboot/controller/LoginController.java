@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.webdemo.demospringboot.model.Thanhvien;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 
 @Controller
@@ -40,12 +41,12 @@ public class LoginController {
                 httpSession.setAttribute("maTV", maThanhVien);
  
                 model.addAttribute("username", maThanhVien);
-                 model.addAttribute("ps", "check");
-                model.addAttribute("Hoten", loginService.get_Hoten(maThanhVienInt));
-                model.addAttribute("Email", loginService.get_Email(maThanhVienInt));
+                model.addAttribute("ps", "check");
+                httpSession.setAttribute("Hoten", loginService.get_Hoten(maThanhVienInt));
+                httpSession.setAttribute("Email", loginService.get_Email(maThanhVienInt));
                 model.remove("message");
-//                return "redirect:/home";
-                    return "index";
+                // return "redirect:/home";
+                return "index";
             } else {
                 model.addAttribute("message", "Đăng nhập thất bại do Mã Thành Viên hoặc Mật Khẩu sai");
                 return "login";
