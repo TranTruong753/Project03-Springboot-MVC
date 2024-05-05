@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8" />
@@ -9,11 +9,11 @@
     <title>Sign In</title>
 
     <!-- ========== All CSS files linkup ========= -->
-    <link rel="stylesheet" th:href="@{css/bootstrap.min.css}" />
-    <link rel="stylesheet" th:href="@{css/lineicons.css}" />
-    <link rel="stylesheet" th:href="@{css/materialdesignicons.min.css}" />
-    <link rel="stylesheet" th:href="@{css/fullcalendar.css}" />
-    <link rel="stylesheet" th:href="@{css/main.css}" />
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/lineicons.css}" />
+    <link rel="stylesheet" th:href="@{/css/materialdesignicons.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/fullcalendar.css}" />
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
 </head>
 
 <body>
@@ -43,41 +43,41 @@
             <div class="col-lg-6">
                 <div class="signin-wrapper">
                     <div class="form-wrapper">
-                        <h6 class="mb-15">Sign In Form</h6>
+                        <h6 class="text-primary mb-15" style="font-size: larger;">ĐĂNG NHẬP</h6>
                         <p class="text-sm mb-25">
-                            Start creating the best possible user experience for you
-                            customers.
+                            Vui lòng đăng nhập để tiếp tục
                         </p>
-                        <form action="#">
+                        <form action="#" th:action="@{/login}" method="post">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="input-style-1">
-                                        <label>Email</label>
-                                        <input type="email" placeholder="Email" />
+                                        <label>Mã Thành Viên</label>
+                                        <input id="maThanhVien" name="maThanhVien" placeholder="Nhập mã thành viên" />
                                     </div>
                                 </div>
                                 <!-- end col -->
                                 <div class="col-12">
                                     <div class="input-style-1">
-                                        <label>Password</label>
-                                        <input type="password" placeholder="Password" />
+                                        <label>Mật Khẩu</label>
+                                        <input id="matKhau" name="matKhau" type="password" placeholder="Nhập mật khẩu" />
                                     </div>
                                 </div>
 
                                 <div class="col-12">
                                     <div class="button-group d-flex justify-content-center flex-wrap">
-                                        <button class="main-btn primary-btn btn-hover w-100 text-center">
-                                            Sign In
+                                        <button id="submitBtn" class="main-btn primary-btn btn-hover w-100 text-center">
+                                            Đăng Nhập
                                         </button>
                                     </div>
                                 </div>
                             </div>
                             <!-- end row -->
                         </form>
+                        <p style="color: red; margin-top: 10px;" th:text="${message}"></p>
                         <div class="singin-option pt-40">
                             <p class="text-sm text-medium text-dark text-center">
-                                Don’t have any account yet?
-                                <a href="signup.html">Create an account</a>
+                                Bạn chưa có tài khoản?
+                                <a href="register"> Đăng ký</a>
                             </p>
                         </div>
                     </div>
@@ -92,15 +92,44 @@
 
 
 <!-- ========= All Javascript files linkup ======== -->
-<script src="assets/js/bootstrap.bundle.min.js"></script>
-<script src="assets/js/Chart.min.js"></script>
-<script src="assets/js/dynamic-pie-chart.js"></script>
-<script src="assets/js/moment.min.js"></script>
-<script src="assets/js/fullcalendar.js"></script>
-<script src="assets/js/jvectormap.min.js"></script>
-<script src="assets/js/world-merc.js"></script>
-<script src="assets/js/polyfill.js"></script>
-<script src="assets/js/main.js"></script>
+<script src="../static/js/bootstrap.bundle.min.js"></script>
+<script src="../static/js/Chart.min.js"></script>
+<script src="../static/js/dynamic-pie-chart.js"></script>
+<script src="../static/js/moment.min.js"></script>
+<script src="../static/js/fullcalendar.js"></script>
+<script src="../static/js/jvectormap.min.js"></script>
+<script src="../static/js/world-merc.js"></script>
+<script src="../static/js/polyfill.js"></script>
+<script src="../static/js/main.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script th:inline = "javascript">
+    function Check_Null() {
+        var maThanhVien = document.getElementById("maThanhVien").value;
+        var matKhau = document.getElementById("matKhau").value;
+        if (maThanhVien == "" && matKhau == "") {
+            swal("Vui lòng nhập đầy đủ thông tin", "", "warning");
+            return false;
+        }
+        if (maThanhVien ==""){
+            swal("Vui lòng nhập Mã Thành Viên", "", "warning");
+            return false;
+        
+        }
+        if (matKhau ==""){
+            swal("Vui lòng nhập Mật Khẩu", "", "warning");
+            return false;
+        } 
+    }
+   
+    document.getElementById("submitBtn").addEventListener("click", function () {
+        if (Check_Null() == false) {
+            event.preventDefault();
+            return;
+        }
+        
+    });
+
+</script>
 </body>
 
 </html>
