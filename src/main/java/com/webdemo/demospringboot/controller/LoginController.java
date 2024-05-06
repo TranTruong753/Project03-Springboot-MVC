@@ -36,6 +36,7 @@ public class LoginController {
             int maThanhVienInt = Integer.parseInt(maThanhVien);
             if (maThanhVienInt < Integer.MIN_VALUE || maThanhVienInt > Integer.MAX_VALUE) {
                 model.addAttribute("message", "Đăng nhập thất bại do Mã Thành Viên hoặc Mật Khẩu sai");
+                model.addAttribute("username", maThanhVien);
                 return "login";
             }
     
@@ -52,10 +53,12 @@ public class LoginController {
                 return "redirect:/";
             } else {
                 model.addAttribute("message", "Đăng nhập thất bại do Mã Thành Viên hoặc Mật Khẩu sai");
+                model.addAttribute("username", maThanhVien);
                 return "login";
             }
         } catch (NumberFormatException e) {
             model.addAttribute("message", "Đăng nhập thất bại do Mã Thành Viên hoặc Mật Khẩu sai");
+            model.addAttribute("username", maThanhVien);
             return "login";
         }
     }
