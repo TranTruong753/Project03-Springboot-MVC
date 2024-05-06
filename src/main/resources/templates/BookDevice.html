@@ -102,12 +102,12 @@
                                     <a href="/home" ><i class="fa-solid fa-circle-left"></i></a>  
                                     <div class="card-title mb-3">
                                         <h6 class="mb-10">Chọn Ngày Đặt Chỗ</h6>
-<!--                                        <div class="input-group mb-3">
-                                            <span class="input-group-text" id="basic-addon1"><i
-                                                    class="lni lni-search-alt"></i></span>
-                                            <input type="text" class="form-control" placeholder="Tên thiết bị"
-                                                   aria-label="Username" aria-describedby="basic-addon1">
-                                        </div>-->
+                                        <!--                                        <div class="input-group mb-3">
+                                                                                    <span class="input-group-text" id="basic-addon1"><i
+                                                                                            class="lni lni-search-alt"></i></span>
+                                                                                    <input type="text" class="form-control" placeholder="Tên thiết bị"
+                                                                                           aria-label="Username" aria-describedby="basic-addon1">
+                                                                                </div>-->
                                     </div>
                                     <div
                                         class="table-wrapper table-responsive d-flex flex-column justify-content-center align-items-center">
@@ -120,9 +120,9 @@
                                                     <th>
                                                         <h6>Tên Thiết Bị</h6>
                                                     </th>
-                                                    <th>
-                                                        <h6>Trạng Thái Hôm Nay</h6>
-                                                    </th>
+                                                    <!--                                                    <th>
+                                                                                                            <h6>Trạng Thái Hôm Nay</h6>
+                                                                                                        </th>-->
                                                     <th>
                                                         <h6>Ngày đặt</h6>
                                                     </th>
@@ -134,14 +134,15 @@
                                             <tbody class="bg-white">
                                                 <tr>
                                                     <td>
-                                                        <p id="matb_id" th:text="${maTB != null} ? ${maTB} : ''"></p>
+                                                        <p id="matb_id" th:text="${maTB != null and maTB != ''} ? ${maTB} : 'Trống'"></p>
                                                     </td>
                                                     <td class="min-width">
-                                                        <p th:text="${tenTB != null} ? ${tenTB} : ''"></p>
+                                                        <p th:text="${tenTB != null and tenTB != ''} ? ${tenTB} : 'Trống'"></p>
                                                     </td>
-                                                    <td class="min-width">
+
+<!--                                                    <td class="min-width">
                                                         <p th:text="${trangthai != null} ? ${trangthai} : ''"></p>
-                                                    </td>
+                                                    </td>-->
                                                     <td class="min-width">
                                                         <input type="datetime-local" id="selectedDateTime" name="selectedDateTime" required>
                                                     </td>
@@ -170,10 +171,10 @@
                                     var selectedDateTimeValue = selectedDateTimeInput.value;
                                     var maTBcheck = document.getElementById('matb_id').textContent;
 //                                    console.log(maTBcheck)
-                                    if (maTBcheck.length===0) {
-                                        alert("Vui lòng chọn thiết bị trước khi đặt chỗ."); 
+                                    if (maTBcheck === "Trống" || maTBcheck.length===0) {
+                                        alert("Vui lòng chọn thiết bị trước khi đặt chỗ.");
                                         event.preventDefault();
-                                        return ;
+                                        return;
                                     }
                                     // Kiểm tra nếu ngày giờ chưa được chọn
                                     if (!selectedDateTimeValue) {
