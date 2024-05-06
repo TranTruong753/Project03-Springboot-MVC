@@ -6,6 +6,7 @@ package com.webdemo.demospringboot.controller;
 
 import com.webdemo.demospringboot.model.Thanhvien;
 import com.webdemo.demospringboot.service.ThanhVienService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,17 +22,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ChangePasswordController {
     @Autowired
     ThanhVienService tvservice;   
-    
+    @Autowired
+    private HttpSession httpSession;
 //    @RequestMapping("changePassword")
 //    public String forgetpassword() {
 //        return "ChangePassword";
 //    }
 
     @RequestMapping("changePassword")
-    public String show(@RequestParam(name="id") int id ,Model model ) {
-        int maSv = tvservice.search(id).getId();
-        String password = tvservice.search(id).getPassword();
-        model.addAttribute("user", maSv);
+    public String show(Model model) {
+         String maTVString = (String) httpSession.getAttribute("maTV");
+        int maTV = Integer.parseInt(maTVString);
+       
+        String password = tvservice.search(maTV).getPassword();
+        model.addAttribute("user", maTV);
         model.addAttribute("password", password);
         return "ChangePassword";
     }
