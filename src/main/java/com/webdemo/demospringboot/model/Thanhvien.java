@@ -39,6 +39,16 @@ public class Thanhvien {
     @Column(name = "password", length = 10)
     private String password;
 
+    public Thanhvien() {
+    }
+
+    public Thanhvien(Integer id, String HoTen, String email, String password) {
+        this.id = id;
+        this.hoTen = HoTen;
+        this.email = email;
+        this.password = password;
+    }
+
     public Integer getId() {
         return id;
     }

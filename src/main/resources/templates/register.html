@@ -71,6 +71,12 @@
                                         <input type="text" name="HoTen" placeholder="Nhập họ và tên" />
                                     </div>
                                 </div>
+                                <div class="col-12">
+                                    <div class="input-style-1">
+                                        <label>Email</label>
+                                        <input type="email" name="email" placeholder="Nhập email" />
+                                    </div>
+                                </div>
                                 <!-- end col -->
                                 <div class="col-12">
                                     <div class="input-style-1">
@@ -118,44 +124,64 @@
         event.preventDefault();
         var id = $("input[name='id']");
         var HoTen = $("input[name='HoTen']");
+        var email = $("input[name='email']");
         var password = $("input[name='password']");
         var repeat_password = $("input[name='repeat_password']");
         if(checkEmptyAndHighlight(id) || checkEmptyAndHighlight(HoTen) || checkEmptyAndHighlight(password) || checkEmptyAndHighlight(repeat_password)){
             swal("Error", "Vui lòng nhập đầy đủ thông tin", "error");
         }else{
-            if(!validatePassword(password.val())){
-                swal("Error", "Mật khẩu phải từ 6 đến 10 ký tự và không chứa khoảng trắng", "error");
+            if(!validateId(id.val())){
+                swal("Error", "Mã sinh viên phải có 10 chữ số", "error");
+            }else if(!validateEmail(email.val())){
+                swal("Error", "Email không hợp lệ", "error");
+            }else if(!validateEmailLength(email.val())){
+                swal("Error", "Email không quá 25 ký tự", "error");
             }else{
-                if(password.val() != repeat_password.val()){
-                    swal("Error", "Mật khẩu không khớp", "error");
+                if(!validatePassword(password.val())){
+                    swal("Error", "Mật khẩu phải từ 6 đến 10 ký tự và không chứa khoảng trắng", "error");
                 }else{
-                    $.ajax({
-                        url: '/register',
-                        type: 'post',
-                        data: $(this).serialize(),
-                        success: function(response, textStatus, xhr){
-                            if(xhr.status == 226){
-                                swal("Error", "Mã sinh viên đã tồn tại", "error");
-                            }else{
-                                swal("Success", "Đăng ký thành công", "success")
-                                .then((value) => {
-                                    window.location.href = '/login';
-                                });
+                    if(password.val() != repeat_password.val()){
+                        swal("Error", "Mật khẩu không khớp", "error");
+                    }else{
+                        $.ajax({
+                            url: '/register',
+                            type: 'post',
+                            data: $(this).serialize(),
+                            success: function(response, textStatus, xhr){
+                                if(xhr.status == 226){
+                                    swal("Error", "Mã sinh viên đã tồn tại", "error");
+                                }else{
+                                    swal("Success", "Đăng ký thành công", "success")
+                                    .then((value) => {
+                                        window.location.href = '/login';
+                                    });
+                                }
+                            },
+                            error: function(xhr){
+                                if(xhr.status == 400){
+                                    swal("Error", "Mã sinh viên không đúng", "error");
+                                }
                             }
-                        },
-                        error: function(xhr){
-                            if(xhr.status == 400){
-                                swal("Error", "Mã sinh viên không đúng", "error");
-                            }
-                        }
-                    });
+                        });
+                    }
                 }
             }
         }
       });
     });
-
-
+    
+    
+    function validateId(id) {
+        var idPattern = /^\d{10}$/;
+        return idPattern.test(id);
+    }
+    function validateEmail(email) {
+        var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailPattern.test(email);
+    }
+    function validateEmailLength(email) {
+        return email.length <= 25;
+    }
     function isEmpty(value) {
         return value.trim() === '';
     }
