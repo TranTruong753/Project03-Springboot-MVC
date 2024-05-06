@@ -159,17 +159,19 @@
                             <h2>Quản Lý Mượn Trả Thiết Bị</h2>
 
                             <!-- Phần Tìm kiếm Thiết Bị -->
-                            <div class="search-device">
-                                <div class="input-group">
-                                    <input type="text" id="tenThietBi" class="form-control" placeholder="Nhập tên thiết bị cần tìm kiếm">
-                                    <div class="input-group-append">
-                                        <button onclick="timKiemThietBi()" class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i> Tìm kiếm</button>
+                            <div class="search-device row mt-3">
+<!--                                <div class="input-group">-->
+                                    <div class = "input-style-1 col-9 pe-0">
+                                         <input type="text" id="tenThietBi" class="form-control" placeholder="Nhập tên thiết bị cần tìm kiếm">                                   
                                     </div>
-                                </div>
+                                    <div class="col-3">
+                                        <button onclick="timKiemThietBi()" class="main-btn active-btn btn-hover"><i class="fa-solid fa-magnifying-glass"></i> Tìm kiếm</button>
+                                    </div>
+                                <!--</div>-->
                             </div>
 
-                            <div class="table-wrapper">
-                                <table>
+                            <div class="table-wrapper table-responsive d-flex flex-column justify-content-center align-items-center">
+                                <table class="table mb-3">
                                     <thead>
                                         <tr>
                                             <th scope="col">Mã Thiết Bị</th>
@@ -187,7 +189,7 @@
                                             <td class="td_action">
                                                 <div class="button-container">
                                                     <!--<button class="custom-btn info-btn" th:value="${thietbi.maTB}" onclick="datChoThietBi(this)">Đặt chỗ</button>-->
-                                                    <button class="custom-btn info-btn" th:data-maTB="${thietbi.maTB}" onclick="redirectToBookDevice(this)">
+                                                    <button class="main-btn active-btn btn-hover" th:data-maTB="${thietbi.maTB}" onclick="redirectToBookDevice(this)">
                                                         Đặt chỗ
                                                     </button>
 
