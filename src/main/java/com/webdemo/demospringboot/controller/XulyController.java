@@ -4,7 +4,10 @@
  */
 package com.webdemo.demospringboot.controller;
 
+import com.webdemo.demospringboot.model.Xuly;
 import com.webdemo.demospringboot.service.XulyService;
+import jakarta.servlet.http.HttpSession;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,10 +21,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class XulyController {
     @Autowired
     private XulyService xulyService;
-
+    
+    @Autowired
+    private HttpSession httpSession;
+    
     @GetMapping("/xuly")
     public String index(Model model) {
-        model.addAttribute("danhSachViPham", xulyService.layDanhSachViPham());
+        String maTVString = (String) httpSession.getAttribute("maTV");
+        int maTV = Integer.parseInt(maTVString);
+        List<Xuly> XulyList = xulyService.layDanhSachViPhamTheoID(maTV);
+        model.addAttribute("matv",maTV);
+        model.addAttribute("danhSachViPham", XulyList);
         return "violate";
     }
 }

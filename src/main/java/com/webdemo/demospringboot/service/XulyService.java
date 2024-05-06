@@ -12,5 +12,6 @@ import java.util.List;
  * @author Administrator
  */
 public interface XulyService {
-    List<Xuly> layDanhSachViPham();
+    List<Xuly> layDanhSachViPhamTheoID(int maTV);
+
 }
