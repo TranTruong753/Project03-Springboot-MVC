@@ -9,6 +9,7 @@ import com.webdemo.demospringboot.repository.XulyRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -19,8 +20,9 @@ public class XulyServiceImpl implements XulyService{
     @Autowired
     public XulyRepository xulyRepository;
 
-    @Override
-    public List<Xuly> layDanhSachViPham() {
-        return xulyRepository.findAll();
+//    @Override
+    public List<Xuly> layDanhSachViPhamTheoID(int maTV) {
+        return xulyRepository.layDanhSachViPhamTheoID(maTV);
     }
+    
 }
