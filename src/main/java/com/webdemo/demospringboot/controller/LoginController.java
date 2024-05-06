@@ -10,18 +10,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.webdemo.demospringboot.model.Thanhvien;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 
 @Controller
 public class LoginController {
-    @RequestMapping("login")
+    @Autowired
+    private HttpSession httpSession;
+    
+    @GetMapping({"", "/login"})
     public String index() {
+        httpSession.invalidate();
         return "login";
     }
     
-    @Autowired
-    private HttpSession httpSession;
+   
     
     
     @Autowired
