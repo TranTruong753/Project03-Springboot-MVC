@@ -22,7 +22,7 @@
                             <div class="profile-info">
                                 <div class="info">
                                     <div class="image">
-                                        <img th:src="@{img/profile/profile-image.png}" alt="" />
+                                        <img th:src="@{/img/profile/profile-image.png}" alt="" />
                                     </div>
                                     <div>
                                         <h6 class="fw-500" th:text="${session.Hoten}"></h6>
@@ -46,12 +46,12 @@
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="#0">
+                                <a th:href="@{/changePassword}">
                                     <i class="lni lni-user"></i> Đổi mật khẩu
                                 </a>
                             </li>
                             <li>
-                                <a href="#0">
+                                <a th:href="@{/xuly}">
                                     <i class="lni lni-alarm"></i> Trạng thái vi phạm
                                 </a>
                             </li>
@@ -59,11 +59,11 @@
                                 <a th:href="@{/home/checkDeviceBooked}"> <i class="lni lni-inbox"></i> Đặt chỗ thiết bị </a>
                             </li>
                             <li>
-                                <a href="#0"> <i class="lni lni-cog"></i> Thiết bị đang mượn </a>
+                                <a th:href="@{/ThietBiDangMuon}"> <i class="lni lni-cog"></i> Thiết bị đang mượn </a>
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="#0"> <i class="lni lni-exit"></i> Đăng Xuất </a>
+                                <a th:href="@{login}"> <i class="lni lni-exit"></i> Đăng Xuất </a>
                             </li>
                         </ul>
                     </div>
