@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="fragments/head :: head"></head>
+
+    <body>        
+        <!-- ======== sidebar-nav start =========== -->
+        <aside th:replace="fragments/aside :: aside"></aside>
+        <div class="overlay"></div>
+        <!-- ======== sidebar-nav end =========== -->
+
+        <!-- ======== main-wrapper start =========== -->
+        <main class="main-wrapper">
+            <!-- ========== header start ========== -->
+            <header th:replace="fragments/header :: header"></header>
+            <!-- ========== header end ========== -->
+
+            <!-- ========== section start ========== -->
+            <!-- ========== table components start ========== -->
+            <section class="table-components">
+                <div class="container-fluid">
+                    <!-- ========== title-wrapper start ========== -->
+                    <div class="title-wrapper pt-30">
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                <div class="title">
+                                    <h2>Thiết Bị Bạn Đang Mượn</h2>
+                                </div>
+                            </div>
+                            <!-- end col -->
+                            <div class="col-md-6">
+                                <div class="breadcrumb-wrapper">
+                                    <nav aria-label="breadcrumb">
+                                    </nav>
+                                </div>
+                            </div>
+                            <!-- end col -->
+                        </div>
+                        <!-- end row -->
+                    </div>
+                    <!-- ========== title-wrapper end ========== -->
+
+                    <!-- ========== tables-wrapper start ========== -->
+                    <div class="tables-wrapper">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card-style mb-30">
+                                   
+                                    <div class="table-wrapper table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th class="lead-info">
+                                                        <h6>Mã Thiết Bị</h6>
+                                                    </th>
+                                                    <th class="lead-email">
+                                                        <h6>Tên Thiết Bị</h6>
+                                                    </th>
+                                                    <th class="lead-phone">
+                                                        <h6>Thời Gian Mượn</h6>
+                                                    </th>
+                                                    
+                                                </tr>
+                                                <!-- end table row-->
+                                            </thead>
+                                            <tbody>
+                                                
+                                                <tr th:each="thongTin : ${ListDanhSachDangMuon}">
+                                                    <td class="min-width">
+                                                        <div class="lead">
+                                                           
+                                                            <div class="lead-text">
+                                                                <p th:text="${thongTin.thietBi.maTB}" > </p>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="min-width">
+                                                        <p th:text="${thongTin.thietBi.tenTB}" ></p>
+                                                    </td>
+                                                    <td class="min-width">
+                                                        <p th:text="${thongTin.thoiGianMuon}" ></p>
+                                                    </td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                        <!-- end table -->
+                                    </div>
+                                </div>
+                                <!-- end card -->
+                            </div>
+                            <!-- end col -->
+                        </div>
+                      
+                    </div>
+                    <!-- ========== tables-wrapper end ========== -->
+                </div>
+                <!-- end container -->
+            </section>
+            <!-- ========== table components end ========== -->
+
+            <!-- ========== footer start =========== -->
+            <footer th:replace="fragments/footer :: footer"></footer>
+            <!-- ========== footer end =========== -->
+        </main>
+        <!-- ======== main-wrapper end =========== -->
+
+        <div th:replace="fragments/script :: script"></div>
+    </body>
+
+</html>
