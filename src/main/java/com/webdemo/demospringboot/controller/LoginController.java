@@ -45,8 +45,7 @@ public class LoginController {
                 httpSession.setAttribute("Hoten", loginService.get_Hoten(maThanhVienInt));
                 httpSession.setAttribute("Email", loginService.get_Email(maThanhVienInt));
                 model.remove("message");
-                // return "redirect:/home";
-                return "index";
+                return "redirect:/";
             } else {
                 model.addAttribute("message", "Đăng nhập thất bại do Mã Thành Viên hoặc Mật Khẩu sai");
                 return "login";

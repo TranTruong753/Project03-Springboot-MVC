@@ -25,7 +25,7 @@ public class XulyController {
     @Autowired
     private HttpSession httpSession;
     
-    @GetMapping("/xuly")
+    @GetMapping({"", "/xuly"})
     public String index(Model model) {
         String maTVString = (String) httpSession.getAttribute("maTV");
         int maTV = Integer.parseInt(maTVString);

@@ -18,7 +18,7 @@ public class HomeController {
     @Autowired
     private DatCho_User_Repository datcho;
 
-    @RequestMapping("home")
+    @GetMapping({"home", "/"})
     public String index(Model model) {
         model.addAttribute("danhSachThietBi", thietBiService.findAllThietBi());
         return "index";
