@@ -26,16 +26,16 @@ public class ThongTinSD {
     @JoinColumn(name = "MaTB", referencedColumnName = "MaTB")
     private ThietBi thietBi;
 
-    @Column(name = "TG_Vao")
+    @Column(name = "TGVao")
     private LocalDateTime thoiGianVao;
 
     @Column(name = "TGDatCho")
     private LocalDateTime thoiGianDatCho;
 
-    @Column(name = "TG_Muon")
+    @Column(name = "TGMuon")
     private LocalDateTime thoiGianMuon; // Có thể sử dụng kiểu dữ liệu phù hợp cho thời gian mượn
 
-    @Column(name = "TG_Tra")
+    @Column(name = "TGTra")
     private LocalDateTime thoiGianTra;
 
     // Constructors, getters, and setters
