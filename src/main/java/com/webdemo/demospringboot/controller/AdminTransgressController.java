@@ -9,20 +9,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("admin/device")
-public class AdminDeviceController {
+@RequestMapping("admin/transgress")
+public class AdminTransgressController {
     @GetMapping
     public String index() {
-        return "admin/device";
+        return "admin/transgress";
     }
     
-    @GetMapping("add_device")
-    public String add_device() {
-        return "admin/add_device";
+    @GetMapping("add_transgress")
+    public String add_transgress() {
+        return "admin/add_transgress";
     }
     
-    @GetMapping("edit_device")
-    public String edit_device() {
-        return "admin/edit_device";
+    @GetMapping("edit_transgress")
+    public String edit_transgress() {
+        return "admin/edit_transgress";
     }
 }

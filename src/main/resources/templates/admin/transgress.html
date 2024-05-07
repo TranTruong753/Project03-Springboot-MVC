@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/AdminHead :: AdminHead" ></head>
+<body>
+<!-- ======== Preloader =========== -->
+<div th:replace="fragments/spinner :: spinner"></div>
+<!-- ======== Preloader =========== -->
+
+<!-- ======== sidebar-nav start =========== -->
+<aside th:replace="fragments/AdminAside :: AdminAside"></aside>
+<div class="overlay"></div>
+<!-- ======== sidebar-nav end =========== -->
+
+<!-- ======== main-wrapper start =========== -->
+<main class="main-wrapper">
+    <!-- ========== header start ========== -->
+    <header th:replace="fragments/AdminHeader :: AdminHeader"></header>
+    <!-- ========== header end ========== -->
+
+    <!-- ========== section start ========== -->
+    <section class="section">
+        <div class="container-fluid">
+            <!-- ========== title-wrapper start ========== -->
+            <div class="title-wrapper pt-30">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <div class="title">
+                            <h2>Quản Lý Vi Pham</h2>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                    <div class="col-md-6">
+                        <div class="breadcrumb-wrapper">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item">
+                                        <a href="#0">Dashboard</a>
+                                    </li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        transgress
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                </div>
+                <!-- end row -->
+            </div>
+            <!-- ========== title-wrapper end ========== -->
+
+            <!-- ========== tables-wrapper start ========== -->
+            <div class="tables-wrapper">
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card-style mb-30">
+                            <div class="card-title d-flex justify-content-between align-items-center mb-3">
+                                <h6 class="mb-10">Danh sách vi phạm</h6>
+                                <div class="">
+                                    <a href="/admin/transgress/add_transgress" class="main-btn primary-btn btn-hover"><i class="fa-solid fa-circle-plus"></i> Thêm</a>
+<!--                                    <button class="main-btn success-btn btn-hover"><i class="fa-solid fa-file-excel"></i> Nhập excel</button>
+                                    <button class="main-btn danger-btn btn-hover"><i class="fa-solid fa-trash"></i> Xóa theo năm</button>-->
+
+                                </div>
+
+                            </div>
+
+                            <div class="table-wrapper table-responsive d-flex flex-column justify-content-center align-items-center">
+                                <table class="table mb-3">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            <h6>Mã Xử Lý</h6>
+                                        </th>
+                                        <th>
+                                            <h6>Mã Thành Viên</h6>
+                                        </th>
+                                        <th>
+                                            <h6>Hình Thức Xử Lý</h6>
+                                        </th>
+                                        <th>
+                                            <h6>Số Tiền</h6>
+                                        </th>
+                                        <th>
+                                            <h6>Ngày Xử Lý</h6>
+                                        </th>
+                                        <th>
+                                            <h6>Trạng Thái Xử Lý</h6>
+                                        </th>
+                                        <th>
+                                            <h6>Thao Tác</h6>
+                                        </th>
+                                       
+                                    </tr>
+                                    <!-- end table row-->
+                                    </thead>
+                                    <tbody>
+                                    <!-- start table row-->
+                                    <tr>
+                                        <td>
+                                            <p>1</p>
+                                        </td>
+                                        <td class="min-width">
+                                            <p>1121530087</p>
+                                        </td>
+                                        <td class="min-width">
+                                            <p>Khóa thẻ 1 tháng</p>
+                                        </td>
+                                        <td class="min-width">
+                                            <p>30000 demo còn muốn thế hiện sao tùy</p>
+                                        </td>                                      
+                                        <td class="min-width">
+                                            <p>2023-09-13 08:00:00 demo còn muốn thế hiện sao tùy</p>
+                                        </td>
+                                        <td class="min-width">
+                                            <p>trạng thái xử lý: 1-0 hoắc đã xử lý - chưa xử lý</p>
+                                        </td>
+                                        <td>
+                                            <div class="action">
+                                                <button class="text-danger">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+                                                <button class="text-warning">
+                                                    <i class="fa-solid fa-pencil"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- end table row-->
+                                    </tbody>
+                                </table>
+                                <!-- end table -->
+                            </div>
+                        </div>
+                        <!-- end card -->
+                    </div>
+                    <!-- end col -->
+                </div>
+                <!-- end row -->
+            </div>
+            <!-- ========== tables-wrapper end ========== -->
+        </div>
+        <!-- end container -->
+    </section>
+
+    <!-- ========== section end ========== -->
+
+    <!-- ========== footer start =========== -->
+    <footer th:replace="fragments/AdminFooter :: AdminFooter"></footer>
+    <!-- ========== footer end =========== -->
+</main>
+<!-- ======== main-wrapper end =========== -->
+
+<!-- ========= All Javascript files linkup ======== -->
+
+<div th:replace="fragments/AdminScript :: AdminScript"></div>
+
+</body>
+
+</html>
