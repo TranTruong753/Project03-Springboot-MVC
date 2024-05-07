@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/AdminHead :: AdminHead" ></head>
+<body>
+<!-- ======== Preloader =========== -->
+<div th:replace="fragments/spinner :: spinner"></div>
+<!-- ======== Preloader =========== -->
+
+<!-- ======== sidebar-nav start =========== -->
+<aside th:replace="fragments/AdminAside :: AdminAside"></aside>
+<div class="overlay"></div>
+<!-- ======== sidebar-nav end =========== -->
+
+<!-- ======== main-wrapper start =========== -->
+<main class="main-wrapper">
+  <!-- ========== header start ========== -->
+  <header th:replace="fragments/AdminHeader :: AdminHeader"></header>
+  <!-- ========== header end ========== -->
+
+  <!-- ========== section start ========== -->
+  <section class="section">
+    <div class="container-fluid">
+
+
+      <!-- ========== title-wrapper start ========== -->
+      <div class="title-wrapper pt-30">
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <div class="title">
+              <h2>Thêm mới thành viên</h2>
+            </div>
+          </div>
+          <!-- end col -->
+          <div class="col-md-6">
+            <div class="breadcrumb-wrapper">
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item">
+                    <a href="#0">Dashboard</a>
+                  </li>
+                  <li class="breadcrumb-item">
+                    <a href="#0">Member</a>
+                  </li>
+                  <li class="breadcrumb-item active" aria-current="page">
+                    Add Member
+                  </li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+          <!-- end col -->
+        </div>
+        <!-- end row -->
+      </div>
+      <!-- ========== title-wrapper end ========== -->
+
+
+      <!-- ========== form-elements-wrapper start ========== -->
+      <div class="form-elements-wrapper">
+        <div class="row">
+          <div class="col-lg-12">
+            <!-- input style start -->
+            <div class="card-style mb-30">
+              <h6 class="mb-25">Thông tin thành viên</h6>
+              <div class="row">
+                <div class="input-style-1 col-lg-6 col-md-12 col-sm-12">
+                  <label>Mã Thành Viên</label>
+                  <input type="text" placeholder="" />
+                </div>
+                <div class="input-style-1 col-lg-6 col-md-12 col-sm-12">
+                  <label>Họ Tên</label>
+                  <input type="text" placeholder="" />
+                </div>
+                <div class="input-style-1 col-lg-3 col-md-12 col-sm-12">
+                  <label>Khoa</label>
+                  <input type="text" placeholder="" />
+                </div>
+                <div class="input-style-1 col-lg-3 col-md-12 col-sm-12">
+                  <label>Ngành</label>
+                  <input type="text" placeholder="" />
+                </div>
+                <div class="input-style-1 col-lg-6 col-md-12 col-sm-12">
+                  <label>Số Điện Thoại</label>
+                  <input type="text" placeholder="" />
+                </div>
+                <div class="input-style-1 col-lg-6 col-md-12 col-sm-12">
+                  <label>Email</label>
+                  <input type="text" placeholder="" />
+                </div>
+                <div class="input-style-1 col-lg-6 col-md-12 col-sm-12">
+                  <label>Mật Khẩu</label>
+                  <input type="text" placeholder="" />
+                </div>
+                <div>
+                  <button class="w-100 main-btn primary-btn square-full btn-hover mb-2">Lưu Thông Tin</button>
+                  <button class="w-100 main-btn danger-btn square-full btn-hover">Hủy</button>
+                </div>
+
+              </div>
+
+            </div>
+            <!-- end card -->
+            <!-- ======= input style end ======= -->
+          </div>
+          <!-- end col -->
+
+        </div>
+        <!-- end row -->
+      </div>
+      <!-- ========== form-elements-wrapper end ========== -->
+
+    </div>
+    <!-- end container -->
+  </section>
+  <!-- ========== section end ========== -->
+
+  <!-- ========== footer start =========== -->
+  <footer th:replace="fragments/AdminFooter :: AdminFooter"></footer>
+  <!-- ========== footer end =========== -->
+</main>
+<!-- ======== main-wrapper end =========== -->
+
+<!-- ========= All Javascript files linkup ======== -->
+
+<div th:replace="fragments/AdminScript :: AdminScript"></div>
+
+</body>
+
+</html>

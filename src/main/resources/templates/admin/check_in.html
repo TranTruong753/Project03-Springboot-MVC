@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="fragments/AdminHead :: AdminHead"></head>
+
+<body>
+    <!-- ======== Preloader =========== -->
+    <div th:replace="fragments/spinner :: spinner"></div>
+    <!-- ======== Preloader =========== -->
+
+    <!-- ======== sidebar-nav start =========== -->
+    <aside th:replace="fragments/AdminAside :: AdminAside"></aside>
+    <div class="overlay"></div>
+    <!-- ======== sidebar-nav end =========== -->
+
+    <!-- ======== main-wrapper start =========== -->
+    <main class="main-wrapper">
+        <!-- ========== header start ========== -->
+        <header th:replace="fragments/AdminHeader :: AdminHeader"></header>
+        <!-- ========== header end ========== -->
+
+        <!-- ========== section start ========== -->
+        <section class="section">
+            <div class="container-fluid">
+                <!-- ========== title-wrapper start ========== -->
+                <div class="title-wrapper pt-30">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <div class="title">
+                                <h2>Quản Lý Thành Viên</h2>
+                            </div>
+                        </div>
+                        <!-- end col -->
+                        <div class="col-md-6">
+                            <div class="breadcrumb-wrapper">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item">
+                                            <a href="#0">Dashboard</a>
+                                        </li>
+                                        <li class="breadcrumb-item active" aria-current="page">
+                                            Member
+                                        </li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                        <!-- end col -->
+                    </div>
+                    <!-- end row -->
+                </div>
+                <!-- ========== title-wrapper end ========== -->
+
+                <!-- ========== tables-wrapper start ========== -->
+                <div class="tables-wrapper">
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card-style mb-30">
+                                <div class="card-title mb-3">
+                                    <h6 class="mb-10">Vào Khu Học Tập</h6>
+                                    <div class="search-device row mt-3">
+                                        <div class="input-style-1 col-9 pe-0">
+                                            <input type="text" id="" class="form-control" placeholder="Mã Thành Viên">
+                                        </div>
+                                        <div class="col-3">
+                                            <button class="main-btn active-btn btn-hover"> Xác Nhận</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div
+                                    class="table-wrapper table-responsive d-flex flex-column justify-content-center align-items-center">
+                                    <table class="table mb-3">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    <h6>Mã thông tin </h6>
+                                                </th>
+                                                <th>
+                                                    <h6>Mã thành viên</h6>
+                                                </th>
+                                                <th>
+                                                    <h6>Thời gian vào</h6>
+                                                </th>
+                                            </tr>
+                                            <!-- end table row-->
+                                        </thead>
+                                        <tbody>
+                                            <!-- start table row-->
+                                            <tr>
+                                                <td>
+                                                    <p>1</p>
+                                                </td>
+                                                <td class="min-width">
+                                                    <p>Quách Gia Quy</p>
+                                                </td>
+                                                <td class="min-width">
+                                                    <p>5/7/2024 - 9:55PM</p>
+                                                </td>
+                                            </tr>
+                                            <!-- end table row-->
+                                        </tbody>
+                                    </table>
+                                    <!-- end table -->
+                                </div>
+                            </div>
+                            <!-- end card -->
+                        </div>
+                        <!-- end col -->
+                    </div>
+                    <!-- end row -->
+                </div>
+                <!-- ========== tables-wrapper end ========== -->
+            </div>
+            <!-- end container -->
+        </section>
+
+        <!-- ========== section end ========== -->
+
+        <!-- ========== footer start =========== -->
+        <footer th:replace="fragments/AdminFooter :: AdminFooter"></footer>
+        <!-- ========== footer end =========== -->
+    </main>
+    <!-- ======== main-wrapper end =========== -->
+
+    <!-- ========= All Javascript files linkup ======== -->
+
+    <div th:replace="fragments/AdminScript :: AdminScript"></div>
+
+</body>
+
+</html>
