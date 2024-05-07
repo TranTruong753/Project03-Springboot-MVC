@@ -21,6 +21,11 @@ public class AdminMemberController {
     public String add_member() {
         return "admin/add_member";
     }
+    
+    @GetMapping("edit_member")
+    public String edit_member() {
+        return "admin/edit_member";
+    }
 
     @GetMapping("borrow_device")
     public String borrow_device() {
