@@ -138,14 +138,14 @@
                         <div class="card-style mb-30">
                             <div class="title d-flex flex-wrap justify-content-between">
                                 <div class="left">
-                                    <h6 class="text-medium mb-10">Yearly Stats</h6>
-                                    <h3 class="text-bold">$245,479</h3>
+                                    <h6 class="text-medium mb-10">Số lượng vi phạm đã xử lý theo năm</h6>
+                                    <h3 class="text-bold"></h3>
                                 </div>
                                 <div class="right">
                                     <div class="select-style-1">
                                         <p style="margin-bottom: 10px;">Chọn năm</p>
                                         <div class="select-position select-sm">
-                                            <select class="light-bg">
+                                            <select id="yearSelect" class="light-bg">
                                                 <option th:each="year : ${allYears}" th:value="${year}" th:text="${year}"></option>
                                             </select>
                                         </div>
@@ -204,7 +204,26 @@
     <!-- ========= All Javascript files linkup ======== -->
 
     <div th:replace="fragments/AdminScript :: AdminScript"></div>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#yearSelect').change(function() {
+                var selectedYear = $(this).val();
+                $.ajax({
+                    url: '/admin',
+                    type: 'POST',
+                    data: { year: selectedYear },
+                    success: function(response) {
+                        // Handle the response from the controller
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle the error
+                    }
+                });
+            });
+        });
+    </script>
+    
 </body>
 
 </html>

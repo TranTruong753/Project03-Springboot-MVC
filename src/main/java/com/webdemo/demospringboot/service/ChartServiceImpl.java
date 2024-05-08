@@ -13,13 +13,18 @@ import java.util.List;
 @Service
 public class ChartServiceImpl implements  ChartService{
 
-    @Autowired
-    public ChartRepository chartRepository;
+//     @Autowired
+//     public ChartRepository chartRepository;
+//
+//
+//     @Override
+//     public List<String> findAllYearsXuLy() {
+//         return chartRepository.findAllYearsXuLy();
+//     }
+//
+//     @Override
+//     public List<Object[]> findRowCountByMonth(String year) {
+//         return chartRepository.findRowCountByMonth(year);
+//     }
 
-    @Override
-    public List<String> findAllYearsXuLy() {
-//        return chartRepository.findAllYearsXuLy();
-       List<String> test = new ArrayList<>();
-        return test;
-    }
 }
