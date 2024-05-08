@@ -150,11 +150,10 @@
                                 </div>
                                 <div class="right">
                                     <div class="select-style-1">
+                                        <p style="margin-bottom: 10px;">Chọn năm</p>
                                         <div class="select-position select-sm">
                                             <select class="light-bg">
-                                                <option value="">Yearly</option>
-                                                <option value="">Monthly</option>
-                                                <option value="">Weekly</option>
+                                                <option th:each="year : ${allYears}" th:value="${year}" th:text="${year}"></option>
                                             </select>
                                         </div>
                                     </div>
