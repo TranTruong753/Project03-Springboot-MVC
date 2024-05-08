@@ -61,21 +61,36 @@
                         <!-- input style start -->
                         <div class="card-style mb-30">
                             <h6 class="mb-25">Thông Tin Thiết Bị</h6>
-                            <form action="#" method="post">
+                            <script type="text/javascript">
+                            function kiemTraRong() {
+
+                                var tentb = document.getElementById("tentb").value;
+                                var motatb = document.getElementById("motatb").value;
+
+                                if ( tentb.trim() == '' || motatb.trim() == '') {
+                                    alert('Các trường thông tin không được để trống');
+                                    return false;
+                                }
+
+
+                                return true;
+                            }
+                            </script>
+                            <form action="#" th:action="@{/admin/device/save_edit}" th:object="${thietbi}" method="post" onsubmit="return kiemTraRong();">
                             <div class="row">
                                 <div class="input-style-1 col-lg-6 col-md-12 col-sm-12">
                                     <label>Mã Thiết Bị</label>
-                                    <input type="text" placeholder="" readonly="readonly"/>
+                                    <input type="text"  th:field="*{maTB}"  placeholder="" readonly="readonly"/>
 
                                 </div>
                                 <div class="input-style-1 col-lg-6 col-md-12 col-sm-12">
                                     <label>Tên Thiết Bị</label>
-                                    <input type="text" id="tentb" placeholder="" />
+                                    <input type="text" th:field="*{tenTB}" id="tentb" placeholder="" />
                                 </div>
                                 <div class="input-style-1 col-lg-12 col-md-12  col-sm-12">
                                     <label>Mô Tả Thiết Bị</label>
                                     <div class="input-style-3">
-                                        <textarea placeholder="" id="motatb" rows="5"></textarea>
+                                        <textarea placeholder="" th:field="*{moTaTB}" id="motatb" rows="5"></textarea>
                                     </div>
                                 </div>
 
@@ -85,7 +100,7 @@
                                 </div>
 
                             </div>
-                            </form>   
+                            </form>
 
                         </div>
                         <!-- end card -->

@@ -68,9 +68,21 @@
                                     </form>
                                     </label >
                                 </div>-->
+                                <script>
+                                 window.onload = function() {
+                                    if(document.getElementById("message1").value!== '')
+                                        alert(document.getElementById("message1").value);
+                                    };
+                                </script>
                                 <div class="">
                                     <a href="/admin/device/add_device" class="main-btn primary-btn btn-hover"><i class="fa-solid fa-circle-plus"></i> Thêm</a>
-                                    <button class="main-btn success-btn btn-hover"><i class="fa-solid fa-file-excel"></i> Nhập excel</button>
+                                    <label class="main-btn success-btn btn-hover"><i class="fa-solid fa-file-excel"></i> Nhập excel
+                                        <form action="/admin/device/upload_excel" method="post" enctype="multipart/form-data">
+                                            <input type="file" name="file" id="excelFileInput" style="display: none;" accept=".xls,.xlsx">
+                                            <button type="submit">Upload</button>
+                                        </form>
+                                    </label>
+                                    <input type="hidden" th:value="${message}" id="message1" >
                                     <button class="main-btn danger-btn btn-hover"><i class="fa-solid fa-trash"></i> Xóa theo kí tự đầu</button>
 
                                 </div>
@@ -99,22 +111,17 @@
                                     </thead>
                                     <tbody>
                                     <!-- start table row-->
-                                    <tr>
+                                    <tr th:each="thietbi : ${listthietbi}">
+                                        <td th:text="${thietbi.maTB}"></td>
+                                        <td th:text="${thietbi.tenTB}"></td>
+                                        <td th:text="${thietbi.moTaTB}"></td>
                                         <td>
-                                            <p>1000001</p>                                                                                    
-                                        </td>
-                                        <td class="min-width">
-                                            <p>Micro</p>  
-                                        </td>
-                                        <td class="min-width">
-                                            <p>Micro không dây MS2023</p>  
-                                        </td>
-                                        <td>
-                                            <div class="action">
-                                                <button class="text-danger">                                                    
+                                           <div class="action">
+                                                <button class="text-danger" th:onclick="|window.location.href='/admin/device/delete/${thietbi.maTB}'|">
+                                                    
                                                     <i class="fa-solid fa-trash"></i>
                                                 </button>
-                                                <button class="text-warning">
+                                                <button class="text-warning" th:onclick="|window.location.href='/admin/device/edit_device/${thietbi.maTB}'|">
                                                     <i class="fa-solid fa-pencil"></i>
                                                     
                                                 </button>
@@ -122,11 +129,31 @@
                                         </td>
                                         
                                     </tr>
+                                        
+                                    
 
                                     <!-- end table row-->
                                     </tbody>
                                 </table>
                                 <!-- end table -->
+                                <nav aria-label="Page navigation example text-primary">
+                                    <ul class="pagination">
+                                        <li class="page-item" th:if="${currentlPage>1}">
+                                            <a class="page-link" th:href="@{'http://localhost:8080/admin/device?pageNo='+${currentlPage-1}}" >
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                        <li th:each="i:${#numbers.sequence(1,totalPage)}" class="page-item active" th:classappend="${currentlPage == i ? 'active' : ''}">
+                                            <a class="page-link" th:href="@{'http://localhost:8080/admin/device?pageNo='+${i}}" th:text="${i}">1</a></li>
+<!--                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>-->
+                                        <li class="page-item" th:if="${currentlPage<totalPage}">
+                                            <a class="page-link" th:href="@{'http://localhost:8080/admin/device?pageNo='+${currentlPage+1}}">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
                                
                             </div>
                         </div>

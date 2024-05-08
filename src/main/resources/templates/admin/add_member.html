@@ -62,34 +62,96 @@
             <!-- input style start -->
             <div class="card-style mb-30">
               <h6 class="mb-25">Thông tin thành viên</h6>
+              <script type="text/javascript">
+                window.onload = function() {
+                    if(document.getElementById("thongbao").value!=="")
+                        alert(document.getElementById("thongbao").value);
+                    };
+                    //}
+                    function kiemTraSDT(sdt) {
+                        // Loại bỏ các khoảng trắng
+                        sdt = sdt.trim();
+
+                        // Kiểm tra xem chuỗi chỉ chứa số và có độ dài là 10
+                        if (/^\d{10}$/.test(sdt)) {
+                            // Kiểm tra xem số điện thoại bắt đầu từ các số từ 0 
+                            if (/^[0]/.test(sdt)) {
+                                return true; // Số điện thoại hợp lệ
+                            } else {
+                                return false; // Số điện thoại không hợp lệ
+                            }
+                        } else {
+                            return false; // Số điện thoại không hợp lệ
+                        }
+                    }
+                    function kiemTra() {
+                        var id = document.getElementById("id").value;
+                        var hoTen = document.getElementById("hoTen").value;
+                        var khoa = document.getElementById("khoa").value;
+                        var nganh = document.getElementById("nganh").value;
+                        var sdt = document.getElementById("sdt").value;
+                        var email = document.getElementById("email").value;
+                        var password = document.getElementById("password").value;
+
+                        if (id.trim() == '' || hoTen.trim() == '' || khoa.trim() == '' || nganh.trim() == '' || sdt.trim() == '' || email.trim() == '' || password.trim() == '') {
+                            alert('Các trường thông tin không được để trống');
+                            return false;
+                        }
+                        else if (isNaN(id) || id < 0 || id > 2147483647) {
+                            // Kiểm tra xem id có phải là số và nhỏ hơn giá trị tối đa của INT
+                            alert('ID phải là số và nhỏ hơn 2,147,483,647');
+                            return false;
+                        }
+                        else if (!kiemTraSDT(sdt)) {
+                            // Kiểm tra xem số điện thoại bắt đầu từ các số từ 0 
+                            alert('Số điện thoại phải là số có độ dài là 10 và bắt đầu từ số 0');
+                            return false;
+                        }
+                        
+                        else if (!kiemTraSDT(sdt)) {
+                            // Kiểm tra xem số điện thoại bắt đầu từ các số từ 0 
+                            alert('Số điện thoại phải là số có độ dài là 10 và bắt đầu từ số 0');
+                            return false;
+                        }
+                        else if (!/\S+@\S+\.\S+/.test(email.trim())) {
+                            alert('Email không hợp lệ');
+                            return false;
+                        }
+
+                        return true;
+
+                    }
+            </script>
+              <input type="hidden" th:value="${message}" id="thongbao"/> 
+              <form action="#" th:action="@{/admin/member/saveMember}" th:object="${thanhvien}" method="post" onsubmit="return kiemTra();">
               <div class="row">
                 <div class="input-style-1 col-lg-6 col-md-12 col-sm-12">
                   <label>Mã Thành Viên</label>
-                  <input type="text" placeholder="" />
+                  <input type="text" th:field="*{id}" id="id" placeholder="" />
                 </div>
                 <div class="input-style-1 col-lg-6 col-md-12 col-sm-12">
                   <label>Họ Tên</label>
-                  <input type="text" placeholder="" />
+                  <input type="text" th:field="*{hoTen}" id="hoTen" placeholder="" />
                 </div>
                 <div class="input-style-1 col-lg-3 col-md-12 col-sm-12">
                   <label>Khoa</label>
-                  <input type="text" placeholder="" />
+                  <input type="text" th:field="*{khoa}" id="khoa" placeholder="" />
                 </div>
                 <div class="input-style-1 col-lg-3 col-md-12 col-sm-12">
                   <label>Ngành</label>
-                  <input type="text" placeholder="" />
+                  <input type="text" th:field="*{nganh}" id="nganh" placeholder="" />
                 </div>
                 <div class="input-style-1 col-lg-6 col-md-12 col-sm-12">
                   <label>Số Điện Thoại</label>
-                  <input type="text" placeholder="" />
+                  <input type="text" th:field="*{sdt}" id="sdt" placeholder="" />
                 </div>
                 <div class="input-style-1 col-lg-6 col-md-12 col-sm-12">
                   <label>Email</label>
-                  <input type="text" placeholder="" />
+                  <input type="text" th:field="*{email}" id="email" placeholder="" />
                 </div>
                 <div class="input-style-1 col-lg-6 col-md-12 col-sm-12">
                   <label>Mật Khẩu</label>
-                  <input type="text" placeholder="" />
+                  <input type="text" th:field="*{password}" id="password" placeholder="" />
                 </div>
                 <div>
                   <button class="w-100 main-btn primary-btn square-full btn-hover mb-2">Lưu Thông Tin</button>
@@ -97,7 +159,7 @@
                 </div>
 
               </div>
-
+              </form>  
             </div>
             <!-- end card -->
             <!-- ======= input style end ======= -->

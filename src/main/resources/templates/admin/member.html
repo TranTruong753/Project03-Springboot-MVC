@@ -57,9 +57,21 @@
                         <div class="card-style mb-30">
                             <div class="card-title d-flex justify-content-between align-items-center mb-3">
                                 <h6 class="mb-10">Danh sách thành viên</h6>
+                                <script>
+                                 window.onload = function() {
+                                    if(document.getElementById("message1").value!== '')
+                                        alert(document.getElementById("message1").value);
+                                    };
+                                </script>
                                 <div class="">
                                     <a href="/admin/member/add_member" class="main-btn primary-btn btn-hover"><i class="fa-solid fa-circle-plus"></i> Thêm</a>
-                                    <button class="main-btn success-btn btn-hover"><i class="fa-solid fa-file-excel"></i> Nhập excel</button>
+                                    <label class="main-btn success-btn btn-hover"><i class="fa-solid fa-file-excel"></i> Nhập excel
+                                        <form action="/admin/member/upload_excel" method="post" enctype="multipart/form-data">
+                                            <input type="file" name="file" id="excelFileInput" style="display: none;" accept=".xls,.xlsx">
+                                            <button type="submit">Upload</button>
+                                        </form>
+                                    </label>
+                                    <input type="hidden" th:value="${message}" id="message1" >
                                     <button class="main-btn danger-btn btn-hover"><i class="fa-solid fa-trash"></i> Xóa theo năm</button>
 
                                 </div>
@@ -96,40 +108,49 @@
                                     </thead>
                                     <tbody>
                                     <!-- start table row-->
-                                    <tr>
+                                    <tr th:each="thanhvien : ${listthanhvien}">
+                                        <td th:text="${thanhvien.id}"></td>
+                                        <td th:text="${thanhvien.hoTen}"></td>
+                                        <td th:text="${thanhvien.khoa}"></td>
+                                        <td th:text="${thanhvien.nganh}"></td>
+                                        <td th:text="${thanhvien.sdt}"></td>
+                                        <td th:text="${thanhvien.email}"></td>
                                         <td>
-                                            <p>1</p>
-                                        </td>
-                                        <td class="min-width">
-                                            <p>Quách Gia Quy</p>
-                                        </td>
-                                        <td class="min-width">
-                                            <p>CNTT</p>
-                                        </td>
-                                        <td class="min-width">
-                                            <p>CNTT</p>
-                                        </td>
-                                        <td class="min-width">
-                                            <p>0987654321</p>
-                                        </td>
-                                        <td class="min-width">
-                                            <p><a href="#0">yourmail@gmail.com</a></p>
-                                        </td>
-                                        <td>
-                                            <div class="action">
-                                                <button class="text-danger">
+                                           <div class="action">
+                                                <button class="text-danger" th:onclick="|window.location.href='/admin/member/delete_member/${thanhvien.id}'|">
+                                                    
                                                     <i class="fa-solid fa-trash"></i>
                                                 </button>
-                                                <button class="text-warning">
+                                                <button class="text-warning" th:onclick="|window.location.href='/admin/member/edit_member/${thanhvien.id}'|">
                                                     <i class="fa-solid fa-pencil"></i>
+                                                    
                                                 </button>
                                             </div>
                                         </td>
+                                        
                                     </tr>
                                     <!-- end table row-->
                                     </tbody>
                                 </table>
                                 <!-- end table -->
+                                <nav aria-label="Page navigation example text-primary">
+                                    <ul class="pagination">
+                                        <li class="page-item" th:if="${currentlPage>1}">
+                                            <a class="page-link" th:href="@{'http://localhost:8080/admin/member?pageNo='+${currentlPage-1}}" >
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                        <li th:each="i:${#numbers.sequence(1,totalPage)}" class="page-item active" th:classappend="${currentlPage == i ? 'active' : ''}">
+                                            <a class="page-link" th:href="@{'http://localhost:8080/admin/member?pageNo='+${i}}" th:text="${i}">1</a></li>
+<!--                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>-->
+                                        <li class="page-item" th:if="${currentlPage<totalPage}">
+                                            <a class="page-link" th:href="@{'http://localhost:8080/admin/member?pageNo='+${currentlPage+1}}">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
                             </div>
                         </div>
                         <!-- end card -->
