@@ -21,42 +21,42 @@ public class ChartController {
     private ChartService chartService;
 
 
-    @GetMapping({"", "/admin"})
-    public String chart(Model model) {
-        List<String> allYears = chartService.findAllYearsXuLy();
-        model.addAttribute("allYears", allYears);
+    // @GetMapping({"", "/admin"})
+    // public String chart(Model model) {
+    //    List<String> allYears = chartService.findAllYearsXuLy();
+    //    model.addAttribute("allYears", allYears);
 
-        return "admin/index";
-    }
+    //     return "admin/index";
+    // }
 
-    @PostMapping("/admin")
-    public String handleYearSelection(@RequestParam String year, Model model) {
-        // Process the selected year
-        // Call the appropriate methods in the chartService
-        // Return the response or update the model as needed
+    // @PostMapping("/admin")
+    // public String handleYearSelection(@RequestParam String year, Model model) {
+    //     // Process the selected year
+    //     // Call the appropriate methods in the chartService
+    //     // Return the response or update the model as needed
 
-        System.out.println("Selected year: " + year);
+    //     System.out.println("Selected year: " + year);
 
-        List<Object[]> rowCountByMonth = chartService.findRowCountByMonth(year);
-        for (Object[] row : rowCountByMonth) {
-            System.out.println("Month: " + row[0] + ", Count: " + row[1]);
-        }
+    //     List<Object[]> rowCountByMonth = chartService.findRowCountByMonth(year);
+    //     for (Object[] row : rowCountByMonth) {
+    //         System.out.println("Month: " + row[0] + ", Count: " + row[1]);
+    //     }
 
-        model.addAttribute("rowCountByMonth", rowCountByMonth);
-        int[] data = new int[12];
+    //     model.addAttribute("rowCountByMonth", rowCountByMonth);
+    //     int[] data = new int[12];
 
-        // Lặp qua kết quả trả về từ cơ sở dữ liệu và đặt giá trị vào mảng data
-        for (Object[] row : rowCountByMonth) {
-            int month = ((Number) row[0]).intValue() - 1; // Giá trị tháng trong khoảng 0-11
-            long count = (Long) row[1];
-            data[month] = (int) count;
-        }
-        // Đặt giá trị mảng data vào model để truyền cho view
-        model.addAttribute("data", data);
+    //     // Lặp qua kết quả trả về từ cơ sở dữ liệu và đặt giá trị vào mảng data
+    //     for (Object[] row : rowCountByMonth) {
+    //         int month = ((Number) row[0]).intValue() - 1; // Giá trị tháng trong khoảng 0-11
+    //         long count = (Long) row[1];
+    //         data[month] = (int) count;
+    //     }
+    //     // Đặt giá trị mảng data vào model để truyền cho view
+    //     model.addAttribute("data", data);
 
 
-        return "admin/index";
-    }
+    //     return "admin/index";
+    // }
 
    
    

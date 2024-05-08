@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface ChartService {
     
-    List<String> findAllYearsXuLy();
+    // List<String> findAllYearsXuLy();
 
-    List<Object[]> findRowCountByMonth(String year);
+    // List<Object[]> findRowCountByMonth(String year);
 
 }

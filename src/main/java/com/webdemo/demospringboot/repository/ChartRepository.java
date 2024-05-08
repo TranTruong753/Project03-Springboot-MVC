@@ -10,12 +10,12 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ChartRepository extends JpaRepository<Xuly, Integer> {
-    @Query("SELECT DISTINCT YEAR(x.NgayXL) FROM Xuly x WHERE TrangThaiXL = 1")
-    List<String> findAllYearsXuLy();
+    // @Query("SELECT DISTINCT YEAR(x.NgayXL) FROM Xuly x WHERE TrangThaiXL = 1")
+    // List<String> findAllYearsXuLy();
 
     
-    @Query("SELECT MONTH(x.NgayXL), COUNT(x) FROM Xuly x WHERE YEAR(x.NgayXL) = :year GROUP BY MONTH(x.NgayXL)")
-    List<Object[]> findRowCountByMonth(@Param("year") String year);
+    // @Query("SELECT MONTH(x.NgayXL), COUNT(x) FROM Xuly x WHERE YEAR(x.NgayXL) = :year GROUP BY MONTH(x.NgayXL)")
+    // List<Object[]> findRowCountByMonth(@Param("year") String year);
 
     
    
