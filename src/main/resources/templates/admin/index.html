@@ -58,17 +58,17 @@
                                 <input class="form-control" type="date" id="date" name="date">
 
                                 <input class="" type="radio" id="none" name="time" value="0" checked
-                                    onclick=checkRadioBtnQuery()>
+                                    onclick=checkSelectionQuery()>
                                 <label class="form-label" for="none">Không</label>
 
-                                <input type="radio" name="time" value="1" onclick=checkRadioBtnQuery()>
+                                <input type="radio" name="time" value="1" onclick=checkSelectionQuery()>
                                 <label for="date">Ngày</label>
 
                                 <input class="" type="radio" id="month" name="time" value="2"
-                                    onclick=checkRadioBtnQuery()>
+                                    onclick=checkSelectionQuery()>
                                 <label class="" for="month">Tháng</label>
                                 <input class="" type="radio" id="year" name="time" value="3"
-                                    onclick=checkRadioBtnQuery()>
+                                    onclick=checkSelectionQuery()>
                                 <label class="" for="year">Năm</label>
                             </div>
                         </div>
@@ -89,16 +89,11 @@
                     <!-- End Col -->
                     <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
                         <div class="icon-card mb-30">
-                            <div class="icon success">
-                                <i class="lni lni-dollar"></i>
-                            </div>
+
                             <div class="content">
-                                <h6 class="mb-10">Total Income</h6>
-                                <h3 class="text-bold mb-10">$74,567</h3>
-                                <p class="text-sm text-success">
-                                    <i class="lni lni-arrow-up"></i> +5.45%
-                                    <span class="text-gray">Increased</span>
-                                </p>
+                                <h6 class="mb-10">Tổng số lượng thành viên đã vào hôm nay</h6>
+                                <h3 class="text-bold mb-10" th:text="${countTV}">  </h3>
+                                <h3>Thành viên</h3>
                             </div>
                         </div>
                         <!-- End Icon Cart -->
@@ -106,16 +101,11 @@
                     <!-- End Col -->
                     <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
                         <div class="icon-card mb-30">
-                            <div class="icon primary">
-                                <i class="lni lni-credit-cards"></i>
-                            </div>
+                            
                             <div class="content">
-                                <h6 class="mb-10">Total Expense</h6>
-                                <h3 class="text-bold mb-10">$24,567</h3>
-                                <p class="text-sm text-danger">
-                                    <i class="lni lni-arrow-down"></i> -2.00%
-                                    <span class="text-gray">Expense</span>
-                                </p>
+                                <h6 class="mb-10">Tổng số lượng thiết bị đang được mượn</h6>
+                                <h3 class="text-bold mb-10" th:text="${countThietBiDangDuocMuon}">  </h3>
+                                <h3>Thiết bị </h3>
                             </div>
                         </div>
                         <!-- End Icon Cart -->
@@ -123,22 +113,25 @@
                     <!-- End Col -->
                     <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
                         <div class="icon-card mb-30">
-                            <div class="icon orange">
-                                <i class="lni lni-user"></i>
-                            </div>
+
                             <div class="content">
-                                <h6 class="mb-10">New User</h6>
-                                <h3 class="text-bold mb-10">34567</h3>
-                                <p class="text-sm text-danger">
-                                    <i class="lni lni-arrow-down"></i> -25.00%
-                                    <span class="text-gray"> Earning</span>
-                                </p>
+                                <h6 class="mb-10">Tổng số lượng vi phạm chưa được xử lý</h6>
+                                <h3 class="text-bold mb-10"th:text="${countViPhamDangXuLY}">  </h3>
+                                <h3>Vi phạm</h3>
                             </div>
                         </div>
                         <!-- End Icon Cart -->
                     </div>
                     <!-- End Col -->
                 </div>
+
+                <canvas id="myChart" width="400" height="400"></canvas>
+                
+                <script th:inline="javascript">
+                    //truyền dữ liệu từ controller vào js bằng thymeleaf 
+                    var khoaAndCount = /*[[ ${khoaAndCount} ]]*/ [];
+                </script>
+
                 <!-- End Row -->
                 <div class="row">
                     <div class="col-lg-7">
