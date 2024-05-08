@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="fragments/head :: head"></head>
+    <body>        
+        <!-- ======== sidebar-nav start =========== -->
+        <aside th:replace="fragments/sidebar :: sidebar"></aside>
+        <div class="overlay"></div>
+        <!-- ======== sidebar-nav end =========== -->
+
+        <!-- ======== main-wrapper start =========== -->
+        <main class="main-wrapper">
+            <!-- ========== header start ========== -->
+            <header th:replace="fragments/header :: header"></header>
+            <!-- ========== header end ========== -->
+
+            <!-- ========== section start ========== -->
+            <section class="section">
+                <div class="container-fluid">
+                    <!-- ========== title-wrapper start ========== -->
+                    <div class="title-wrapper pt-30">
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                <div class="title">
+                                    <h2>Thiết Bị</h2>
+                                </div>
+                            </div>
+                            <!-- end col -->
+                            <div class="col-md-6">
+                                <div class="breadcrumb-wrapper">
+<!--                                    <nav aria-label="breadcrumb">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item">
+                                                <a href="#0">Dashboard</a>
+                                            </li>
+                                            <li class="breadcrumb-item active" aria-current="page">
+                                                Devices
+                                            </li>
+                                        </ol>
+                                    </nav>-->
+                                </div>
+                            </div>
+                            <!-- end col -->
+                        </div>
+                        <!-- end row -->
+                    </div>
+                    <!-- ========== title-wrapper end ========== -->
+
+                    <!-- ========== tables-wrapper start ========== -->
+                    <div class="tables-wrapper">
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card-style mb-30">
+                                    <div class="card-title d-flex justify-content-between align-items-center mb-3">
+                                        <h6 class="mb-10">Danh sách thiết bị</h6>
+                                    </div>
+                                            <!-- Phần Tìm kiếm Thiết Bị -->
+                                   <div class="search-device row mt-3">
+       <!--                                <div class="input-group">-->
+                                           <div class = "input-style-1 col-9 pe-0">
+                                                <input type="text" id="tenThietBi" class="form-control" placeholder="Nhập tên thiết bị cần tìm kiếm">                                   
+                                           </div>
+                                           <div class="col-3">
+                                               <button onclick="timKiemThietBi()" class="main-btn active-btn btn-hover"><i class="fa-solid fa-magnifying-glass"></i> Tìm kiếm</button>
+                                           </div>
+                                       <!--</div>-->
+                                   </div>
+                                    <div
+                                        class="table-wrapper table-responsive d-flex flex-column justify-content-center align-items-center">
+                                        <table class="table mb-3">
+                                            <thead>
+                                            <tr>
+                                                <th>
+                                                    <h6>Mã Thiết Bị</h6>
+                                                </th>
+                                                <th>
+                                                    <h6>Tên Thiết Bị</h6>
+                                                </th>
+                                                <th>
+                                                    <h6>Mô Tả Thiết Bị</h6>
+                                                </th>
+                                                <th>
+                                                    <h6>Thao tác</h6>
+                                                </th>
+                                            </tr>
+                                            <!-- end table row-->
+                                            </thead>
+                                            <tbody>
+                                            <!-- start table row-->
+                                            <tr>
+                                                <td>
+                                                    <p>1000001</p>
+                                                </td>
+                                                <td class="min-width">
+                                                    <p>Micro</p>
+                                                </td>
+                                                <td class="min-width">
+                                                    <p>Micro không dây MS2023</p>
+                                                </td>
+                                                <td>
+                                                    <div class="action">
+                                                        <button class="text-success">
+                                                           <i class="fa-solid fa-plus"></i>
+                                                        </button>                                               
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <!-- end table row-->
+                                            <!-- start table row-->
+                                            <tr>
+                                                <td>
+                                                    <p>1000001</p>
+                                                </td>
+                                                <td class="min-width">
+                                                    <p>Micro</p>
+                                                </td>
+                                                <td class="min-width">
+                                                    <p>Micro không dây MS2023</p>
+                                                </td>
+                                                <td>
+                                                    <div class="action">
+                                                        <button class="text-success">
+                                                           <i class="fa-solid fa-plus"></i>
+                                                        </button>                                               
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <!-- end table row-->
+                                            <!-- start table row-->
+                                            <tr>
+                                                <td>
+                                                    <p>1000001</p>
+                                                </td>
+                                                <td class="min-width">
+                                                    <p>Micro</p>
+                                                </td>
+                                                <td class="min-width">
+                                                    <p>Micro không dây MS2023</p>
+                                                </td>
+                                                <td>
+                                                    <div class="action">
+                                                        <button class="text-success">
+                                                           <i class="fa-solid fa-plus"></i>
+                                                        </button>                                               
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <!-- end table row-->
+                                           
+                                            </tbody>
+                                        </table>
+                                        <!-- end table -->                                                                                                  
+                                       
+                                        <!-- pagination end -->
+                                    </div>
+                                    <div class = "d-flex justify-content-end">
+                                        <button class="main-btn active-btn btn-hover"><i class="fa-solid fa-cart-shopping"></i>Giỏ hàng</button>
+                                    </div>  
+                                </div>
+                                <!-- end card -->
+                            </div>
+                            <!-- end col -->
+                        </div>
+                        <!-- end row -->
+                    </div>
+                    <!-- ========== tables-wrapper end ========== -->
+                </div>
+        <!-- end container -->
+               
+            </section>
+            <!-- ========== section end ========== -->
+
+            <!-- ========== footer start =========== -->
+            <footer th:replace="fragments/footer :: footer"></footer>
+            <!-- ========== footer end =========== -->
+        </main>
+        <!-- ======== main-wrapper end =========== -->
+
+        <div th:replace="fragments/script :: script"></div>
+    </body>
+
+</html>

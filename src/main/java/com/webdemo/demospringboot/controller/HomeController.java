@@ -50,9 +50,14 @@ public class HomeController {
         return "BookDevice";
     }
 
-    @RequestMapping("/user")
+    @RequestMapping("/list")
     public String user() {
-        return "user";
+        return "ListDevice";
+    }
+    
+    @RequestMapping("/cart")
+    public String cart() {
+        return "CartDevice";
     }
 
 }

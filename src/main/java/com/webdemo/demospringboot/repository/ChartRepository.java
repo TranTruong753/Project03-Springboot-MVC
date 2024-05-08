@@ -9,8 +9,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ChartRepository extends JpaRepository<Xuly, Integer> {
-    @Query("SELECT DISTINCT YEAR(x.NgayXL) FROM Xuly x WHERE TrangThaiXL = 1")
-    List<String> findAllYearsXuLy();
+//    @Query("SELECT DISTINCT YEAR(x.NgayXL) FROM Xuly x WHERE TrangThaiXL = 1")
+//    List<String> findAllYearsXuLy();
    
     
 

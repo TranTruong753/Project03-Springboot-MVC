@@ -19,12 +19,12 @@ public class ChartController {
     private ChartService chartService;
 
 
-    @GetMapping({"", "/admin"})
-    public String chart(Model model) {
-        List<String> allYears = chartService.findAllYearsXuLy();
-        model.addAttribute("allYears", allYears);
-        return "admin/index";
-    }
+//    @GetMapping({"", "/admin"})
+//    public String chart(Model model) {
+//        List<String> allYears = chartService.findAllYearsXuLy();
+//        model.addAttribute("allYears", allYears);
+//        return "admin/index";
+//    }
 
     
    
