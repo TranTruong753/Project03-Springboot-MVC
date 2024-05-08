@@ -24,5 +24,15 @@ public class XulyServiceImpl implements XulyService{
     public List<Xuly> layDanhSachViPhamTheoID(int maTV) {
         return xulyRepository.layDanhSachViPhamTheoID(maTV);
     }
-    
+    public List<Xuly> layDanhSachXuLi() {
+        return xulyRepository.layDanhSachXuLi();
+    }
+
+//    @Override
+    public void save(Xuly xuly) {
+        xulyRepository.save(xuly);
+    }
+    public void delete(int id) {
+        xulyRepository.deleteById(id);
+    }
 }

@@ -6,23 +6,18 @@ package com.webdemo.demospringboot.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import java.sql.Timestamp;
-import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "xuly")
 public class Xuly {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int MaXL;
    
     @Column
     private int MaTV;
-    
+
     @Column
     private String HinhThucXL;
 
@@ -30,7 +25,7 @@ public class Xuly {
     private Integer SoTien;
     
     @Column
-    private Timestamp NgayXL;
+    private String NgayXL;
     
     @Column
     private int TrangThaiXL;
@@ -38,11 +33,18 @@ public class Xuly {
     public Xuly() {
     }
 
-    public Xuly(int MaXL, int MaTV, String HinhThucXL, Integer SoTien, Timestamp NgayXL, int TrangThaiXL) {
+    public Xuly(int MaXL, int MaTV, String HinhThucXL, Integer SoTien, String NgayXL, int TrangThaiXL) {
         this.MaXL = MaXL;
         this.MaTV = MaTV;
         this.HinhThucXL = HinhThucXL;
         this.SoTien = SoTien;
+        this.NgayXL = NgayXL;
+        this.TrangThaiXL = TrangThaiXL;
+    }
+    public Xuly(int MaXL, int MaTV, String HinhThucXL, String NgayXL, int TrangThaiXL) {
+        this.MaXL = MaXL;
+        this.MaTV = MaTV;
+        this.HinhThucXL = HinhThucXL;
         this.NgayXL = NgayXL;
         this.TrangThaiXL = TrangThaiXL;
     }
@@ -79,11 +81,11 @@ public class Xuly {
         this.SoTien = SoTien;
     }
 
-    public Timestamp getNgayXL() {
+    public String getNgayXL() {
         return NgayXL;
     }
 
-    public void setNgayXL(Timestamp NgayXL) {
+    public void setNgayXL(String NgayXL) {
         this.NgayXL = NgayXL;
     }
 

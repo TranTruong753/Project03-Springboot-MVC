@@ -13,5 +13,7 @@ import java.util.List;
  */
 public interface XulyService {
     List<Xuly> layDanhSachViPhamTheoID(int maTV);
-
+    List<Xuly> layDanhSachXuLi();
+    void save(Xuly xuly);
+    void delete(int id);
 }
