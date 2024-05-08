@@ -10,4 +10,6 @@ public interface ChartService {
     
     List<String> findAllYearsXuLy();
 
+    List<Object[]> findRowCountByMonth(String year);
+
 }

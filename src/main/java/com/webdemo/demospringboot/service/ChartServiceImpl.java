@@ -19,4 +19,9 @@ public class ChartServiceImpl implements  ChartService{
     public List<String> findAllYearsXuLy() {
         return chartRepository.findAllYearsXuLy();
     }
+
+    @Override
+    public List<Object[]> findRowCountByMonth(String year) {
+        return chartRepository.findRowCountByMonth(year);
+    }
 }

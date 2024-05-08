@@ -11,7 +11,7 @@
     <script th:src="@{/js/main.js}"></script>
     <script th:src="@{/js/thongke.js}"></script>
 
-    <script>
+    <script  th:inline="javascript">
         // ======== jvectormap activation
         var markers = [
             { name: "Egypt", coords: [26.8206, 30.8025] },
@@ -71,6 +71,9 @@
         });
 
         // =========== chart one start
+          // Use Thymeleaf to insert the data into the JavaScript code
+        
+        // Now you can use rowCountByMonth in your JavaScript code
         const ctx1 = document.getElementById("Chart1").getContext("2d");
         const chart1 = new Chart(ctx1, {
             type: "line",
@@ -94,9 +97,9 @@
                         label: "",
                         backgroundColor: "transparent",
                         borderColor: "#365CF5",
-                        data: [
-                            600, 800, 750, 880, 940, 880, 900, 770, 920, 890, 976, 1100,
-                        ],
+                         /*<![CDATA[*/
+                         data : /*[[${data}]]*/ []
+                         /*]]>*/,
                         pointBackgroundColor: "transparent",
                         pointHoverBackgroundColor: "#365CF5",
                         pointBorderColor: "transparent",
