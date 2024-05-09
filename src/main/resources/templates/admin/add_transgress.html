@@ -180,29 +180,39 @@ document.querySelector('select[name="hinhThucXuLy"]').addEventListener('change',
     var soTien = document.querySelector('input[name="soTien"]').value;
     var ngayXL = document.querySelector('input[type="date"]').value + ' ' + document.querySelector('input[type="time"]').value;
     var trangThaiXL = document.querySelector('input[name="TTXL"]:checked').value;
-    $.ajax({
-      url: '/admin/transgress/add_transgress',
-      type: 'POST',
-      data: 
-      {
-        maXL: maXL,
-        maTV: maTV,
-        hinhThucXuLy: hinhThucXuLy,
-        soTien: soTien,
-        ngayXL: ngayXL,
-        trangThaiXL: trangThaiXL
-      },
-      success: function(response) {
-        swal("Success", "Thêm thành công", "success").then(() => {
-          window.location.href = '/admin/transgress';
+    if (hinhThucXuLy.includes('Bồi thường') || hinhThucXuLy.includes('bồi thường')) {
+      if (soTien.trim() === '') {
+        swal("Error", "Vui lòng nhập số tiền", "error");
+        return;
+      }else if(soTien < 0){
+        swal("Error", "Số tiền không được âm", "error");
+        return;
+      }else{
+        $.ajax({
+          url: '/admin/transgress/add_transgress',
+          type: 'POST',
+          data: 
+          {
+            maXL: maXL,
+            maTV: maTV,
+            hinhThucXuLy: hinhThucXuLy,
+            soTien: soTien,
+            ngayXL: ngayXL,
+            trangThaiXL: trangThaiXL
+          },
+          success: function(response) {
+            swal("Success", "Thêm thành công", "success").then(() => {
+              window.location.href = '/admin/transgress';
+            });
+            
+          },
+          error: function(error) {
+            console.error('Error:', error);
+            swal("Fail", "Thêm thất bại", "error")
+          }
         });
-        
-      },
-      error: function(error) {
-        console.error('Error:', error);
-        swal("Fail", "Thêm thất bại", "error")
       }
-    });
+    }
   });
 </script>
 </html>
