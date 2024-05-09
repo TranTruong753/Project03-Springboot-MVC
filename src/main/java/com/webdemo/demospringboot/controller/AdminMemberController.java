@@ -2,8 +2,11 @@ package com.webdemo.demospringboot.controller;
 
 import com.webdemo.demospringboot.model.Thanhvien;
 import com.webdemo.demospringboot.model.ThietBi;
+import com.webdemo.demospringboot.model.ThongTinSD;
 import com.webdemo.demospringboot.service.ThanhVienService;
 import com.webdemo.demospringboot.service.ThietBiService;
+import com.webdemo.demospringboot.service.XemThietBiDatChoService;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.poi.ss.usermodel.Row;
@@ -28,7 +31,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class AdminMemberController {
     @Autowired
     private ThanhVienService tvService;
-    
+    @Autowired
+    private XemThietBiDatChoService xemtbservice;
     @GetMapping
     public String index(Model model,@RequestParam(name="pageNo",defaultValue = "1") Integer pageNo) {
         Page<Thanhvien> listthanhvien=tvService.getAll(pageNo);
@@ -39,8 +43,54 @@ public class AdminMemberController {
     }
 
     @GetMapping("check_in")
-    public String check_in() {
+    public String check_in(Model model) {
+        List<ThongTinSD> listThongTinSD =xemtbservice.getdsvaokhuhoctap();
+        model.addAttribute("listThongTinSD", listThongTinSD);
+        ThongTinSD ttsd= new ThongTinSD();
+        model.addAttribute("ThongTinSD", ttsd);
         return "admin/check_in";
+    }
+    @RequestMapping(value="check_in/save",method = RequestMethod.POST)
+    public String save_check_in(@ModelAttribute("ThongTinSD") ThongTinSD ttsd ,Model model) {
+        List<Thanhvien> listthanhvien=tvService.GetAll();
+        boolean flag=false;
+        int dem=0;
+        List<ThongTinSD> listThongTinSD =xemtbservice.getdsvaokhuhoctap();
+        for (ThongTinSD tv : listThongTinSD) {
+            if(tv.getMaTT()>dem)
+                dem=tv.getMaTT();
+        }
+        dem++;
+        for (Thanhvien tv : listthanhvien) {
+            String matv=""+tv.getId();
+            String ttsdmatv=""+ttsd.getThanhVien().getId();
+            if(matv.equals(ttsdmatv)){
+                 flag=true;
+                 //break;
+            }
+        }
+        if(flag){
+            LocalDateTime currentDateTime = LocalDateTime.now();
+            ttsd.setThoiGianVao(currentDateTime);
+            ttsd.setMaTT(dem);
+            xemtbservice.themThongTinSD(ttsd);
+            
+            //model.addAttribute("thanhvien", thanhvien);
+            model.addAttribute("message", "Thêm thành công");
+            //return check_in( model);
+        }
+        else{
+            model.addAttribute("ThongTinSD", ttsd);
+            model.addAttribute("message", "Mã thành viên không hợp lệ");
+            //return check_in( model);
+        }
+//        LocalDateTime currentDateTime = LocalDateTime.now();
+//        ttsd.setThoiGianVao(currentDateTime);
+//        ttsd.setMaTT(3);
+//        xemtbservice.themThongTinSD(ttsd);
+        model.addAttribute("listThongTinSD", listThongTinSD);
+        return "admin/check_in";
+        
     }
 
     @GetMapping("add_member")
@@ -95,7 +145,7 @@ public class AdminMemberController {
             
             
         } catch (Exception e) {
-            model.addAttribute("message", "thành viên đang bị vi phạm,phải xử lý trước khi xóa");
+            model.addAttribute("message", "Xung đột cơ sở dữ liệu, không thể xóa");
         }
         return index( model,pageNo);
         

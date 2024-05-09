@@ -88,7 +88,7 @@ public class AdminDeviceController {
             thietBiService.delete(id);
             model.addAttribute("message", "Xóa thành công");
         } catch (Exception e) {
-            model.addAttribute("message", "Thiết bị đang được mượn hoặc đặt chỗ,không thể xóa");
+            model.addAttribute("message", "Xung đột cơ sở dữ liệu, không thể xóa");
         }
         return index( model,pageNo);
     }

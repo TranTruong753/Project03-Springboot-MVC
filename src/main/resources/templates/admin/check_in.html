@@ -59,13 +59,41 @@
                             <div class="card-style mb-30">
                                 <div class="card-title mb-3">
                                     <h6 class="mb-10">Vào Khu Học Tập</h6>
+                                    <script type="text/javascript">
+                                        window.onload = function() {
+                                            //if(document.getElementById("message1").value!== '')
+                                                if(document.getElementById("message1").value!==''){
+                                                    alert(document.getElementById("message1").value);
+                                                };
+                                            //};
+                                            //}
+//                                            function kiemTraRong() {
+//                                                var matb = document.getElementById("matb").value;
+//                                                var tentb = document.getElementById("tentb").value;
+//                                                var motatb = document.getElementById("motatb").value;
+//
+//                                                if (matb.trim() == '' || tentb.trim() == '' || motatb.trim() == ''|| matb.trim() == '0') {
+//                                                    alert('Các trường thông tin không được để trống');
+//                                                    return false;
+//                                                }
+//                                                else if(!/^\d+$/.test(matb.trim())){
+//                                                    alert('Mã thiết bị phải là số')
+//                                                    return false;
+//                                                }
+//
+//                                                return true;
+                                            }
+                                    </script>
                                     <div class="search-device row mt-3">
-                                        <div class="input-style-1 col-9 pe-0">
-                                            <input type="text" id="" class="form-control" placeholder="Mã Thành Viên">
-                                        </div>
-                                        <div class="col-3">
-                                            <button class="main-btn active-btn btn-hover"> Xác Nhận</button>
-                                        </div>
+                                        <input type="hidden" th:value="${message}" id="message1"/> 
+                                        <form action="#" th:action="@{/admin/member/check_in/save}" th:object="${ThongTinSD}" method="post" >
+                                            <div class="input-style-1 col-9 pe-0">
+                                                <input type="text" id="" class="form-control" th:field="*{thanhVien.id}" placeholder="Mã Thành Viên">
+                                            </div>
+                                            <div class="col-3">
+                                                <button class="main-btn active-btn btn-hover" type="submit"> Xác Nhận</button>
+                                            </div>
+                                        </form>   
                                     </div>
 
                                 </div>
@@ -89,17 +117,13 @@
                                         </thead>
                                         <tbody>
                                             <!-- start table row-->
-                                            <tr>
-                                                <td>
-                                                    <p>1</p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p>Quách Gia Quy</p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p>5/7/2024 - 9:55PM</p>
-                                                </td>
-                                            </tr>
+                                            <tr th:each="thongtinsd : ${listThongTinSD}">
+                                            <td th:text="${thongtinsd.MaTT}"></td>
+                                            <td th:text="${thongtinsd.thanhVien.id}"></td>
+                                            <td th:text="${#temporals.format(thongtinsd.thoiGianVao, 'yyyy-MM-dd hh:mm ')}"></td>
+                                        
+                                        
+                                    </tr>
                                             <!-- end table row-->
                                         </tbody>
                                     </table>
