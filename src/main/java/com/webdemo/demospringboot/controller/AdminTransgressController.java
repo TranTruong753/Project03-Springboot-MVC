@@ -4,6 +4,9 @@
  */
 package com.webdemo.demospringboot.controller;
 
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,7 +75,7 @@ public class AdminTransgressController {
         @RequestParam("hinhThucXuLy") String hinhThucXuLy, 
         @RequestParam("soTien") String soTien, 
         @RequestParam("ngayXL") String ngayXL, 
-        @RequestParam("trangThaiXL") String trangThaiXL) {
+        @RequestParam("trangThaiXL") String trangThaiXL) throws ParseException {
         System.out.println(maXL + " " + maTV + " " + hinhThucXuLy + " " + soTien + " " + ngayXL + " " + trangThaiXL);
         Xuly newXuly = new Xuly();
         newXuly.setMaXL(Integer.parseInt(maXL));
@@ -83,7 +86,10 @@ public class AdminTransgressController {
         } else {
             newXuly.setSoTien(Integer.parseInt(soTien));
         }
-        newXuly.setNgayXL(ngayXL);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        java.util.Date parsedDate = dateFormat.parse(ngayXL);
+        Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
+        newXuly.setNgayXL(timestamp);
         newXuly.setTrangThaiXL(Integer.parseInt(trangThaiXL));   
         // Logging
         
@@ -98,7 +104,7 @@ public class AdminTransgressController {
         @RequestParam("hinhThucXuLy") String hinhThucXuLy, 
         @RequestParam("soTien") String soTien, 
         @RequestParam("ngayXL") String ngayXL, 
-        @RequestParam("trangThaiXL") String trangThaiXL) {
+        @RequestParam("trangThaiXL") String trangThaiXL) throws ParseException {
         System.out.println(maXL + " " + maTV + " " + hinhThucXuLy + " " + soTien + " " + ngayXL + " " + trangThaiXL);
         Xuly newXuly = new Xuly();
         newXuly.setMaXL(Integer.parseInt(maXL));
@@ -109,7 +115,10 @@ public class AdminTransgressController {
         } else {
             newXuly.setSoTien(Integer.parseInt(soTien));
         }
-        newXuly.setNgayXL(ngayXL);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        java.util.Date parsedDate = dateFormat.parse(ngayXL);
+        Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
+        newXuly.setNgayXL(timestamp);
         newXuly.setTrangThaiXL(Integer.parseInt(trangThaiXL));   
         // Logging
         

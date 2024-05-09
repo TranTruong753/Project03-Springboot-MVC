@@ -97,36 +97,40 @@
                                     </thead>
                                     <tbody>
                                     <!-- start table row-->
-                                    <tr>
+                                    <tr th:each="xuly : ${danhSachXuLi}">
                                         <td>
-                                            <p>1</p>
+                                            <p th:text="${xuly.MaXL}"></p>
                                         </td>
                                         <td class="min-width">
-                                            <p>1121530087</p>
+                                            <p th:text="${xuly.MaTV}"></p>
                                         </td>
                                         <td class="min-width">
-                                            <p>Khóa thẻ 1 tháng</p>
+                                            <p th:text="${xuly.HinhThucXL}"></p>
                                         </td>
                                         <td class="min-width">
-                                            <p>30000 demo còn muốn thế hiện sao tùy</p>
-                                        </td>                                      
-                                        <td class="min-width">
-                                            <p>2023-09-13 08:00:00 demo còn muốn thế hiện sao tùy</p>
+                                            <p th:text="${xuly.SoTien}"></p>
                                         </td>
                                         <td class="min-width">
-                                            <p>trạng thái xử lý: 1-0 hoắc đã xử lý - chưa xử lý</p>
+                                            <p th:text="${xuly.NgayXL}"></p>
+                                        </td>
+                                        <td class="min-width">
+                                            <p th:text="${xuly.TrangThaiXL == 0 ? 'Chưa xử lí' : 'Đã xử lí'}"></p>
                                         </td>
                                         <td>
                                             <div class="action">
-                                                <button class="text-danger">
-                                                    <i class="fa-solid fa-trash"></i>
+                                                <button class="delete" th:data-id="${xuly.MaXL}">
+                                                    <i class="fa-solid fa-trash text-danger"></i>
                                                 </button>
-                                                <button class="text-warning">
-                                                    <i class="fa-solid fa-pencil"></i>
-                                                </button>
+                                                <a th:href="@{/admin/transgress/edit_transgress(id=${xuly.MaXL})}">
+                                                    <button class="text-warning">
+                                                        <i class="fa-solid fa-pencil"></i>
+                                                    </button>
+                                                <a/>
+                                                
                                             </div>
                                         </td>
                                     </tr>
+                                    
                                     <!-- end table row-->
                                     </tbody>
                                 </table>
@@ -157,5 +161,35 @@
 <div th:replace="fragments/AdminScript :: AdminScript"></div>
 
 </body>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.delete').click(function () {
+            var id = $(this).data('id');
+            swal({
+                title: "Xác nhận",
+                text: "Bạn có chắc chắn muốn xóa?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        url: '/admin/transgress/delete_transgress',
+                        type: 'POST',
+                        data: {
+                            id: id
+                        },
+                        success: function (data) {
+                            location.reload();
+                        }
+                    });
+                }
+            });
+            
+        });
+    });
+</script>
 </html>
