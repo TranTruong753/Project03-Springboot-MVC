@@ -2,51 +2,7 @@
 <html lang="en">
 
     <head th:replace="fragments/head :: head"></head>
-    <style>
-        /* CSS tùy chỉnh */
-        body {
-/*            font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
-            color: #333;
-            padding-top: 50px;
-        }
-        .card-style > a {
-            color: black;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 40px;
-            height: 40px;
-            position: relative;
-            text-decoration: none;
-        }
 
-        .card-style > a > i {
-            font-size: 24px;  Kích thước biểu tượng 
-        }
-
-
-        table{
-            background: linear-gradient(to right,#98F5FF,white 30%,white 70%,#98F5FF);
-            width: 100%;
-            box-shadow: 0 0px 12px 3px rgba(0, 0, 0, 0.2);
-        }
-        th, td {
-            text-align: center;
-            padding: 12px;
-        }
-        thead tr{
-            background-color: #98F5FF;
-            border-radius: 20px;
-        }
-        tbody tr td,
-        thead th{
-            padding-bottom: 10px;
-            vertical-align: middle;
-            border: 6px solid white;
-        }*/
-
-    </style>
     <body>
         <!-- ======== sidebar-nav start =========== -->
         <aside th:replace="fragments/sidebar :: sidebar"></aside>
@@ -90,7 +46,55 @@
                         <!-- end row -->
                     </div>
                     <!-- ========== title-wrapper end ========== -->
+                    
+                    <div class="tables-wrapper">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card-style mb-30">
 
+                                    <div class="card-title d-flex justify-content-between align-items-center mb-3">
+                                         <h6 class="mb-10">Thông tin</h6>
+                                    </div>
+                                    <div
+                                         class="table-wrapper table-responsive d-flex flex-column justify-content-center align-items-center">  
+                                        <table class="table mb-3 align-middle">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        <h6>Mã Thành Viên</h6>
+                                                    </th>
+                                                    <th>
+                                                        <h6>Tên Người Mượn</h6>
+                                                    </th>                                                 
+                                                    <th>
+                                                        <h6>Chọn Ngày Đặt Chỗ</h6>
+                                                    </th>                                                   
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <td>
+                                                        <p id="matb_id">2124202042</p>
+                                                    </td>
+                                                    <td class="min-witdth">
+                                                        <p>Trần Quang Trường</p>
+                                                    </td> 
+                                                    <td class="min-width">
+                                                        <div class = "input-style-1 mb-0 col-6">
+                                                             <input type="datetime-local" id="selectedDateTime" name="selectedDateTime" required>
+                                                        </div>
+                                                       
+                                                    </td>
+                                            </tbody>
+                                        </table>
+                                    </div>                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    
+                    
+                    
                     <!-- ========== tables-wrapper start ========== -->
 
 
@@ -101,7 +105,7 @@
                                 <div class="card-style mb-30">
 
                                     <div class="card-title d-flex justify-content-between align-items-center mb-3">
-                                         <h6 class="mb-10">Chọn Ngày Đặt Chỗ</h6>
+                                         <h6 class="mb-10">Danh sách thiết bị muốn mượn</h6>
                                     </div>
                                     <div
                                          class="table-wrapper table-responsive d-flex flex-column justify-content-center align-items-center">
@@ -114,9 +118,9 @@
                                                     <th>
                                                         <h6>Tên Thiết Bị</h6>
                                                     </th>                                                 
-                                                    <th>
+<!--                                                    <th>
                                                         <h6>Ngày đặt</h6>
-                                                    </th>
+                                                    </th>-->
                                                     <th>
                                                         <h6>Thao Tác</h6>
                                                     </th>
@@ -130,12 +134,12 @@
                                                     <td class="min-witdth">
                                                         <p>Micro</p>
                                                     </td>                                                  
-                                                    <td class="min-width">
+<!--                                                    <td class="min-width">
                                                         <div class = "input-style-1 mb-0 col-6">
                                                              <input type="datetime-local" id="selectedDateTime" name="selectedDateTime" required>
                                                         </div>
                                                        
-                                                    </td>
+                                                    </td>-->
                                                     <td>
                                                         <div class="action">                                                           
                                                             <button class="text-danger">                                                    
@@ -151,12 +155,12 @@
                                                     <td class="min-witdth">
                                                         <p>Micro</p>
                                                     </td>                                                  
-                                                    <td class="min-width">
+<!--                                                    <td class="min-width">
                                                         <div class = "input-style-1 mb-0 col-6">
                                                              <input type="datetime-local" id="selectedDateTime" name="selectedDateTime" required>
                                                         </div>
                                                        
-                                                    </td>
+                                                    </td>-->
                                                     <td>
                                                         <div class="action">                                                           
                                                             <button class="text-danger">                                                    
