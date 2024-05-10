@@ -4,6 +4,7 @@ import com.webdemo.demospringboot.model.Thanhvien;
 import com.webdemo.demospringboot.model.ThietBi;
 import com.webdemo.demospringboot.service.ThanhVienService;
 import com.webdemo.demospringboot.service.ThietBiService;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.poi.ss.usermodel.Row;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -147,6 +149,24 @@ public class AdminMemberController {
     @GetMapping("borrow_device")
     public String borrow_device() {
         return "admin/borrow_device";
+    }
+    
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public @ResponseBody String delete(HttpServletRequest request) {
+          String id = request.getParameter("id");
+          String mess = "false";
+          List<Thanhvien> listthanhvien=tvService.GetAll();
+          
+           for (Thanhvien tv : listthanhvien) {
+                String maTv = String.valueOf(tv.getId());
+
+                // Kiểm tra xem kí tự thứ 3 và 4 của maTv có chứa id hay không
+                if (maTv.length() >= 4 && maTv.substring(2, 4).equals(id)) {
+                    tvService.delete(tv.getId());
+                    mess = "true";
+                }
+            }
+          return mess;
     }
 
 }

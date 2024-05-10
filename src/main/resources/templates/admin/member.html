@@ -72,7 +72,7 @@
                                         </form>
                                     </label>
                                     <input type="hidden" th:value="${message}" id="message1" >
-                                    <button class="main-btn danger-btn btn-hover"><i class="fa-solid fa-trash"></i> Xóa theo năm</button>
+                                    <button class="main-btn danger-btn btn-hover" onclick="xoaNhiuTv()"><i class="fa-solid fa-trash"></i> Xóa theo năm</button>
 
                                 </div>
 
@@ -175,7 +175,69 @@
 <!-- ========= All Javascript files linkup ======== -->
 
 <div th:replace="fragments/AdminScript :: AdminScript"></div>
-
+<script>
+//    function xoaNhiuTv(){
+//        swal("Write something here:", {
+//            content: "input",
+//          })
+//          .then((value) => {
+////            swal(`You typed: ${value}`);
+//              deleteData(value);
+//          });
+//    }
+    
+    function xoaNhiuTv() {
+    swal("Write something here:", {
+        content: "input",
+        }).then((value) => {
+             
+            // Kiểm tra nếu value là một số và có đúng 2 ký tự số
+            if (/^\d{2}$/.test(value)) {
+                deleteData(value);
+            } else {
+                // Nếu value không hợp lệ, hiển thị thông báo
+                swal("Lỗi! Năm thành Lập không hợp lệ!");
+            }
+        });
+    }
+    
+    function deleteData(dataId) {
+    $.ajax({
+        url: '/admin/member/delete', // Địa chỉ URL của endpoint để xử lý việc xóa dữ liệu
+        type: 'POST', // Phương thức HTTP sử dụng là POST
+        data: { id: dataId }, // Dữ liệu cần gửi đến máy chủ, ở đây là id của dữ liệu cần xóa
+         success: function(response) {
+            // Trong phần này, response chính là id trả về từ Spring Controller
+          if(response == "true"){
+//              alert( "Xóa thành công!");
+            swal({
+                            title: "Xóa thành công!",
+                            text: "Nhấn vào nút để tiếp tục!",
+                            icon: "success",
+            }).then(function () {
+                window.location = "http://localhost:8080/admin/member";
+            })
+            
+            
+          }else {
+            swal({
+                title: "Xóa thất bại!",
+                text: "Nhấn vào nút để tiếp tục!",
+                icon: "error",
+            })
+          }
+//            alert( response);
+                
+                      
+        },
+        error: function(xhr, status, error) {
+//            console.error("Error occurred while deleting data:", error);
+            alert( response);
+        
+        }
+    });
+}
+</script>
 </body>
 
 </html>
