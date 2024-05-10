@@ -46,17 +46,17 @@
                         <!-- end row -->
                     </div>
                     <!-- ========== title-wrapper end ========== -->
-                    
+
                     <div class="tables-wrapper">
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="card-style mb-30">
 
                                     <div class="card-title d-flex justify-content-between align-items-center mb-3">
-                                         <h6 class="mb-10">Thông tin</h6>
+                                        <h6 class="mb-10">Thông tin</h6>
                                     </div>
                                     <div
-                                         class="table-wrapper table-responsive d-flex flex-column justify-content-center align-items-center">  
+                                        class="table-wrapper table-responsive d-flex flex-column justify-content-center align-items-center">  
                                         <table class="table mb-3 align-middle">
                                             <thead>
                                                 <tr>
@@ -72,18 +72,18 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                    <td>
-                                                        <p id="matb_id">2124202042</p>
-                                                    </td>
-                                                    <td class="min-witdth">
-                                                        <p>Trần Quang Trường</p>
-                                                    </td> 
-                                                    <td class="min-width">
-                                                        <div class = "input-style-1 mb-0 col-6">
-                                                             <input type="datetime-local" id="selectedDateTime" name="selectedDateTime" required>
-                                                        </div>
-                                                       
-                                                    </td>
+                                            <td>
+                                                <p id="matb_id" th:text="${userLogin.id}"></p>
+                                            </td>
+                                            <td class="min-witdth">
+                                                <p th:text="${userLogin.hoTen}"></p>
+                                            </td> 
+                                            <td class="min-width">
+                                                <div class = "input-style-1 mb-0 col-6">
+                                                    <input type="datetime-local" id="selectedDateTime" name="selectedDateTime" required>
+                                                </div>
+
+                                            </td>
                                             </tbody>
                                         </table>
                                     </div>                                   
@@ -91,10 +91,10 @@
                             </div>
                         </div>
                     </div>
-                   
-                    
-                    
-                    
+
+
+
+
                     <!-- ========== tables-wrapper start ========== -->
 
 
@@ -105,10 +105,10 @@
                                 <div class="card-style mb-30">
 
                                     <div class="card-title d-flex justify-content-between align-items-center mb-3">
-                                         <h6 class="mb-10">Danh sách thiết bị muốn mượn</h6>
+                                        <h6 class="mb-10">Danh sách thiết bị muốn mượn</h6>
                                     </div>
                                     <div
-                                         class="table-wrapper table-responsive d-flex flex-column justify-content-center align-items-center">
+                                        class="table-wrapper table-responsive d-flex flex-column justify-content-center align-items-center">
                                         <table class="table mb-3 align-middle">
                                             <thead>
                                                 <tr>
@@ -118,68 +118,184 @@
                                                     <th>
                                                         <h6>Tên Thiết Bị</h6>
                                                     </th>                                                 
-<!--                                                    <th>
-                                                        <h6>Ngày đặt</h6>
-                                                    </th>-->
+                                                    <!--                                                    <th>
+                                                                                                            <h6>Ngày đặt</h6>
+                                                                                                        </th>-->
                                                     <th>
                                                         <h6>Thao Tác</h6>
                                                     </th>
                                                 </tr>
                                             </thead>
-                                            <tbody class="bg-white">
-                                                <tr>
+                                            <tbody id="cartTable" class="bg-white" th:attr="data-length=${cartDevice.size()}">
+                                                <tr th:each="thietBi : ${cartDevice}">
                                                     <td>
-                                                        <p id="matb_id">100001</p>
+                                                        <p th:text="${thietBi.maTB}"></p>
                                                     </td>
-                                                    <td class="min-witdth">
-                                                        <p>Micro</p>
-                                                    </td>                                                  
-<!--                                                    <td class="min-width">
-                                                        <div class = "input-style-1 mb-0 col-6">
-                                                             <input type="datetime-local" id="selectedDateTime" name="selectedDateTime" required>
-                                                        </div>
-                                                       
-                                                    </td>-->
-                                                    <td>
-                                                        <div class="action">                                                           
-                                                            <button class="text-danger">                                                    
-                                                                <i class="fa-solid fa-trash"></i>
-                                                            </button>
-                                                        </div>
+                                                    <td class="min-witdth" th:id="${thietBi.maTB}" th:data-tenTB="${thietBi.tenTB}">
+                                                        <p th:text="${thietBi.tenTB}"></p>
                                                     </td>
-                                                </tr>
-                                                <tr>
                                                     <td>
-                                                        <p id="matb_id">100001</p>
-                                                    </td>
-                                                    <td class="min-witdth">
-                                                        <p>Micro</p>
-                                                    </td>                                                  
-<!--                                                    <td class="min-width">
-                                                        <div class = "input-style-1 mb-0 col-6">
-                                                             <input type="datetime-local" id="selectedDateTime" name="selectedDateTime" required>
-                                                        </div>
-                                                       
-                                                    </td>-->
-                                                    <td>
-                                                        <div class="action">                                                           
-                                                            <button class="text-danger">                                                    
+                                                        <div class="action">
+                                                            <button class="text-danger"
+                                                                    th:data-maTB="${thietBi.maTB}"
+                                                                    th:data-tenTB="${thietBi.tenTB}"
+                                                                    onclick="removeFromCart(this, event)">
                                                                 <i class="fa-solid fa-trash"></i>
                                                             </button>
                                                         </div>
                                                     </td>
                                                 </tr>
                                             </tbody>
+
                                         </table>
                                     </div>
                                     <div class = "d-flex justify-content-end">
-                                        <button class="main-btn active-btn btn-hover"><i class="fa-solid fa-cart-shopping"></i>Đặt hàng</button>
+                                        <button id="btnDatCho" class="main-btn active-btn btn-hover"><i class="fa-solid fa-cart-shopping"></i>Đặt hàng</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                   
+                    </div>  
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function () {
+                            // Bắt sự kiện click của nút "Đặt Chỗ"
+                            var btnDatCho = document.getElementById("btnDatCho");
+                            if (btnDatCho) {
+                                btnDatCho.addEventListener("click", function (event) {
+                                    var selectedDateTimeInput = document.getElementById("selectedDateTime");
+                                    var selectedDateTimeValue = selectedDateTimeInput.value;
+                                    var cartTable = document.getElementById("cartTable");
+                                    var cartLength = cartTable.getAttribute("data-length");
+                                    if (cartLength === "0") {
+                                        swal("Giỏ hàng trống. Vui lòng thêm thiết bị vào giỏ hàng trước khi đặt chỗ.", "", "warning");
+                                        event.preventDefault();
+                                        return;
+                                    }
+                                    // Kiểm tra nếu ngày giờ chưa được chọn
+                                    if (!selectedDateTimeValue) {
+                                        swal("Vui lòng chọn ngày và giờ.", "", "warning");
+                                        event.preventDefault();
+                                        return;
+                                    }
+
+                                    var selectedDate = new Date(selectedDateTimeValue);
+                                    var currentDate = new Date();
+                                    // Kiểm tra nếu ngày giờ chọn nhỏ hơn ngày giờ hiện tại
+                                    if (selectedDate <= currentDate) {
+                                        swal("Vui lòng chọn ngày và giờ lớn hơn thời điểm hiện tại.", "", "warning");
+                                        event.preventDefault();
+                                        return;
+                                    }
+//                                    console.log(selectedDate)
+//                                    console.log(selectedDate.toISOString())
+                                    var formData = {selectedDateTime: selectedDate.toISOString()};
+                                    fetch("/home/bookBevice", {
+                                        method: "POST",
+                                        body: JSON.stringify(formData),
+                                        headers: {
+                                            "Content-Type": "application/json"
+                                        }
+                                    })
+                                            .then(response => {
+//                                                console.log(response);
+                                                if (response.ok) {
+                                                    return response.text(); // Trả về dữ liệu dưới dạng văn bản nếu thành công
+
+                                                } else {
+                                                    throw new Error('Đã xảy ra lỗi khi đặt chỗ thiết bị');
+                                                }
+                                            })
+                                            .then(data => {
+                                                if (data.includes("success")) {
+                                                    swal("Đã đặt chỗ thiết bị thành công", "", "success").then(() => {
+                                                        // Sau khi thông báo được đóng thành công, thực hiện chuyển hướng trang
+                                                        window.location.href = "http://localhost:8080/home";
+                                                    });
+                                                } else {
+                                                    let trangthaiDevice = JSON.parse(data);
+//                                                    console.log(trangthaiDevice)
+                                                    // Lấy danh sách các dòng trong bảng cartTable
+                                                    let cartDevice = document.querySelectorAll('#cartTable tr td');
+//                                                    console.log(cartDevice)
+                                                    cartDevice.forEach(row => {
+                                                        var tenTB = row.getAttribute('data-tenTB');
+                                                        if (row.id) {
+                                                            row.textContent = tenTB;
+                                                        }
+                                                        row.style.color = 'black';
+                                                        // Duyệt qua từng trạng thái thiết bị để tô màu và hiển thị thông báo
+                                                        trangthaiDevice.forEach(item => {
+                                                            let maTB = item.maTB;
+                                                            let statusMessage = item.trangthai;
+//                                                            console.log(maTB + " / " + statusMessage)
+//                                                            console.log(row)
+                                                            if (row.id.includes(maTB)) {
+//                                                                console.log(row)
+                                                                row.textContent = tenTB + " " + statusMessage;
+//                                                                let parentTr = row.parentNode;
+//                                                                console.log(parentTr)
+                                                                // Tô màu đỏ cho dòng
+                                                                row.style.color = 'red';
+                                                                // Hiển thị thông báo
+                                                                swal(statusMessage, "", "warning");
+                                                            }
+                                                        });
+                                                    });
+                                                }
+                                            })
+                                            .catch(error => {
+                                                console.error("Error:", error); // Xử lý lỗi nếu có
+                                            });
+                                }
+                                );
+                            }
+                        });
+                        function removeFromCart(button, event) {
+                            event.preventDefault();
+                            var maTB = button.getAttribute('data-maTB');
+                            var tenTB = button.getAttribute('data-tenTB');
+                            fetch('/removeFromCart', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/x-www-form-urlencoded',
+                                },
+                                body: `maTB=${maTB}`
+                            })
+                                    .then(response => {
+                                        if (response.ok) {
+                                            return response.text(); // Trả về nội dung của phản hồi
+                                        } else {
+                                            throw new Error('Xóa khỏi giỏ hàng không thành công');
+                                        }
+                                    })
+                                    .then(data => {
+                                        // Lấy danh sách các dòng trong bảng
+                                        var cartTableBody = document.getElementById('cartTable');
+                                        var rows = cartTableBody.getElementsByTagName('tr');
+
+                                        // Tìm và xóa hàng có id là maTB
+                                        for (var i = 0; i < rows.length; i++) {
+                                            var cells = rows[i].getElementsByTagName('td');
+                                            for (var j = 0; j < cells.length; j++) {
+                                                if (cells[j].getAttribute('id') === maTB) {
+                                                    rows[i].remove(); // Xóa hàng hiện tại
+                                                    break; // Thoát khỏi vòng lặp khi đã xóa thành công
+                                                }
+                                            }
+                                        }
+
+                                        // Hiển thị thông báo xóa thành công
+                                        swal(`${tenTB} đã được xóa khỏi giỏ hàng`, '', 'success');
+                                    })
+                                    .catch(error => {
+                                        console.error('Lỗi:', error);
+                                        swal(`${tenTB} xóa khỏi giỏ hàng không thành công`, "", "error");
+                                    });
+                        }
+
+                    </script>    
+                    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 
 
                     <!-- ========== tables-wrapper end ========== -->

@@ -56,23 +56,23 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-        <groupId>org.apache.poi</groupId>
-        <artifactId>poi-ooxml</artifactId>
-        <version>5.2.4</version>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>5.2.4</version>
         </dependency>
         <dependency>
-        <groupId>org.apache.poi</groupId>
-        <artifactId>poi</artifactId>
-        <version>5.2.5</version>
-        <type>jar</type>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>5.2.5</version>
+            <type>jar</type>
         </dependency>
         <dependency>
 
-        <groupId>com.sun.mail</groupId>
+            <groupId>com.sun.mail</groupId>
 
-        <artifactId>javax.mail</artifactId>
+            <artifactId>javax.mail</artifactId>
 
-        <version>1.6.2</version>
+            <version>1.6.2</version>
 
         </dependency>
 
@@ -82,31 +82,31 @@
 
         <dependency>
 
-        <groupId>javax.activation</groupId>
+            <groupId>javax.activation</groupId>
 
-        <artifactId>activation</artifactId>
+            <artifactId>activation</artifactId>
 
-        <version>1.1.1</version>
-</dependency>
+            <version>1.1.1</version>
+        </dependency>
 
         <!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
 
         <dependency>
             
 
-        <groupId>javax.mail</groupId>
+            <groupId>javax.mail</groupId>
 
-        <artifactId>javax.mail-api</artifactId>
+            <artifactId>javax.mail-api</artifactId>
 
-        <version>1.6.2</version>
+            <version>1.6.2</version>
 
         </dependency>
-<!--        <dependency>
-    <groupId>org.apache.commons</groupId>
-    <artifactId>commons-email</artifactId>
-    <version>1.5</version>
-</dependency>-->
-<dependency>
+        <!--        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-email</artifactId>
+            <version>1.5</version>
+        </dependency>-->
+        <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-jpa</artifactId>
             <version>3.2.5</version>

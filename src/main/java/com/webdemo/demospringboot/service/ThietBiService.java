@@ -6,9 +6,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 
 public interface ThietBiService {
-
     List<ThietBi> layDanhSachThietBi();
-
     List<ThietBi> findAllThietBi();
     ThietBi findByMaTB(int maTB);
     Page<ThietBi> getAll(int pageNo);

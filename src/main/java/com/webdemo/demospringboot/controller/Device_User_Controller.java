@@ -1,10 +1,14 @@
 package com.webdemo.demospringboot.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.webdemo.demospringboot.model.Thanhvien;
 import com.webdemo.demospringboot.model.ThietBi;
 import com.webdemo.demospringboot.model.ThongTinSD;
 import com.webdemo.demospringboot.repository.DatCho_User_Repository;
 import com.webdemo.demospringboot.repository.ThietBiRepository;
+import com.webdemo.demospringboot.service.DatCho_UserService;
+import jakarta.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +20,8 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,15 +34,24 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class Device_User_Controller {
 
     @Autowired
-    private DatCho_User_Repository DatChoRepository;
+    HttpSession HttpSession;
 
-    @PostMapping("/home/bookdevice")
+    @Autowired
+    private DatCho_UserService DatchoService;
+
+    private String convertObjectToJson(Object object) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.writeValueAsString(object);
+    }
+
+    @PostMapping("/home/bookBevice")
     @ResponseBody
-    public ResponseEntity<String> handleBookDeviceAction(
-            @RequestParam("matb") String maTB,
-            @RequestBody Map<String, String> payload) {
+    public ResponseEntity<String> handleBookDeviceAction(@RequestBody Map<String, String> payload, HttpSession session) {
         try {
-            int maThietBi = Integer.parseInt(maTB.trim());
+            List<ThietBi> cartDevice = (List<ThietBi>) session.getAttribute("cartDevice");
+            String maTVString = (String) HttpSession.getAttribute("maTV");
+            int maTV = Integer.parseInt(maTVString);
+            //chuyên ngay gio
             String selectedDateTimeStr = payload.get("selectedDateTime");
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSX");
             LocalDateTime utcDateTime = LocalDateTime.parse(selectedDateTimeStr, formatter);
@@ -46,39 +61,61 @@ public class Device_User_Controller {
 
             LocalDate selectedDate = vietnamLocalDateTime.toLocalDate();
             LocalDate today = LocalDate.now();
-            if (selectedDate.equals(today)) {
-                int countCurrentBorrowed = DatChoRepository.count_trangthai_muon_thietbi(Integer.parseInt(maTB));
-                if (countCurrentBorrowed > 0) {
-                    return ResponseEntity.ok("Thiết bị đã có người mượn.");
-                }
-                int currentReservations_current = DatChoRepository.count_trangthai_datmuon_thietbi(maThietBi);
-                if (currentReservations_current > 0) {
-                    return ResponseEntity.ok("Thiết bị đã có người đặt chỗ mượn.");
-                }
-            } else {
-                int currentReservations_not = DatChoRepository.count_datechosen_not_curent(maThietBi, vietnamLocalDateTime);
-                if (currentReservations_not > 0) {
-                    return ResponseEntity.ok("Thiết bị đã có người đặt chỗ mượn.");
+            //danh sach trang thai thiet bi
+            List<Map<String, Object>> trangthaiDevice = new ArrayList<>();
+
+            if (cartDevice != null) {
+                for (ThietBi thietBi : cartDevice) {
+                    int maTB = thietBi.getMaTB();
+                    String tenTB = thietBi.getTenTB();
+                    Map<String, Object> status = new HashMap<>();
+
+                    if (selectedDate.equals(today)) {
+                        boolean countCurrentBorrowed = DatchoService.checkIfThietBiAlreadyReserved(maTB);
+                        if (countCurrentBorrowed) {
+                            status.put("maTB", maTB);
+                            status.put("trangthai", " đã có người đặt chỗ mượn.");
+                            trangthaiDevice.add(status);
+                        }
+
+                        boolean currentReservations_current = DatchoService.checkIfThietBiAlreadyBorrowed(maTB);
+                        if (currentReservations_current) {
+                            status.put("maTB", maTB);
+                            status.put("trangthai", " đã có người mượn.");
+                            trangthaiDevice.add(status);
+                        }
+                    } else {
+                        boolean currentReservations_not = DatchoService.checkIfThietBiAlreadyReservedOnDate(maTB, vietnamLocalDateTime);
+                        if (currentReservations_not) {
+                            status.put("maTB", maTB);
+                            status.put("trangthai", " đã có người đặt chỗ mượn.");
+                            trangthaiDevice.add(status);
+                        }
+                    }
                 }
             }
+            for (Map<String, Object> item : trangthaiDevice) {
+                System.out.println("MaTB: " + item.get("maTB") + ", Trang thai: " + item.get("trangthai"));
+            }
+            if (trangthaiDevice.isEmpty()) {
+                for (ThietBi thietBi : cartDevice) {
+                    Thanhvien thanhvien = new Thanhvien();
+                    thanhvien.setId(maTV);
+                    ThongTinSD thongTinSD = new ThongTinSD();
+                    thongTinSD.setMaTT((int) (DatchoService.countThongTinSD() + 1));
+                    thongTinSD.setThietBi(thietBi);
+                    thongTinSD.setThanhVien(thanhvien);
+                    thongTinSD.setThoiGianDatCho(vietnamLocalDateTime);
+                    DatchoService.saveThongTinSD(thongTinSD);
+                }
+                return ResponseEntity.ok("success");
 
-//            int countCurrentBorrowed = DatChoRepository.countCurrentBorrowedReservationsByMaTB(maThietBi);
-//            if (countCurrentBorrowed > 0) {
-//                return ResponseEntity.ok("Thiết bị đã có người mượn.");
-//            }
-            ThietBi thietBi = new ThietBi();
-            thietBi.setMaTB(maThietBi);
-            Thanhvien thanhvien = new Thanhvien();
-            thanhvien.setId(1120150184);
-            // Lưu thông tin đặt chỗ mới
-            ThongTinSD thongTinSD = new ThongTinSD();
-            int countThongTinSD = DatChoRepository.countThongTinSD();
-            thongTinSD.setMaTT((int) (countThongTinSD + 1));
-            thongTinSD.setThietBi(thietBi);
-            thongTinSD.setThanhVien(thanhvien);
-            thongTinSD.setThoiGianDatCho(vietnamLocalDateTime);
-            DatChoRepository.save(thongTinSD);
-            return ResponseEntity.ok("Đã đặt chỗ thiết bị thành công");
+            } else {
+                String jsonTrangThaiDevice = convertObjectToJson(trangthaiDevice);
+                // Trả về đối tượng JSON String trong ResponseEntity<String>
+                return ResponseEntity.ok(jsonTrangThaiDevice);
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Đã xảy ra lỗi khi xử lý đặt chỗ thiết bị.");

@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-<head th:replace="fragments/AdminHead :: AdminHead" ></head>
+<head th:replace="~{fragments/AdminHead :: AdminHead}"></head>
 <body>
 <!-- ======== Preloader =========== -->
-<div th:replace="fragments/spinner :: spinner"></div>
+<div th:replace="~{fragments/spinner :: spinner}"></div>
 <!-- ======== Preloader =========== -->
 
 <!-- ======== sidebar-nav start =========== -->
-<aside th:replace="fragments/AdminAside :: AdminAside"></aside>
+<aside th:replace="~{fragments/AdminAside :: AdminAside}"></aside>
 <div class="overlay"></div>
 <!-- ======== sidebar-nav end =========== -->
 
 <!-- ======== main-wrapper start =========== -->
 <main class="main-wrapper">
   <!-- ========== header start ========== -->
-  <header th:replace="fragments/AdminHeader :: AdminHeader"></header>
+  <header th:replace="~{fragments/AdminHeader :: AdminHeader}"></header>
   <!-- ========== header end ========== -->
 
   <!-- ========== section start ========== -->
@@ -63,48 +63,56 @@
             <div class="card-style mb-30">
               <h6 class="mb-25">Thông tin vi phạm</h6>
               <div class="row">
-                  
                 <div class="input-style-1 col-lg-6 col-md-12 col-sm-12">
-                  <label>Mã Xử Lý</label>         
-                  <input type="text" placeholder="" disabled/>
-                </div>
+                  <label>Mã xử lý</label>
+                  <input type="text" placeholder="" name="MaXL" th:value="${maxId}" disabled/>
                   
+                </div>
                 <div class="select-style-1 col-lg-6 col-md-12 col-sm-12">
                   <label>Mã Thành Viên</label>
                    <div class="select-position">
-                      <select>
-                        <option value = "">1120150184</option>
-                        <option value = "">1120150185</option>
-                        <option value = "">1121410544</option>
-                        <option value = "">1123330257</option>
+                      <select name="MaTV">
+                        <option th:each = "thanhvien : ${danhSachThanhVien}" th:text="${thanhvien.id} +'-'+ ${thanhvien.hoTen}"></option>
                       </select>
                   </div>            
                 </div>
-                <div class="input-style-1 col-lg-6 col-md-12 col-sm-12">
+                <div class="select-style-1 col-lg-6 col-md-12 col-sm-12">
                   <label>Hình Thức Xử Lý</label>         
-                  <input type="text" placeholder="" />
+                  <div class="select-position">
+                    <select name="hinhThucXuLy">
+                      <option >Khóa thẻ 1 tháng</option>
+                      <option >Khóa thẻ 2 tháng</option>
+                      <option >Khóa thẻ vĩnh viễn</option>
+                      <option >Bồi thường</option>
+                      <option >Khóa thẻ 1 tháng và bồi thường</option>  
+                    </select>
+                </div> 
                 </div>
                 <div class="input-style-1 col-lg-6 col-md-12 col-sm-12">
                   <label>Số tiền</label>
-                  <input type="text" placeholder="" />
+                  <input type="number" placeholder="" name="soTien" disabled/>
                 </div>
                 <div class="input-style-1 col-lg-6 col-md-12 col-sm-12">
                   <label>Ngày xử lý</label>
                   <input type="date" placeholder="" />
+                </div>
+                <div class="input-style-1 col-lg-6 col-md-12 col-sm-12">
+                  <label>Thời gian xử lý</label>
+                  <input type="time" placeholder=""  value="00:00"/>
                 </div>
                 <div class="col-lg-6 col-md-12 col-sm-12">
                   <h6 class="mb-25">Trang thái xử lý</h6>
                   
                   <div class="d-flex align-items-center column-gap-5">
                        <div class="form-check radio-style">
-                            <input name = "TTXL" class="form-check-input" type="radio" value="" id="daxuly" />
+                            <input name = "TTXL" class="form-check-input" type="radio" value="1" id="daxuly" />
                             <label class="form-check-label" for="daxuly">
                               Đã xử lý
                             </label>
                         </div>
                         <!-- end radio -->
                         <div class="form-check radio-style">
-                          <input name = "TTXL" class="form-check-input" type="radio" value="" id="chuaxuly" />
+                          <input name="TTXL" class="form-check-input" type="radio" value="0" id="chuaxuly" checked />
                           <label class="form-check-label" for="chuaxuly">
                             Chưa xử lý
                           </label>
@@ -113,9 +121,9 @@
                  
                 </div>
                
-                <div>
-                  <button class="w-100 main-btn primary-btn square-full btn-hover mb-2">Lưu Thông Tin</button>
-                  <button class="w-100 main-btn danger-btn square-full btn-hover">Hủy</button>
+                <div style="margin-top:20px;">
+                  <button class="w-100 main-btn primary-btn square-full btn-hover mb-2" id="btnadd">Lưu Thông Tin</button>
+                  
                 </div>
 
               </div>
@@ -137,15 +145,74 @@
   <!-- ========== section end ========== -->
 
   <!-- ========== footer start =========== -->
-  <footer th:replace="fragments/AdminFooter :: AdminFooter"></footer>
+  <footer th:replace="~{fragments/AdminFooter :: AdminFooter}"></footer>
   <!-- ========== footer end =========== -->
 </main>
 <!-- ======== main-wrapper end =========== -->
 
 <!-- ========= All Javascript files linkup ======== -->
 
-<div th:replace="fragments/AdminScript :: AdminScript"></div>
+<div th:replace="~{fragments/AdminScript :: AdminScript}"></div>
 
 </body>
-
+<script>
+document.querySelector('input[type="time"]').value = new Date().toLocaleTimeString('en-US', {hour12: false});
+document.querySelector('input[type="date"]').value = new Date().toISOString().split('T')[0];
+document.querySelector('select[name="hinhThucXuLy"]').addEventListener('change', function() {
+  var selectedOption = this.value;
+  var soTienInput = document.querySelector('input[name="soTien"]');
+  
+  if (selectedOption === 'Bồi thường' || selectedOption === 'Khóa thẻ 1 tháng và bồi thường') {
+    soTienInput.disabled = false;
+  } else {
+    soTienInput.disabled = true;
+    soTienInput.value = '';
+  }
+});
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+  document.getElementById('btnadd').addEventListener('click', function() {
+    var maXL = document.querySelector('input[name="MaXL"]').value;
+    var maTV = document.querySelector('select[name="MaTV"]').value.split('-')[0];
+    var hinhThucXuLy = document.querySelector('select[name="hinhThucXuLy"]').value;
+    var soTien = document.querySelector('input[name="soTien"]').value;
+    var ngayXL = document.querySelector('input[type="date"]').value + ' ' + document.querySelector('input[type="time"]').value;
+    var trangThaiXL = document.querySelector('input[name="TTXL"]:checked').value;
+    if (hinhThucXuLy.includes('Bồi thường') || hinhThucXuLy.includes('bồi thường')) {
+      if (soTien.trim() === '') {
+        swal("Error", "Vui lòng nhập số tiền", "error");
+        return;
+      }else if(soTien < 0){
+        swal("Error", "Số tiền không được âm", "error");
+        return;
+      }else{
+        $.ajax({
+          url: '/admin/transgress/add_transgress',
+          type: 'POST',
+          data: 
+          {
+            maXL: maXL,
+            maTV: maTV,
+            hinhThucXuLy: hinhThucXuLy,
+            soTien: soTien,
+            ngayXL: ngayXL,
+            trangThaiXL: trangThaiXL
+          },
+          success: function(response) {
+            swal("Success", "Thêm thành công", "success").then(() => {
+              window.location.href = '/admin/transgress';
+            });
+            
+          },
+          error: function(error) {
+            console.error('Error:', error);
+            swal("Fail", "Thêm thất bại", "error")
+          }
+        });
+      }
+    }
+  });
+</script>
 </html>

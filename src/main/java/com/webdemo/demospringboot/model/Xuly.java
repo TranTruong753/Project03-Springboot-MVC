@@ -4,6 +4,9 @@
  */
 package com.webdemo.demospringboot.model;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -25,7 +28,7 @@ public class Xuly {
     private Integer SoTien;
     
     @Column
-    private String NgayXL;
+    private Timestamp NgayXL;
     
     @Column
     private int TrangThaiXL;
@@ -33,7 +36,7 @@ public class Xuly {
     public Xuly() {
     }
 
-    public Xuly(int MaXL, int MaTV, String HinhThucXL, Integer SoTien, String NgayXL, int TrangThaiXL) {
+    public Xuly(int MaXL, int MaTV, String HinhThucXL, Integer SoTien, Timestamp NgayXL, int TrangThaiXL) {
         this.MaXL = MaXL;
         this.MaTV = MaTV;
         this.HinhThucXL = HinhThucXL;
@@ -41,7 +44,7 @@ public class Xuly {
         this.NgayXL = NgayXL;
         this.TrangThaiXL = TrangThaiXL;
     }
-    public Xuly(int MaXL, int MaTV, String HinhThucXL, String NgayXL, int TrangThaiXL) {
+    public Xuly(int MaXL, int MaTV, String HinhThucXL, Timestamp NgayXL, int TrangThaiXL) {
         this.MaXL = MaXL;
         this.MaTV = MaTV;
         this.HinhThucXL = HinhThucXL;
@@ -81,11 +84,11 @@ public class Xuly {
         this.SoTien = SoTien;
     }
 
-    public String getNgayXL() {
+    public Timestamp getNgayXL() {
         return NgayXL;
     }
 
-    public void setNgayXL(String NgayXL) {
+    public void setNgayXL(Timestamp NgayXL) {
         this.NgayXL = NgayXL;
     }
 

@@ -5,7 +5,9 @@
 package com.webdemo.demospringboot.service;
 
 import com.webdemo.demospringboot.model.ThongTinSD;
+import java.time.LocalDateTime;
 import java.util.List;
+import org.springframework.data.repository.query.Param;
 
 /**
  *
@@ -13,4 +15,6 @@ import java.util.List;
  */
 public interface XemThietBiDatChoService {
     List<ThongTinSD> layDanhSachThietBiDatCho(int maTV);
+    public void themThongTinSD(ThongTinSD ttsd);
+    List<ThongTinSD> getdsvaokhuhoctap();
 }

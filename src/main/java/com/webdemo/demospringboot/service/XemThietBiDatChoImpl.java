@@ -7,8 +7,10 @@ package com.webdemo.demospringboot.service;
 
 import com.webdemo.demospringboot.model.ThongTinSD;
 import com.webdemo.demospringboot.repository.XemThietBiDatChoRepository;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 /**
@@ -21,8 +23,19 @@ public class XemThietBiDatChoImpl implements  XemThietBiDatChoService{
     public XemThietBiDatChoRepository xemThietBiDatChoRepository;
 
     
+    @Override
     public List<ThongTinSD> layDanhSachThietBiDatCho(int maTV) {
         // Call the repository method to fetch the list of ThongTinSD entities
         return xemThietBiDatChoRepository.findThietBiByMaTVAndThoiGianDatCho(maTV);
     }
+    
+    @Override
+    public void themThongTinSD(ThongTinSD ttsd){
+        xemThietBiDatChoRepository.save(ttsd);
+    };
+    
+    @Override
+    public List<ThongTinSD> getdsvaokhuhoctap(){
+        return xemThietBiDatChoRepository.getdsvaokhuhoctap();
+    };
 }
