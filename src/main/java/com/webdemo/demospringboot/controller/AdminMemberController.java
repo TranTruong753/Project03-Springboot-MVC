@@ -207,7 +207,7 @@ public class AdminMemberController {
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public @ResponseBody String delete(HttpServletRequest request) {
           String id = request.getParameter("id");
-          String mess = "false";
+          String mess = ":";
           List<Thanhvien> listthanhvien=tvService.GetAll();
           
            for (Thanhvien tv : listthanhvien) {
@@ -215,10 +215,17 @@ public class AdminMemberController {
 
                 // Kiểm tra xem kí tự thứ 3 và 4 của maTv có chứa id hay không
                 if (maTv.length() >= 4 && maTv.substring(2, 4).equals(id)) {
-                    tvService.delete(tv.getId());
-                    mess = "true";
+                    try {
+                        tvService.delete(tv.getId());
+                    
+                    } catch (Exception e) {
+                        mess = mess+" "+tv.getId();
+                        }
+                
+                    }
+                    
                 }
-            }
+            
           return mess;
     }
 

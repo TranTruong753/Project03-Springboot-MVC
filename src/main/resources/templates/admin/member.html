@@ -60,7 +60,12 @@
                                 <script>
                                  window.onload = function() {
                                     if(document.getElementById("message1").value!== '')
-                                        alert(document.getElementById("message1").value);
+                                        //alert(document.getElementById("message1").value);
+                                    swal({
+                                        title: document.getElementById("message1").value,
+                                        text: "Nhấn vào nút để tiếp tục!",
+                                        //icon: "success"
+                                    });
                                     };
                                 </script>
                                 <div class="">
@@ -208,23 +213,23 @@
         data: { id: dataId }, // Dữ liệu cần gửi đến máy chủ, ở đây là id của dữ liệu cần xóa
          success: function(response) {
             // Trong phần này, response chính là id trả về từ Spring Controller
-          if(response == "true"){
+          if(response !== ":"){
 //              alert( "Xóa thành công!");
             swal({
-                            title: "Xóa thành công!",
+                            title: "Xóa thành công! Nhưng có các thành viên sau không thể xóa do xung đột CSDL "+response,
                             text: "Nhấn vào nút để tiếp tục!",
-                            icon: "success",
+                            icon: "success"
             }).then(function () {
                 window.location = "http://localhost:8080/admin/member";
-            })
+            });
             
             
           }else {
             swal({
-                title: "Xóa thất bại!",
+                title: "Xóa thành công!",
                 text: "Nhấn vào nút để tiếp tục!",
-                icon: "error",
-            })
+                icon: "success"
+            });
           }
 //            alert( response);
                 

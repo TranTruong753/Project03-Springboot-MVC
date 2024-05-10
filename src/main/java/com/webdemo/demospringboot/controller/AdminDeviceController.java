@@ -4,9 +4,11 @@
  */
 package com.webdemo.demospringboot.controller;
 
+import com.webdemo.demospringboot.model.Thanhvien;
 import com.webdemo.demospringboot.model.ThietBi;
 import com.webdemo.demospringboot.service.ThietBiService;
 import com.webdemo.demospringboot.service.ThietBiServiceImpl;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.poi.ss.usermodel.*;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("admin/device")
@@ -64,6 +67,7 @@ public class AdminDeviceController {
         }
         else{
             thietBiService.save(thietbi);
+            model.addAttribute("message", "Thêm thành công thành công.");
             return index( model,pageNo);
         }
     }
@@ -77,7 +81,7 @@ public class AdminDeviceController {
     
     @RequestMapping(value="/save_edit",method = RequestMethod.POST)
     public String save_edit_device(@ModelAttribute("thietbi") ThietBi thietbi ,Model model,@RequestParam(name="pageNo",defaultValue = "1") Integer pageNo) {
-        
+            model.addAttribute("message", "Sửa thành công thành công.");
             thietBiService.save(thietbi);
             return index( model,pageNo);
         
@@ -135,5 +139,27 @@ public class AdminDeviceController {
     @GetMapping("edit_device")
     public String edit_device() {
         return "admin/edit_device";
+    }
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public @ResponseBody String delete(HttpServletRequest request) {
+          String id = request.getParameter("id");
+          String mess = ":";
+          List<ThietBi> listthietbi=thietBiService.findAllThietBi();
+          
+        
+            for (ThietBi tb : listthietbi) {
+                String ID=""+tb.getMaTB();
+                if(ID.startsWith(id)){
+                     try {
+                            thietBiService.delete(tb.getMaTB());
+                            
+                        } catch (Exception e) {
+                            mess = mess+" "+tb.getMaTB();
+                        }
+
+                        
+                    }
+                }
+          return mess;
     }
 }

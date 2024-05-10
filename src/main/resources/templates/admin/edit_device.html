@@ -62,20 +62,35 @@
                         <div class="card-style mb-30">
                             <h6 class="mb-25">Thông Tin Thiết Bị</h6>
                             <script type="text/javascript">
-                            function kiemTraRong() {
+                                window.onload = function() {
+                                    if(document.getElementById("thongbao").value!=="")
+                                        swal({
+                                            title: document.getElementById("thongbao").value,
+                                            text: "Nhấn vào nút để tiếp tục!",
+                                            icon: "error"
+                                        });
+                                    };
+                                    //}
+                                    function kiemTraRong() {
+                                        //var matb = document.getElementById("matb").value;
+                                        var tentb = document.getElementById("tentb").value;
+                                        var motatb = document.getElementById("motatb").value;
 
-                                var tentb = document.getElementById("tentb").value;
-                                var motatb = document.getElementById("motatb").value;
-
-                                if ( tentb.trim() == '' || motatb.trim() == '') {
-                                    alert('Các trường thông tin không được để trống');
-                                    return false;
-                                }
-
-
-                                return true;
-                            }
+                                        if ( tentb.trim() === '' || motatb.trim() === '') {
+                                            //alert('Các trường thông tin không được để trống');
+                                            swal({
+                                            title: 'Các trường thông tin không được để trống',
+                                            text: "Nhấn vào nút để tiếp tục!",
+                                            icon: "error"
+                                        });
+                                            return false;
+                                        }
+                                        
+                                        
+                                        return true;
+                                    }
                             </script>
+                            <input type="hidden" th:value="${message}" id="thongbao"/> 
                             <form action="#" th:action="@{/admin/device/save_edit}" th:object="${thietbi}" method="post" onsubmit="return kiemTraRong();">
                             <div class="row">
                                 <div class="input-style-1 col-lg-6 col-md-12 col-sm-12">

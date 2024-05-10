@@ -71,7 +71,12 @@
                                 <script>
                                  window.onload = function() {
                                     if(document.getElementById("message1").value!== '')
-                                        alert(document.getElementById("message1").value);
+                                        swal({
+                                            title: document.getElementById("message1").value,
+                                            text: "Nhấn vào nút để tiếp tục!"
+                                            //icon: "success"
+                                        });
+                                        //alert(document.getElementById("message1").value);
                                     };
                                 </script>
                                 <div class="">
@@ -83,7 +88,7 @@
                                         </form>
                                     </label>
                                     <input type="hidden" th:value="${message}" id="message1" >
-                                    <button class="main-btn danger-btn btn-hover"><i class="fa-solid fa-trash"></i> Xóa theo kí tự đầu</button>
+                                    <button class="main-btn danger-btn btn-hover" onclick="xoaNhiuTb()"><i class="fa-solid fa-trash"></i> Xóa theo kí tự đầu</button>
 
                                 </div>
 
@@ -183,3 +188,66 @@
 </body>
 
 </html>
+<script>
+//    function xoaNhiuTv(){
+//        swal("Write something here:", {
+//            content: "input",
+//          })
+//          .then((value) => {
+////            swal(`You typed: ${value}`);
+//              deleteData(value);
+//          });
+//    }
+    
+    function xoaNhiuTb() {
+    swal("Write something here:", {
+        content: "input",
+        }).then((value) => {
+             
+            // Kiểm tra nếu value là một số và có đúng 2 ký tự số
+            if (/^\d{1}$/.test(value)) {
+                deleteData(value);
+            } else {
+                // Nếu value không hợp lệ, hiển thị thông báo
+                swal("Lỗi! Kí tự đầu không hợp lệ!");
+            }
+        });
+    }
+    
+    function deleteData(dataId) {
+    $.ajax({
+        url: '/admin/device/delete', // Địa chỉ URL của endpoint để xử lý việc xóa dữ liệu
+        type: 'POST', // Phương thức HTTP sử dụng là POST
+        data: { id: dataId }, // Dữ liệu cần gửi đến máy chủ, ở đây là id của dữ liệu cần xóa
+         success: function(response) {
+            // Trong phần này, response chính là id trả về từ Spring Controller
+          if(response !== ":"){
+//              alert( "Xóa thành công!");
+            swal({
+                            title: "Xóa thành công! Nhưng có các thiết bị sau không thể xóa do xung đột CSDL "+response,
+                            text: "Nhấn vào nút để tiếp tục!",
+                            icon: "success"
+            }).then(function () {
+                window.location = "http://localhost:8080/admin/device";
+            });
+            
+            
+          }else {
+            swal({
+                title: "Xóa thành công!",
+                text: "Nhấn vào nút để tiếp tục!",
+                icon: "success"
+            });
+          }
+//            alert( response);
+                
+                      
+        },
+        error: function(xhr, status, error) {
+//            console.error("Error occurred while deleting data:", error);
+            alert( response);
+        
+        }
+    });
+}
+</script>

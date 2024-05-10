@@ -65,7 +65,12 @@
               <script type="text/javascript">
                 window.onload = function() {
                     if(document.getElementById("thongbao").value!=="")
-                        alert(document.getElementById("thongbao").value);
+                        //alert(document.getElementById("thongbao").value);
+                        swal({
+                            title: document.getElementById("thongbao").value,
+                            text: "Nhấn vào nút để tiếp tục!",
+                            icon: "error"
+                        });
                     };
                     //}
                     function kiemTraSDT(sdt) {
@@ -94,17 +99,32 @@
                         var password = document.getElementById("password").value;
 
                         if (id.trim() == '' || hoTen.trim() == '' || khoa.trim() == '' || nganh.trim() == '' || sdt.trim() == '' || email.trim() == '' || password.trim() == '') {
-                            alert('Các trường thông tin không được để trống');
+                            //alert('Các trường thông tin không được để trống');
+                            swal({
+                                title: 'Các trường thông tin không được để trống',
+                                text: "Nhấn vào nút để tiếp tục!",
+                                icon: "error"
+                            });
                             return false;
                         }
                         
                         else if (!kiemTraSDT(sdt)) {
                             // Kiểm tra xem số điện thoại bắt đầu từ các số từ 0 
-                            alert('Số điện thoại phải là số có độ dài là 10 và bắt đầu từ số 0');
+                            //alert('Số điện thoại phải là số có độ dài là 10 và bắt đầu từ số 0');
+                            swal({
+                                title: 'ID phải là số và nhỏ hơn 2,147,483,647',
+                                text: "Nhấn vào nút để tiếp tục!",
+                                icon: "error"
+                            });
                             return false;
                         }
                         else if (!/\S+@\S+\.\S+/.test(email.trim())) {
-                            alert('Email không hợp lệ');
+                            //alert('Email không hợp lệ');
+                            swal({
+                                title: 'Số điện thoại phải là số có độ dài là 10 và bắt đầu từ số 0',
+                                text: "Nhấn vào nút để tiếp tục!",
+                                icon: "error"
+                            });
                             return false;
                         }
 

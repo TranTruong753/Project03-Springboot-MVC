@@ -63,7 +63,12 @@
                                         window.onload = function() {
                                             //if(document.getElementById("message1").value!== '')
                                                 if(document.getElementById("message1").value!==''){
-                                                    alert(document.getElementById("message1").value);
+                                                    //alert(document.getElementById("message1").value);
+                                                    swal({
+                                                        title: document.getElementById("message1").value,
+                                                        text: "Nhấn vào nút để tiếp tục!"
+                                                        //icon: "error"
+                                                    });
                                                 };
                                             //};
                                             //}

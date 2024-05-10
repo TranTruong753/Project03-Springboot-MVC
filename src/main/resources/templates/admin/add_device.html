@@ -64,7 +64,11 @@
                             <script type="text/javascript">
                                 window.onload = function() {
                                     if(document.getElementById("thongbao").value!=="")
-                                        alert(document.getElementById("thongbao").value);
+                                        swal({
+                                            title: document.getElementById("thongbao").value,
+                                            text: "Nhấn vào nút để tiếp tục!",
+                                            icon: "error"
+                                        });
                                     };
                                     //}
                                     function kiemTraRong() {
@@ -73,11 +77,21 @@
                                         var motatb = document.getElementById("motatb").value;
 
                                         if (matb.trim() == '' || tentb.trim() == '' || motatb.trim() == ''|| matb.trim() == '0') {
-                                            alert('Các trường thông tin không được để trống');
+                                            //alert('Các trường thông tin không được để trống');
+                                            swal({
+                                            title: 'Các trường thông tin không được để trống',
+                                            text: "Nhấn vào nút để tiếp tục!",
+                                            icon: "error"
+                                        });
                                             return false;
                                         }
                                         else if(!/^\d+$/.test(matb.trim())){
-                                            alert('Mã thiết bị phải là số')
+                                            //alert('Mã thiết bị phải là số')
+                                            swal({
+                                            title: 'Mã thiết bị phải là số',
+                                            text: "Nhấn vào nút để tiếp tục!",
+                                            icon: "error"
+                                        });
                                             return false;
                                         }
                                         
