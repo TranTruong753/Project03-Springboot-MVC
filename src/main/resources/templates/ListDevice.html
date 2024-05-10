@@ -28,16 +28,16 @@
                             <!-- end col -->
                             <div class="col-md-6">
                                 <div class="breadcrumb-wrapper">
-<!--                                    <nav aria-label="breadcrumb">
-                                        <ol class="breadcrumb">
-                                            <li class="breadcrumb-item">
-                                                <a href="#0">Dashboard</a>
-                                            </li>
-                                            <li class="breadcrumb-item active" aria-current="page">
-                                                Devices
-                                            </li>
-                                        </ol>
-                                    </nav>-->
+                                    <!--                                    <nav aria-label="breadcrumb">
+                                                                            <ol class="breadcrumb">
+                                                                                <li class="breadcrumb-item">
+                                                                                    <a href="#0">Dashboard</a>
+                                                                                </li>
+                                                                                <li class="breadcrumb-item active" aria-current="page">
+                                                                                    Devices
+                                                                                </li>
+                                                                            </ol>
+                                                                        </nav>-->
                                 </div>
                             </div>
                             <!-- end col -->
@@ -55,119 +55,127 @@
                                     <div class="card-title d-flex justify-content-between align-items-center mb-3">
                                         <h6 class="mb-10">Danh sách thiết bị</h6>
                                     </div>
-                                            <!-- Phần Tìm kiếm Thiết Bị -->
-                                   <div class="search-device row mt-3">
-       <!--                                <div class="input-group">-->
-                                           <div class = "input-style-1 col-9 pe-0">
-                                                <input type="text" id="tenThietBi" class="form-control" placeholder="Nhập tên thiết bị cần tìm kiếm">                                   
-                                           </div>
-                                           <div class="col-3">
-                                               <button onclick="timKiemThietBi()" class="main-btn active-btn btn-hover"><i class="fa-solid fa-magnifying-glass"></i> Tìm kiếm</button>
-                                           </div>
-                                       <!--</div>-->
-                                   </div>
+                                    <!-- Phần Tìm kiếm Thiết Bị -->
+                                    <div class="search-device row mt-3">
+                                        <!--                                <div class="input-group">-->
+                                        <div class = "input-style-1 col-9 pe-0">
+                                            <input type="text" id="tenThietBi" class="form-control" placeholder="Nhập tên thiết bị cần tìm kiếm">                                   
+                                        </div>
+                                        <div class="col-3">
+                                            <button onclick="timKiemThietBi()" class="main-btn active-btn btn-hover"><i class="fa-solid fa-magnifying-glass"></i> Tìm kiếm</button>
+                                        </div>
+                                        <!--</div>-->
+                                    </div>
                                     <div
                                         class="table-wrapper table-responsive d-flex flex-column justify-content-center align-items-center">
                                         <table class="table mb-3">
                                             <thead>
-                                            <tr>
-                                                <th>
-                                                    <h6>Mã Thiết Bị</h6>
-                                                </th>
-                                                <th>
-                                                    <h6>Tên Thiết Bị</h6>
-                                                </th>
-                                                <th>
-                                                    <h6>Mô Tả Thiết Bị</h6>
-                                                </th>
-                                                <th>
-                                                    <h6>Thao tác</h6>
-                                                </th>
-                                            </tr>
-                                            <!-- end table row-->
+                                                <tr>
+                                                    <th>
+                                                        <h6>Mã Thiết Bị</h6>
+                                                    </th>
+                                                    <th>
+                                                        <h6>Tên Thiết Bị</h6>
+                                                    </th>
+                                                    <th>
+                                                        <h6>Mô Tả Thiết Bị</h6>
+                                                    </th>
+                                                    <th>
+                                                        <h6>Thao tác</h6>
+                                                    </th>
+                                                </tr>
+                                                <!-- end table row-->
                                             </thead>
-                                            <tbody>
-                                            <!-- start table row-->
-                                            <tr>
-                                                <td>
-                                                    <p>1000001</p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p>Micro</p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p>Micro không dây MS2023</p>
-                                                </td>
-                                                <td>
-                                                    <div class="action">
-                                                        <button class="text-success">
-                                                           <i class="fa-solid fa-plus"></i>
-                                                        </button>                                               
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <!-- end table row-->
-                                            <!-- start table row-->
-                                            <tr>
-                                                <td>
-                                                    <p>1000001</p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p>Micro</p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p>Micro không dây MS2023</p>
-                                                </td>
-                                                <td>
-                                                    <div class="action">
-                                                        <button class="text-success">
-                                                           <i class="fa-solid fa-plus"></i>
-                                                        </button>                                               
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <!-- end table row-->
-                                            <!-- start table row-->
-                                            <tr>
-                                                <td>
-                                                    <p>1000001</p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p>Micro</p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p>Micro không dây MS2023</p>
-                                                </td>
-                                                <td>
-                                                    <div class="action">
-                                                        <button class="text-success">
-                                                           <i class="fa-solid fa-plus"></i>
-                                                        </button>                                               
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <!-- end table row-->
-                                           
+                                            <tbody id="danhSachThietBiBody">
+                                                <!-- start table row-->
+                                                <tr th:each="thietbi : ${danhSachThietBi}">
+                                                    <td th:text="${thietbi.maTB}"></td>
+                                                    <td th:text="${thietbi.tenTB}"></td>
+                                                    <td th:text="${thietbi.moTaTB}"></td>
+                                                    <td>
+                                                        <div class="action">
+                                                            <button class="text-success" th:data-maTB="${thietbi.maTB}" th:data-tenTB="${thietbi.tenTB}" onclick="addToCart(this)">
+                                                                <i class="fa-solid fa-plus"></i>
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+
                                             </tbody>
                                         </table>
                                         <!-- end table -->                                                                                                  
-                                       
+
                                         <!-- pagination end -->
                                     </div>
-                                    <div class = "d-flex justify-content-end">
-                                        <button class="main-btn active-btn btn-hover"><i class="fa-solid fa-cart-shopping"></i>Giỏ hàng</button>
-                                    </div>  
+                                    <div class="d-flex justify-content-end">
+                                        <button class="main-btn active-btn btn-hover" onclick="redirectToCartDevice()"><i class="fa-solid fa-cart-shopping"></i>Giỏ hàng</button>
+                                    </div> 
                                 </div>
+
                                 <!-- end card -->
                             </div>
                             <!-- end col -->
                         </div>
                         <!-- end row -->
                     </div>
+                    <script>
+                        function addToCart(button) {
+                            var maTB = button.getAttribute('data-maTB');
+                            var tenTB = button.getAttribute('data-tenTB');
+                            fetch('/addToCart', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/x-www-form-urlencoded',
+                                },
+                                body: `maTB=${maTB}`
+                            })
+                                    .then(response => {
+                                        if (response.ok) {
+                                            return response.text(); // Trả về nội dung của phản hồi
+                                        } else {
+                                            swal(response.text());
+                                            throw new Error('Thêm vào giỏ hàng không thành công');
+                                        }
+                                    })
+                                    .then(data => {
+                                        if (data.includes('success')) {
+                                            swal(`"${tenTB}" được thêm vào giỏ hàng thành công`, "", "success");
+                                        } else if (data.includes('exist')) {
+                                            swal(`"${tenTB}" đã có trong giỏ hàng`, "", "warning");
+                                        } else {
+                                            swal(`"${tenTB}" thêm vào giỏ hàng không thành công`, "", "error");
+                                        }
+                                    })
+                                    .catch(error => {
+//                                        console.error('Lỗi:', error);
+                                        swal(`${tenTB} thêm vào giỏ hàng không thành công`, "", "error");
+                                    });
+                        }
+
+
+                        function redirectToCartDevice() {
+                            window.location.href = '/cartDevice'; // Chuyển hướng đến đường dẫn mới
+                        }
+                        // Xử lý tìm kiếm thiết bị
+                        function timKiemThietBi() {
+                            var inputTenThietBi = document.getElementById('tenThietBi').value;
+                            var danhSachThietBi = document.querySelectorAll('#danhSachThietBiBody tr');
+                            danhSachThietBi.forEach(function (row) {
+                                var tenTB = row.cells[1].innerText;
+                                if (tenTB.toLowerCase().includes(inputTenThietBi.toLowerCase())) {
+                                    row.style.display = '';
+                                } else {
+                                    row.style.display = 'none';
+                                }
+                            });
+                        }
+                    </script>
+                    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
                     <!-- ========== tables-wrapper end ========== -->
                 </div>
-        <!-- end container -->
-               
+                <!-- end container -->
+
             </section>
             <!-- ========== section end ========== -->
 

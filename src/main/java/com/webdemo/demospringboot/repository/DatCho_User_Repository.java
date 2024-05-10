@@ -68,4 +68,5 @@ public interface DatCho_User_Repository extends JpaRepository<ThongTinSD, Intege
             + "AND DATE(t.thoiGianMuon) = CURRENT_DATE()"
             + "AND t.thoiGianVao IS NULL")
     int count_trangthai_muon_thietbi(@Param("maTB") int maTB);
+
 }

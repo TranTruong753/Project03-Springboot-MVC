@@ -18,7 +18,7 @@ public class ThietBiServiceImpl implements ThietBiService {
 
     @Autowired
     public ThietBiRepository thietBiRepository;
-
+    
     @Override
     public List<ThietBi> layDanhSachThietBi() {
         return thietBiRepository.findAll();
