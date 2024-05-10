@@ -87,12 +87,15 @@
                                     <div class="search-device row mt-3">
                                         <input type="hidden" th:value="${message}" id="message1"/> 
                                         <form action="#" th:action="@{/admin/member/check_in/save}" th:object="${ThongTinSD}" method="post" >
-                                            <div class="input-style-1 col-9 pe-0">
-                                                <input type="text" id="" class="form-control" th:field="*{thanhVien.id}" placeholder="Mã Thành Viên">
+                                            <div class ="row">
+                                                 <div class="input-style-1 col-9 pe-0">
+                                                    <input type="text" id="" class="form-control" th:field="*{thanhVien.id}" placeholder="Mã Thành Viên">
+                                                </div>
+                                                <div class="col-3">
+                                                    <button class="main-btn active-btn btn-hover" type="submit"> Xác Nhận</button>
+                                                </div>
                                             </div>
-                                            <div class="col-3">
-                                                <button class="main-btn active-btn btn-hover" type="submit"> Xác Nhận</button>
-                                            </div>
+                                           
                                         </form>   
                                     </div>
 
