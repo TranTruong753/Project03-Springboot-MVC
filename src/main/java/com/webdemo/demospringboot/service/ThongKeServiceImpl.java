@@ -21,8 +21,8 @@ public class ThongKeServiceImpl implements  ThongKeService{
     }
     
     @Override
-    public Long countThietBiDangDuocMuonByDate(String date) {
-        return thongKeRepository.countThietBiDangDuocMuonByDate(date);
+    public Long countThietBiDangDuocMuonByDate() {
+        return thongKeRepository.countThietBiDangDuocMuonByDate();
     }
     
     @Override
@@ -68,5 +68,10 @@ public class ThongKeServiceImpl implements  ThongKeService{
     @Override
     public List<Object[]> findRowCountByMonth(String year) {
         return thongKeRepository.findRowCountByMonth(year);
+    }
+    
+    @Override
+    public int sumTienBoiThuong() {
+        return thongKeRepository.sumTienBoiThuong();
     }
 }

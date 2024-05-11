@@ -43,11 +43,14 @@ public class ThongKeController {
         Long countTV = thongKeService.countTvByDate(formattedTime);
         model.addAttribute("countTV", countTV);
         
-        Long countThietBiDangDuocMuon = thongKeService.countThietBiDangDuocMuonByDate(formattedTime);
+        Long countThietBiDangDuocMuon = thongKeService.countThietBiDangDuocMuonByDate();
         model.addAttribute("countThietBiDangDuocMuon", countThietBiDangDuocMuon);
         
         Long countViPhamDangXuLY = thongKeService.countViPhamDangXuLYByDate();
         model.addAttribute("countViPhamDangXuLY", countViPhamDangXuLY);
+        
+        int sumTienBoiThuong = thongKeService.sumTienBoiThuong();
+        model.addAttribute("sumTienBoiThuong", sumTienBoiThuong);
         
         List<Object[]> khoaAndCount = thongKeService.getKhoaAndCountKhoa();
         model.addAttribute("khoaAndCount", khoaAndCount);

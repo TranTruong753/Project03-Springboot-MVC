@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface ThongKeService {
     Long countTvByDate(String date);
-    Long countThietBiDangDuocMuonByDate(String date);
+    Long countThietBiDangDuocMuonByDate();
     Long countViPhamDangXuLYByDate();
     List<Object[]> getKhoaAndCountKhoa();
     List <Object[]> getKhoa_and_cout_Khoa_ByDate(String date);
@@ -23,5 +23,5 @@ public interface ThongKeService {
     List<String> findAllYearsXuLy();
 
     List<Object[]> findRowCountByMonth(String year);
-
+    int sumTienBoiThuong();
 }

@@ -29,8 +29,9 @@ public interface ThongKeRepository extends JpaRepository<ThongTinSD, Integer>{
     
     @Query("SELECT COUNT(ttsd) " +
            "FROM ThongTinSD ttsd " +
-           "WHERE ttsd.thoiGianTra IS NULL")
-    Long countThietBiDangDuocMuonByDate(String date);
+           "WHERE ttsd.thoiGianMuon IS NOT NULL AND"
+            + " ttsd.thoiGianTra IS NULL")
+    Long countThietBiDangDuocMuonByDate();
     
     @Query("SELECT COUNT(xl.MaXL) " +
            "FROM Xuly xl " +
@@ -98,6 +99,10 @@ public interface ThongKeRepository extends JpaRepository<ThongTinSD, Integer>{
     @Query("SELECT MONTH(x.NgayXL), COUNT(x) FROM Xuly x WHERE YEAR(x.NgayXL) = :year AND TrangThaiXL = 1  GROUP BY MONTH(x.NgayXL)")
     List<Object[]> findRowCountByMonth(@Param("year") String year);
 
+    
+    
+    @Query("SELECT COALESCE(SUM(SoTien), 0) FROM Xuly WHERE SoTien IS NOT NULL AND TrangThaiXL = 1")
+    int sumTienBoiThuong();
 }
 
 
