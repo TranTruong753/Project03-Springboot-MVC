@@ -141,6 +141,7 @@ public class AdminMemberController {
             return "admin/add_member";
         }
         else{
+            model.addAttribute("message", "Thêm thành công");
             tvService.save(thanhvien);
             return index( model,pageNo);
         }
@@ -157,7 +158,7 @@ public class AdminMemberController {
     
     @RequestMapping(value="/save_edit",method = RequestMethod.POST)
     public String save_edit_device(@ModelAttribute("thanhvien") Thanhvien thanhvien ,Model model,@RequestParam(name="pageNo",defaultValue = "1") Integer pageNo) {
-        
+            model.addAttribute("message", "Upadte thành công");
             tvService.save(thanhvien);
             return index( model,pageNo);
         

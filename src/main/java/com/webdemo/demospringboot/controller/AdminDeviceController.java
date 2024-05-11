@@ -67,7 +67,7 @@ public class AdminDeviceController {
         }
         else{
             thietBiService.save(thietbi);
-            model.addAttribute("message", "Thêm thành công thành công.");
+            model.addAttribute("message", "Thêm thành công.");
             return index( model,pageNo);
         }
     }
