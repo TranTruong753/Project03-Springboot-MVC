@@ -61,21 +61,12 @@ public class ThongKeController {
         List<Object[]> countSoLanThietBiDuocMuon = thongKeService.countSoLanThietBiDuocMuon();
         model.addAttribute("TBmuonCount", countSoLanThietBiDuocMuon);
 
-        List<Object[]> rowCountByMonth = thongKeService.findRowCountByMonth(getyear);
-        int[] Chartdata = new int[12];
-
-        for (Object[] row : rowCountByMonth) {
-            int month = ((Number) row[0]).intValue() - 1; // Giá trị tháng trong khoảng 0-11
-            long count = (Long) row[1];
-            Chartdata[month] = (int) count;
-        }
+        List<Object[]> countVPDaXuLy = thongKeService.getHinhThucXL_and_cout_HinhThucXL();
+        model.addAttribute("VPDaXuLyCount", countVPDaXuLy);
 
         
-        for ( int i = 0; i < Chartdata.length; i++) {
-            System.out.println("Tháng " + (i + 1) + ": " + Chartdata[i]);
-        }
 
-        model.addAttribute("Chartdata", Chartdata);
+        // model.addAttribute("Chartdata", Chartdata);
 
        
         return "admin/index"; // Trả về view
@@ -99,19 +90,47 @@ public class ThongKeController {
             List<Object[]> countTVNganhTheoThoiGian = thongKeService.getNganh_and_cout_Nganh_ByDate(formattedDate);
             return countTVNganhTheoThoiGian;
         }
+        else if("countVPDaXuLyTheoThoiGian".equals(action)){
+            List<Object[]> countVPDaXuLyTheoThoiGian = thongKeService.getHinhThucXL_and_cout_HinhThucXL_ByDate(formattedDate);
+            return countVPDaXuLyTheoThoiGian;
+
+        }
         else {
             // Xử lý trường hợp không hỗ trợ
             return Collections.emptyList(); // hoặc trả về một giá trị mặc định khác tùy ý
         }
     }
-    
-    @PostMapping("/sendyear")
-    
-    public String handleYearSelection(@RequestParam String year) {
-        System.out.println("Selected year: " + year);
+    @PostMapping(value = "/adminyear", consumes = "application/json")
+    @ResponseBody
+    public int[] handleAdmin(@RequestBody Map<String, String> requestData) {
+        String action = requestData.get("action");
+        String formattedDate = requestData.get("time");
+        if ("countVPDaXuLyTheoNam".equals(action)) {
+                   
+                    String Time = formattedDate.substring(0, 4);
+                    List<Object[]> rowCountByMonth = thongKeService.findRowCountByMonth(Time);
+                int[] Chartdata = new int[12];
 
-        getyear = year;
-        return "redirect:/admin";
+                for (Object[] row : rowCountByMonth) {
+                    int month = ((Number) row[0]).intValue() - 1; // Giá trị tháng trong khoảng 0-11
+                    long count = (Long) row[1];
+                    Chartdata[month] = (int) count;
+                }
+
+                
+                for ( int i = 0; i < Chartdata.length; i++) {
+                    System.out.println("Tháng " + (i + 1) + ": " + Chartdata[i]);
+                }
+
+            return Chartdata;
+            
+        }
+        else {
+            // Xử lý trường hợp không hỗ trợ
+            return null; // hoặc trả về một giá trị mặc định khác tùy ý
+        }
         
     }
+    
+    
 }

@@ -68,6 +68,24 @@ public interface ThongKeRepository extends JpaRepository<ThongTinSD, Integer>{
             "OR DATE_FORMAT(ttsd.thoiGianVao, '%Y') = :date ) " +
             "GROUP BY tv.nganh")
     List <Object[]> getNganh_and_cout_Nganh_ByDate(@Param("date") String date);
+
+      
+
+    @Query("SELECT xl.HinhThucXL, COUNT(xl.MaXL) " +
+           "FROM Xuly xl " +
+           "WHERE xl.TrangThaiXL = 1 " +
+           "GROUP BY xl.HinhThucXL")   
+    List <Object[]> getHinhThucXL_and_cout_HinhThucXL();
+
+       @Query("SELECT xl.HinhThucXL, COUNT(xl.MaXL) " +
+              "FROM Xuly xl " +
+              "WHERE xl.TrangThaiXL = 1  AND " +
+              "( DATE_FORMAT(xl.NgayXL, '%Y-%m-%d') = :date " +
+              "OR DATE_FORMAT(xl.NgayXL, '%Y-%m') = :date " +
+              "OR DATE_FORMAT(xl.NgayXL, '%Y') = :date ) " +
+              "GROUP BY xl.HinhThucXL")
+    List <Object[]> getHinhThucXL_and_cout_HinhThucXL_ByDate(@Param("date") String date);
+
     
     @Query("SELECT tb.tenTB, COUNT(ttsd.thietBi.maTB) AS soluong " +
            "FROM ThongTinSD ttsd " +

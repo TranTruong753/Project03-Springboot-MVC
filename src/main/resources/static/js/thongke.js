@@ -73,7 +73,11 @@ function checkSelectionQuery(){
             SLTBMuon();
         } else {
             // Code vẽ biểu đồ cho vi phạm đã xử lý
-            VPDaXuLyTheoNam();
+            SLVPham();
+            
+
+
+            
         }
     } else {
         // Code truy xuất dữ liệu có ngày tháng (truyền date = formatted Date)
@@ -133,8 +137,43 @@ function checkSelectionQuery(){
                     console.error("Error: " + error);
                 }
             });
-        } else {
+        } else if (valueSelect === "3") {
             // Code vẽ biểu đồ cho vi phạm đã xử lý
+            $.ajax({
+                type: "POST",
+                url: "/adminyear",
+                contentType: "application/json",
+                data: JSON.stringify({ time: formattedDate, action: "countVPDaXuLyTheoNam"}),
+                success: function(response) {
+                    console.log("Success: " + response);
+                    // Cập nhật dữ liệu của biểu đồ từ phản hồi Ajax
+                    dataChart = response;
+                    
+
+                    // Gọi lại hàm tạo biểu đồ để vẽ lại biểu đồ với dữ liệu mới
+                    VPDaXuLyTheoNam();
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error: " + error);
+                }
+            });
+            $.ajax({
+                type: "POST",
+                url: "/admin",
+                contentType: "application/json",
+                data: JSON.stringify({ time: formattedDate, action: "countVPDaXuLyTheoThoiGian"}),
+                success: function(response) {
+                    console.log("Success: " + response);
+                    // Cập nhật dữ liệu của biểu đồ từ phản hồi Ajax
+                    ViPhamCountByTime = response;
+
+                    // Gọi lại hàm tạo biểu đồ để vẽ lại biểu đồ với dữ liệu mới
+                    countVPDaXuLyTheoThoiGian();
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error: " + error);
+                }
+            });
             
         }
         
@@ -255,7 +294,120 @@ function SLTVKhoa(){
 });
 
 }
+function SLVPham(){
+    var labels = [];
+    var data = [];
 
+    for (var i = 0; i < ViPhamCount.length; i++) {
+        var item = ViPhamCount[i];
+        labels.push(item[0]); // Tên khoa
+        data.push(item[1]);   // Số lượng
+    }
+    var ctx = document.getElementById('Chart2').getContext('2d');
+
+    // Hủy biểu đồ cũ nếu tồn tại
+    if (myChart) {
+        myChart.destroy();
+    }
+   
+    // Tạo biểu đồ mới
+    myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: labels, // Tên khoa
+        datasets: [{
+            label: 'Số lượng', // Nhãn của dữ liệu
+            data: data,        // Dữ liệu
+            backgroundColor: "#365CF5", // Màu nền của cột
+            borderWidth: 0, // Không có đường viền
+            borderRadius: 30,
+            barThickness: 6,
+            maxBarThickness: 8
+        }]
+    },
+    options: {
+        plugins: {
+            tooltip: {
+                callbacks: {
+                    titleColor: function(context) {
+                        return "#8F92A1";
+                    },
+                    label: function(context) {
+                        let label = context.dataset.label || "";
+
+                        if (label) {
+                            label += ": ";
+                        }
+                        label += context.parsed.y;
+                        return label;
+                    },
+                },
+                backgroundColor: "#F3F6F8",
+                titleAlign: "center",
+                bodyAlign: "center",
+                titleFont: {
+                    size: 12,
+                    weight: "bold",
+                    color: "#8F92A1",
+                },
+                bodyFont: {
+                    size: 16,
+                    weight: "bold",
+                    color: "#171717",
+                },
+                displayColors: false,
+                padding: {
+                    x: 30,
+                    y: 10,
+                },
+            },
+        },
+        layout: {
+            padding: {
+                top: 15,
+                right: 15,
+                bottom: 15,
+                left: 15,
+            },
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            y: {
+                grid: {
+                    display: false,
+                    drawTicks: false,
+                    drawBorder: false,
+                },
+                ticks: {
+                    padding: 35,
+                    max: 1200,
+                    min: 0,
+                },
+            },
+            x: {
+                grid: {
+                    display: false,
+                    drawBorder: false,
+                    color: "rgba(143, 146, 161, .1)",
+                    drawTicks: false,
+                    zeroLineColor: "rgba(143, 146, 161, .1)"
+                },
+                ticks: {
+                    padding: 20
+                }
+            }
+        },
+        legend: {
+            display: false
+        },
+        title: {
+            display: false
+        }
+    }
+});
+
+}
 function SLTVKhoaByTime(){
     var labels = [];
     var data = [];
@@ -727,6 +879,123 @@ function SLTBMuonByTime(){
     if (TBmuonCountByTime !== null){
         for (var i = 0; i < TBmuonCountByTime.length; i++) {
             var item = TBmuonCountByTime[i];
+            labels.push(item[0]); // Tên thiết bị
+            data.push(item[1]);   // Số lần mượn
+        }
+    }else{
+        console.log("không có dữ liệu");
+    }
+    var ctx = document.getElementById('Chart2').getContext('2d');
+
+    // Hủy biểu đồ cũ nếu tồn tại
+    if (myChart) {
+        myChart.destroy();
+    }
+
+    // Tạo biểu đồ mới
+    myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: labels, // Tên khoa
+        datasets: [{
+            label: 'Số lượng', // Nhãn của dữ liệu
+            data: data,        // Dữ liệu
+            backgroundColor: "#365CF5", // Màu nền của cột
+            borderWidth: 0, // Không có đường viền
+            borderRadius: 30,
+            barThickness: 6,
+            maxBarThickness: 8
+        }]
+    },
+    options: {
+        plugins: {
+            tooltip: {
+                callbacks: {
+                    titleColor: function(context) {
+                        return "#8F92A1";
+                    },
+                    label: function(context) {
+                        let label = context.dataset.label || "";
+
+                        if (label) {
+                            label += ": ";
+                        }
+                        label += context.parsed.y;
+                        return label;
+                    },
+                },
+                backgroundColor: "#F3F6F8",
+                titleAlign: "center",
+                bodyAlign: "center",
+                titleFont: {
+                    size: 12,
+                    weight: "bold",
+                    color: "#8F92A1",
+                },
+                bodyFont: {
+                    size: 16,
+                    weight: "bold",
+                    color: "#171717",
+                },
+                displayColors: false,
+                padding: {
+                    x: 30,
+                    y: 10,
+                },
+            },
+        },
+        layout: {
+            padding: {
+                top: 15,
+                right: 15,
+                bottom: 15,
+                left: 15,
+            },
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            y: {
+                grid: {
+                    display: false,
+                    drawTicks: false,
+                    drawBorder: false,
+                },
+                ticks: {
+                    padding: 35,
+                    max: 1200,
+                    min: 0,
+                },
+            },
+            x: {
+                grid: {
+                    display: false,
+                    drawBorder: false,
+                    color: "rgba(143, 146, 161, .1)",
+                    drawTicks: false,
+                    zeroLineColor: "rgba(143, 146, 161, .1)"
+                },
+                ticks: {
+                    padding: 20
+                }
+            }
+        },
+        legend: {
+            display: false
+        },
+        title: {
+            display: false
+        }
+    }
+});
+
+}
+function countVPDaXuLyTheoThoiGian(){
+    var labels = [];
+    var data = [];
+    if (ViPhamCountByTime !== null){
+        for (var i = 0; i < ViPhamCountByTime.length; i++) {
+            var item = ViPhamCountByTime[i];
             labels.push(item[0]); // Tên thiết bị
             data.push(item[1]);   // Số lần mượn
         }

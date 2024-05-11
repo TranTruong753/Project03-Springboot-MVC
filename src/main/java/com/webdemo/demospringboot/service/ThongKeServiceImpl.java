@@ -69,9 +69,21 @@ public class ThongKeServiceImpl implements  ThongKeService{
     public List<Object[]> findRowCountByMonth(String year) {
         return thongKeRepository.findRowCountByMonth(year);
     }
+<<<<<<< Updated upstream
     
     @Override
     public int sumTienBoiThuong() {
         return thongKeRepository.sumTienBoiThuong();
+=======
+
+    @Override
+    public List<Object[]> getHinhThucXL_and_cout_HinhThucXL() {
+        return thongKeRepository.getHinhThucXL_and_cout_HinhThucXL();
+    }
+
+    @Override
+    public List<Object[]> getHinhThucXL_and_cout_HinhThucXL_ByDate(String date) {
+        return thongKeRepository.getHinhThucXL_and_cout_HinhThucXL_ByDate(date);
+>>>>>>> Stashed changes
     }
 }
