@@ -1,5 +1,7 @@
 var myChart; // Biến lưu trữ biểu đồ
 
+var chart1;
+
 function setDefaultDate() {
     // Lấy ngày hiện tại
     var today = new Date();
@@ -1113,9 +1115,13 @@ function VPDaXuLyTheoNam(){
     var mydata = dataChart ;
     console.log(mydata);
     
-    
-    const ctx1 = document.getElementById("Chart1").getContext("2d");
-        const chart1 = new Chart(ctx1, {
+   
+   
+    var ctx1 = document.getElementById("Chart1").getContext("2d");
+     if (chart1) {
+        chart1.destroy();
+    }
+         chart1 = new Chart(ctx1, {
             type: "line",
             data: {
                 labels: [
