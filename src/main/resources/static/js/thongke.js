@@ -1,3 +1,5 @@
+var myChart; // Biến lưu trữ biểu đồ
+
 function setDefaultDate() {
     // Lấy ngày hiện tại
     var today = new Date();
@@ -12,9 +14,16 @@ function setDefaultDate() {
 // Gọi hàm để thiết lập giá trị mặc định khi trang được tải
 setDefaultDate();
 
-function formatDate() {
-    var dateChoose = document.getElementById("date");
-    var timestamp = new Date(dateChoose.value);
+function formatDate(date) {
+    var timestamp;
+    if (date) {
+        // Chuyển đổi ngày tháng thành đối tượng ngày
+        timestamp = new Date(date);
+    } else {
+        // Nếu không có giá trị ngày tháng, sử dụng ngày hiện tại
+        timestamp = new Date();
+    }
+    
     var formattedDate = "";
 
     switch (valueRadioBtn()) {
@@ -45,66 +54,205 @@ function valueRadioBtn() {
     return "";
 }
 
-
-
 function checkSelectionQuery(){
-    var valueSelect=document.getElementById('statistic_Select').value;
+    var valueSelect = document.getElementById('statistic_Select').value;
     console.log(valueSelect);
-    var formattedDate = formatDate();
-    if (formattedDate==""){
-        // code truy xuất dữ liệu không có date
-       if (valueSelect==="0"){
-        //code vẽ biểu đồ cho khoa
+    var selectedDate = document.getElementById('date').value; // Lấy giá trị ngày tháng đã chọn
+
+    var formattedDate = formatDate(selectedDate); // Định dạng lại ngày tháng
+
+    if (formattedDate === "") {
+        // Code truy xuất dữ liệu không có ngày tháng
+        if (valueSelect === "0") {
             SLTVKhoa();
+        } else if (valueSelect === "1") {
+            // Code vẽ biểu đồ cho ngành
+        } else if (valueSelect === "2") {
+            // Code vẽ biểu đồ cho thiết bị đã mượn
+            SLTBMuon();
+        } else {
+            // Code vẽ biểu đồ cho vi phạm đã xử lý
         }
-        else if( valueSelect==="1"){
-            //code vẽ biểu đồ cho ngành 
-        }
-        else if( valueSelect==="2"){
-            //code vẽ biểu đồ cho thiết bị  đã mượn
-        }
-        else{
-            //code vẽ biểu đồ cho vi phạm  đã xử lý
-        }
-    }    
-    else{
-        //code truy xuất dữ liệu có date ( truyền date = formatted Date)
+    } else {
+        // Code truy xuất dữ liệu có ngày tháng (truyền date = formatted Date)
+        $.ajax({
+            type: "POST",
+            url: "/admin",
+            contentType: "application/json",
+            data: JSON.stringify({ time: formattedDate }),
+            success: function(response) {
+                console.log("Success: " + response);
+                // Cập nhật dữ liệu của biểu đồ từ phản hồi Ajax
+                TBmuonCountByTime = response;
+
+                // Gọi lại hàm tạo biểu đồ để vẽ lại biểu đồ với dữ liệu mới
+                SLTBMuonByTime();
+            },
+            error: function(xhr, status, error) {
+                console.error("Error: " + error);
+            }
+        });
     }
-    
 }
 
 function SLTVKhoa(){
-        var labels = [];
-        var data = [];
+    var labels = [];
+    var data = [];
 
-        for (var i = 0; i < khoaAndCount.length; i++) {
-            var item = khoaAndCount[i];
-            labels.push(item[0]); // Tên khoa
-            data.push(item[1]);   // Số lượng
-        }
-        var ctx = document.getElementById('myChart').getContext('2d');
+    for (var i = 0; i < khoaAndCount.length; i++) {
+        var item = khoaAndCount[i];
+        labels.push(item[0]); // Tên khoa
+        data.push(item[1]);   // Số lượng
+    }
+    var ctx = document.getElementById('myChart').getContext('2d');
 
-// Tạo biểu đồ
-        var myChart = new Chart(ctx, {
+    // Hủy biểu đồ cũ nếu tồn tại
+    if (myChart) {
+        myChart.destroy();
+    }
+
+    // Tạo biểu đồ mới
+    myChart = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: labels, // Tên khoa
             datasets: [{
                 label: 'Số lượng', // Nhãn của dữ liệu
                 data: data,        // Dữ liệu
-                backgroundColor: 'rgba(54, 162, 235, 0.2)', // Màu nền của cột
-                borderColor: 'rgba(54, 162, 235, 1)',       // Màu viền của cột
-                borderWidth: 1
+                backgroundColor: 'rgba(54, 162, 235, 1)', // Màu nền của cột
+                borderWidth: 0 // Không có đường viền
             }]
         },
         options: {
             scales: {
                 y: {
-                    beginAtZero: true // Bắt đầu từ 0 trên trục y
+                    beginAtZero: true, // Bắt đầu từ 0 trên trục y
+                    grid: {
+                        display: false // Loại bỏ lưới
+                    }
                 }
-            }
+            },
+            maintainAspectRatio: false, // Vô hiệu hóa tỷ lệ giữa chiều rộng và chiều cao
+            responsive: false, // Vô hiệu hóa tính năng phản ứng
+            layout: {
+                padding: {
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 0
+                }
+            },
+            width: 400, // Chiều rộng của biểu đồ
+            height: 400 // Chiều cao của biểu đồ
         }
     });
 }
 
+function SLTBMuon(){
+    var labels = [];
+    var data = [];
 
+    for (var i = 0; i < TBmuonCount.length; i++) {
+        var item = TBmuonCount[i];
+        labels.push(item[0]); // Tên thiết bị
+        data.push(item[1]);   // Số lần mượn
+    }
+    var ctx = document.getElementById('myChart').getContext('2d');
+
+    // Hủy biểu đồ cũ nếu tồn tại
+    if (myChart) {
+        myChart.destroy();
+    }
+
+    // Tạo biểu đồ mới
+    myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels, // Tên thiết bị
+            datasets: [{
+                label: 'Số lần', // Nhãn của dữ liệu
+                data: data,        // Dữ liệu
+                backgroundColor: 'rgba(54, 162, 235, 1)', // Màu nền của cột
+                borderWidth: 0 // Không có đường viền
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true, // Bắt đầu từ 0 trên trục y
+                    grid: {
+                        display: false // Loại bỏ lưới
+                    }
+                }
+            },
+            maintainAspectRatio: false, // Vô hiệu hóa tỷ lệ giữa chiều rộng và chiều cao
+            responsive: false, // Vô hiệu hóa tính năng phản ứng
+            layout: {
+                padding: {
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 0
+                }
+            },
+            width: 400, // Chiều rộng của biểu đồ
+            height: 400 // Chiều cao của biểu đồ
+        }
+    });
+}
+
+function SLTBMuonByTime(){
+    var labels = [];
+    var data = [];
+    if (TBmuonCountByTime !== null){
+        for (var i = 0; i < TBmuonCountByTime.length; i++) {
+            var item = TBmuonCountByTime[i];
+            labels.push(item[0]); // Tên thiết bị
+            data.push(item[1]);   // Số lần mượn
+        }
+    }else{
+        console.log("không có dữ liệu");
+    }
+    var ctx = document.getElementById('myChart').getContext('2d');
+
+    // Hủy biểu đồ cũ nếu tồn tại
+    if (myChart) {
+        myChart.destroy();
+    }
+
+    // Tạo biểu đồ mới
+    myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels, // Tên khoa
+            datasets: [{
+                label: 'Số lượng', // Nhãn của dữ liệu
+                data: data,        // Dữ liệu
+                backgroundColor: 'rgba(54, 162, 235, 1)', // Màu nền của cột
+                borderWidth: 0 // Không có đường viền
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true, // Bắt đầu từ 0 trên trục y
+                    grid: {
+                        display: false // Loại bỏ lưới
+                    }
+                }
+            },
+            maintainAspectRatio: false, // Vô hiệu hóa tỷ lệ giữa chiều rộng và chiều cao
+            responsive: false, // Vô hiệu hóa tính năng phản ứng
+            layout: {
+                padding: {
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 0
+                }
+            },
+            width: 400, // Chiều rộng của biểu đồ
+            height: 400 // Chiều cao của biểu đồ
+        }
+    });
+}
