@@ -24,7 +24,7 @@ public interface ThongKeService {
 
     List<Object[]> findRowCountByMonth(String year);
 
-    // int sumTienBoiThuong();
+    int sumTienBoiThuong();
 
     List<Object[]> getHinhThucXL_and_cout_HinhThucXL();
 
