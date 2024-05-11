@@ -93,6 +93,7 @@ public class AdminMemberController {
 //        ttsd.setThoiGianVao(currentDateTime);
 //        ttsd.setMaTT(3);
 //        xemtbservice.themThongTinSD(ttsd);
+        listThongTinSD =xemtbservice.getdsvaokhuhoctap();
         model.addAttribute("listThongTinSD", listThongTinSD);
         return "admin/check_in";
         
