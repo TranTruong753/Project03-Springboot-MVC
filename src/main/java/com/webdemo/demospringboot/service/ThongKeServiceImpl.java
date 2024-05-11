@@ -71,10 +71,10 @@ public class ThongKeServiceImpl implements  ThongKeService{
     }
 
     
-    @Override
-    public int sumTienBoiThuong() {
-        return thongKeRepository.sumTienBoiThuong();
-    }
+    // @Override
+    // public int sumTienBoiThuong() {
+    //     return thongKeRepository.sumTienBoiThuong();
+    // }
 
 
     @Override

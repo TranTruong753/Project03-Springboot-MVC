@@ -49,8 +49,8 @@ public class ThongKeController {
         Long countViPhamDangXuLY = thongKeService.countViPhamDangXuLYByDate();
         model.addAttribute("countViPhamDangXuLY", countViPhamDangXuLY);
         
-        int sumTienBoiThuong = thongKeService.sumTienBoiThuong();
-        model.addAttribute("sumTienBoiThuong", sumTienBoiThuong);
+        // int sumTienBoiThuong = thongKeService.sumTienBoiThuong();
+        // model.addAttribute("sumTienBoiThuong", sumTienBoiThuong);
         
         List<Object[]> khoaAndCount = thongKeService.getKhoaAndCountKhoa();
         model.addAttribute("khoaAndCount", khoaAndCount);
