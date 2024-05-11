@@ -72,6 +72,7 @@ function checkSelectionQuery(){
             SLTBMuon();
         } else {
             // Code vẽ biểu đồ cho vi phạm đã xử lý
+            VPDaXuLyTheoNam();
         }
     } else {
         // Code truy xuất dữ liệu có ngày tháng (truyền date = formatted Date)
@@ -256,3 +257,124 @@ function SLTBMuonByTime(){
         }
     });
 }
+function VPDaXuLyTheoNam(){
+    /*<![CDATA[*/
+    var mydata = dataChart ;
+    console.log(mydata);
+    
+    
+    const ctx1 = document.getElementById("Chart1").getContext("2d");
+        const chart1 = new Chart(ctx1, {
+            type: "line",
+            data: {
+                labels: [
+                    "Jan",
+                    "Fab",
+                    "Mar",
+                    "Apr",
+                    "May",
+                    "Jun",
+                    "Jul",
+                    "Aug",
+                    "Sep",
+                    "Oct",
+                    "Nov",
+                    "Dec",
+                ],
+                datasets: [
+                    {
+                        label: "",
+                        backgroundColor: "transparent",
+                        borderColor: "#365CF5",
+                        data : mydata,
+                        pointBackgroundColor: "transparent",
+                        pointHoverBackgroundColor: "#365CF5",
+                        pointBorderColor: "transparent",
+                        pointHoverBorderColor: "#fff",
+                        pointHoverBorderWidth: 5,
+                        borderWidth: 5,
+                        pointRadius: 8,
+                        pointHoverRadius: 8,
+                        cubicInterpolationMode: "monotone", // Add this line for curved line
+                    },
+                ],
+            },
+            options: {
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            labelColor: function (context) {
+                                return {
+                                    backgroundColor: "#ffffff",
+                                    color: "#171717"
+                                };
+                            },
+                        },
+                        intersect: false,
+                        backgroundColor: "#f9f9f9",
+                        title: {
+                            fontFamily: "Plus Jakarta Sans",
+                            color: "#8F92A1",
+                            fontSize: 12,
+                        },
+                        body: {
+                            fontFamily: "Plus Jakarta Sans",
+                            color: "#171717",
+                            fontStyle: "bold",
+                            fontSize: 16,
+                        },
+                        multiKeyBackground: "transparent",
+                        displayColors: false,
+                        padding: {
+                            x: 30,
+                            y: 10,
+                        },
+                        bodyAlign: "center",
+                        titleAlign: "center",
+                        titleColor: "#8F92A1",
+                        bodyColor: "#171717",
+                        bodyFont: {
+                            family: "Plus Jakarta Sans",
+                            size: "16",
+                            weight: "bold",
+                        },
+                    },
+                    legend: {
+                        display: false,
+                    },
+                },
+                responsive: true,
+                maintainAspectRatio: false,
+                title: {
+                    display: false,
+                },
+                scales: {
+                    y: {
+                        grid: {
+                            display: false,
+                            drawTicks: false,
+                            drawBorder: false,
+                        },
+                        ticks: {
+                            padding: 35,
+                            max: 1200,
+                            min: 500,
+                        },
+                    },
+                    x: {
+                        grid: {
+                            drawBorder: false,
+                            color: "rgba(143, 146, 161, .1)",
+                            zeroLineColor: "rgba(143, 146, 161, .1)",
+                        },
+                        ticks: {
+                            padding: 20,
+                        },
+                    },
+                },
+            },
+        });
+        /*]]>*/
+}
+
+

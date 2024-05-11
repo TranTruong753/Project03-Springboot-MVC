@@ -44,4 +44,14 @@ public class ThongKeServiceImpl implements  ThongKeService{
     public List<Object[]> countSoLanThietBiDuocMuonTheoThoiGian(String date) {
         return thongKeRepository.countSoLanThietBiDuocMuonTheoThoiGian(date);
     }
+
+    @Override
+    public List<String> findAllYearsXuLy() {
+        return thongKeRepository.findAllYearsXuLy();
+    }
+
+    @Override
+    public List<Object[]> findRowCountByMonth(String year) {
+        return thongKeRepository.findRowCountByMonth(year);
+    }
 }

@@ -15,4 +15,8 @@ public interface ThongKeService {
     List<Object[]> getKhoaAndCountKhoa();
     List<Object[]> countSoLanThietBiDuocMuon();
     List<Object[]> countSoLanThietBiDuocMuonTheoThoiGian(String date);
+    List<String> findAllYearsXuLy();
+
+    List<Object[]> findRowCountByMonth(String year);
+
 }

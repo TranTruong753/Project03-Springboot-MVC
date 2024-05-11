@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="fragments/AdminHead :: AdminHead"><script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -56,7 +56,7 @@
                             <div id="radBtn_Time">
 
                                 <label class="form-label" for="date">Chọn ngày:</label>
-                                <input class="form-control" type="date" id="date" name="date">
+                                <input class="form-control" type="date" id="date" name="date" oninput="sendYear()">
 
                                 <input class="" type="radio" id="none" name="time" value="0" checked
                                     onclick=checkSelectionQuery()>
@@ -133,6 +133,7 @@
                     var khoaAndCount = /*[[ ${khoaAndCount} ]]*/ [];
                     var TBmuonCount = /*[[ ${TBmuonCount} ]]*/ [];
                     var TBmuonCountByTime = /*[[ ${countSoLanThietBiDuocMuonTheoThoiGian} ]]*/ [];
+                    var dataChart = /*[[ ${Chartdata} ]]*/[];
                 </script>
                 <h3 class="text-bold mb-10" th:text="${TBmuonCountByDay}">  </h3>
                 <!-- End Row -->
@@ -209,23 +210,28 @@
     <div th:replace="fragments/AdminScript :: AdminScript"></div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-        $(document).ready(function() {
-            $('#yearSelect').change(function() {
-                var selectedYear = $(this).val();
-                $.ajax({
-                    url: '/admin',
-                    type: 'POST',
-                    data: { year: selectedYear },
-                    success: function(response) {
-                        // Handle the response from the controller
-                    },
-                    error: function(xhr, status, error) {
-                        // Handle the error
-                    }
-                });
-            });
-        });
+        function sendYear() {
+    // Lấy giá trị của thẻ input date
+    var dateInput = document.getElementById("date").value;
+    
+    // Xử lý chuỗi để chỉ lấy phần năm (4 ký tự đầu tiên)
+    var year = dateInput.substring(0, 4);
+    
+    // Gửi năm qua AJAX sử dụng jQuery
+    $.ajax({
+        url: "/sendyear",
+        type: "POST",
+        data: { year: year },
+        success: function(response) {
+            console.log("Year sent successfully: " + year);
+        },
+        error: function(xhr, status, error) {
+            console.error("Error sending year: " + error);
+        }
+    });
+}
     </script>
+    
     
 </body>
 

@@ -64,6 +64,13 @@ public interface ThongKeRepository extends JpaRepository<ThongTinSD, Integer>{
        "GROUP BY tb.tenTB")
     List<Object[]> countSoLanThietBiDuocMuonTheoThoiGian(@Param("date") String date);
 
+    @Query("SELECT DISTINCT YEAR(x.NgayXL) FROM Xuly x WHERE TrangThaiXL = 1")
+    List<String> findAllYearsXuLy();
+
+   
+    @Query("SELECT MONTH(x.NgayXL), COUNT(x) FROM Xuly x WHERE YEAR(x.NgayXL) = :year AND TrangThaiXL = 1  GROUP BY MONTH(x.NgayXL)")
+    List<Object[]> findRowCountByMonth(@Param("year") String year);
+
 }
 
 
