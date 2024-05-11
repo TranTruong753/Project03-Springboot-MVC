@@ -3,12 +3,14 @@ package com.webdemo.demospringboot.controller;
 import com.webdemo.demospringboot.model.Thanhvien;
 import com.webdemo.demospringboot.model.ThietBi;
 import com.webdemo.demospringboot.model.ThongTinSD;
+import com.webdemo.demospringboot.model.Xuly;
 import com.webdemo.demospringboot.service.ThanhVienService;
 import com.webdemo.demospringboot.service.ThietBiService;
 
 import jakarta.servlet.http.HttpServletRequest;
 
 import com.webdemo.demospringboot.service.XemThietBiDatChoService;
+import com.webdemo.demospringboot.service.XulyService;
 import java.time.LocalDateTime;
 
 import java.util.ArrayList;
@@ -34,6 +36,8 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("admin/member")
 public class AdminMemberController {
+    @Autowired
+    private XulyService xulyService;
     @Autowired
     private ThanhVienService tvService;
     @Autowired
@@ -75,18 +79,33 @@ public class AdminMemberController {
             }
         }
         if(flag){
-            LocalDateTime currentDateTime = LocalDateTime.now();
-            ttsd.setThoiGianVao(currentDateTime);
-            ttsd.setMaTT(dem);
-            xemtbservice.themThongTinSD(ttsd);
+            boolean flag1=true;
+            List<Xuly> XulyList = xulyService.layDanhSachViPhamTheoID(ttsd.getThanhVien().getId());
+            for (Xuly xl : XulyList) {
+                if(xl.getTrangThaiXL()==0){
+                    flag1=false;
+                    break;
+                }
+            }
+            if(flag1){
+                LocalDateTime currentDateTime = LocalDateTime.now();
+                ttsd.setThoiGianVao(currentDateTime);
+                ttsd.setMaTT(dem);
+                xemtbservice.themThongTinSD(ttsd);
+
+                //model.addAttribute("thanhvien", thanhvien);
+                model.addAttribute("message", "Thêm thành công");
+            }
+            else{
+                model.addAttribute("ThongTinSD", ttsd);
+                model.addAttribute("message", "Thành viên đang bị xử lý");
+            }
             
-            //model.addAttribute("thanhvien", thanhvien);
-            model.addAttribute("message", "Thêm thành công");
             //return check_in( model);
         }
         else{
             model.addAttribute("ThongTinSD", ttsd);
-            model.addAttribute("message", "Mã thành viên không hợp lệ");
+            model.addAttribute("message", "Không phải thành viên");
             //return check_in( model);
         }
 //        LocalDateTime currentDateTime = LocalDateTime.now();
