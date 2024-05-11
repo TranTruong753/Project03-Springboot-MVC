@@ -52,6 +52,9 @@ public class ThongKeController {
         List<Object[]> khoaAndCount = thongKeService.getKhoaAndCountKhoa();
         model.addAttribute("khoaAndCount", khoaAndCount);
 
+        List<Object[]> nganhAndCount = thongKeService.getNganh_and_cout_Nganh();
+        model.addAttribute("nganhAndCount", nganhAndCount);
+        
         List<Object[]> countSoLanThietBiDuocMuon = thongKeService.countSoLanThietBiDuocMuon();
         model.addAttribute("TBmuonCount", countSoLanThietBiDuocMuon);
 
@@ -75,14 +78,30 @@ public class ThongKeController {
         return "admin/index"; // Trả về view
     }
 
- @PostMapping(value = "/admin", consumes = "application/json")
+    @PostMapping(value = "/admin", consumes = "application/json")
     @ResponseBody
-    public List<Object[]> handleTime(@RequestBody Map<String, String> requestData) {
+    public List<Object[]> handleAdminRequest(@RequestBody Map<String, String> requestData) {
+        String action = requestData.get("action");
         String formattedDate = requestData.get("time");
-        List<Object[]> countSoLanThietBiDuocMuonTheoThoiGian = thongKeService.countSoLanThietBiDuocMuonTheoThoiGian(formattedDate);
-        return countSoLanThietBiDuocMuonTheoThoiGian;
+        if ("countTVKhoaTheoThoiGian".equals(action)) {
+            // Xử lý yêu cầu countTVKhoaTheoThoiGian
+            List<Object[]> countTVKhoaTheoThoiGian = thongKeService.getKhoa_and_cout_Khoa_ByDate(formattedDate);
+            return countTVKhoaTheoThoiGian;
+        } else if ("countSoLanThietBiDuocMuonTheoThoiGian".equals(action)) {
+            // Xử lý yêu cầu countSoLanThietBiDuocMuonTheoThoiGian
+            List<Object[]> countSoLanThietBiDuocMuonTheoThoiGian = thongKeService.countSoLanThietBiDuocMuonTheoThoiGian(formattedDate);
+            return countSoLanThietBiDuocMuonTheoThoiGian;
+        }
+        else if("countTVNganhTheoThoiGian".equals(action)){
+            List<Object[]> countTVNganhTheoThoiGian = thongKeService.getNganh_and_cout_Nganh_ByDate(formattedDate);
+            return countTVNganhTheoThoiGian;
+        }
+        else {
+            // Xử lý trường hợp không hỗ trợ
+            return Collections.emptyList(); // hoặc trả về một giá trị mặc định khác tùy ý
+        }
     }
-
+    
     @PostMapping("/sendyear")
     
     public String handleYearSelection(@RequestParam String year) {

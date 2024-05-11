@@ -126,13 +126,19 @@
                     <!-- End Col -->
                 </div>
 
-                <canvas id="myChart" width="400" height="400"></canvas>
+                
                 
                 <script th:inline="javascript">
                     //truyền dữ liệu từ controller vào js bằng thymeleaf 
                     var khoaAndCount = /*[[ ${khoaAndCount} ]]*/ [];
+                    var TVKhoaByTime= /*[[${countTVKhoaTheoThoiGian}]]*/ [];
+                    
+                    var nganhAndCount= /*[[${nganhAndCount}]]*/ [];
+                    var nganhAndCountByTime=/*[[${countTVNganhTheoThoiGian}]]*/[];
+                    
                     var TBmuonCount = /*[[ ${TBmuonCount} ]]*/ [];
                     var TBmuonCountByTime = /*[[ ${countSoLanThietBiDuocMuonTheoThoiGian} ]]*/ [];
+                    
                     var dataChart = /*[[ ${Chartdata} ]]*/[];
                 </script>
                 <h3 class="text-bold mb-10" th:text="${TBmuonCountByDay}">  </h3>
@@ -167,7 +173,7 @@
                     <!-- End Col -->
                     <div class="col-lg-5">
                         <div class="card-style mb-30">
-                            <div class="title d-flex flex-wrap align-items-center justify-content-between">
+<!--                            <div class="title d-flex flex-wrap align-items-center justify-content-between">
                                 <div class="left">
                                     <h6 class="text-medium mb-30">Sales/Revenue</h6>
                                 </div>
@@ -181,9 +187,9 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <!-- end select -->
+                                     end select 
                                 </div>
-                            </div>
+                            </div>-->
                             <!-- End Title -->
                             <div class="chart">
                                 <canvas id="Chart2" style="width: 100%; height: 400px; margin-left: -45px;"></canvas>

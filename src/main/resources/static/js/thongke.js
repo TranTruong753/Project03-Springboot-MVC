@@ -67,6 +67,7 @@ function checkSelectionQuery(){
             SLTVKhoa();
         } else if (valueSelect === "1") {
             // Code vẽ biểu đồ cho ngành
+            SLTVNganh();
         } else if (valueSelect === "2") {
             // Code vẽ biểu đồ cho thiết bị đã mượn
             SLTBMuon();
@@ -76,23 +77,67 @@ function checkSelectionQuery(){
         }
     } else {
         // Code truy xuất dữ liệu có ngày tháng (truyền date = formatted Date)
-        $.ajax({
-            type: "POST",
-            url: "/admin",
-            contentType: "application/json",
-            data: JSON.stringify({ time: formattedDate }),
-            success: function(response) {
-                console.log("Success: " + response);
-                // Cập nhật dữ liệu của biểu đồ từ phản hồi Ajax
-                TBmuonCountByTime = response;
+        if (valueSelect === "0") {
+            $.ajax({
+                type: "POST",
+                url: "/admin",
+                contentType: "application/json",
+                data: JSON.stringify({ time: formattedDate, action: "countTVKhoaTheoThoiGian"}),
+                success: function(response) {
+                    console.log("Success: " + response);
+                    // Cập nhật dữ liệu của biểu đồ từ phản hồi Ajax
+                    TVKhoaByTime = response;
 
-                // Gọi lại hàm tạo biểu đồ để vẽ lại biểu đồ với dữ liệu mới
-                SLTBMuonByTime();
-            },
-            error: function(xhr, status, error) {
-                console.error("Error: " + error);
-            }
-        });
+                    // Gọi lại hàm tạo biểu đồ để vẽ lại biểu đồ với dữ liệu mới
+                    SLTVKhoaByTime();
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error: " + error);
+                }
+            });
+        } else if (valueSelect === "1") {
+            // Code vẽ biểu đồ cho ngành
+            $.ajax({
+                type: "POST",
+                url: "/admin",
+                contentType: "application/json",
+                data: JSON.stringify({ time: formattedDate, action: "countTVNganhTheoThoiGian"}),
+                success: function(response) {
+                    console.log("Success: " + response);
+                    // Cập nhật dữ liệu của biểu đồ từ phản hồi Ajax
+                    nganhAndCountByTime = response;
+
+                    // Gọi lại hàm tạo biểu đồ để vẽ lại biểu đồ với dữ liệu mới
+                    SLTVNganhByTime();
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error: " + error);
+                }
+            });
+        } else if (valueSelect === "2") {
+            // Code vẽ biểu đồ cho thiết bị đã mượn
+            $.ajax({
+                type: "POST",
+                url: "/admin",
+                contentType: "application/json",
+                data: JSON.stringify({ time: formattedDate ,action: "countSoLanThietBiDuocMuonTheoThoiGian"}),
+                success: function(response) {
+                    console.log("Success: " + response);
+                    // Cập nhật dữ liệu của biểu đồ từ phản hồi Ajax
+                    TBmuonCountByTime = response;
+
+                    // Gọi lại hàm tạo biểu đồ để vẽ lại biểu đồ với dữ liệu mới
+                    SLTBMuonByTime();
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error: " + error);
+                }
+            });
+        } else {
+            // Code vẽ biểu đồ cho vi phạm đã xử lý
+            
+        }
+        
     }
 }
 
@@ -105,7 +150,125 @@ function SLTVKhoa(){
         labels.push(item[0]); // Tên khoa
         data.push(item[1]);   // Số lượng
     }
-    var ctx = document.getElementById('myChart').getContext('2d');
+    var ctx = document.getElementById('Chart2').getContext('2d');
+
+    // Hủy biểu đồ cũ nếu tồn tại
+    if (myChart) {
+        myChart.destroy();
+    }
+   
+    // Tạo biểu đồ mới
+    myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: labels, // Tên khoa
+        datasets: [{
+            label: 'Số lượng', // Nhãn của dữ liệu
+            data: data,        // Dữ liệu
+            backgroundColor: "#365CF5", // Màu nền của cột
+            borderWidth: 0, // Không có đường viền
+            borderRadius: 30,
+            barThickness: 6,
+            maxBarThickness: 8
+        }]
+    },
+    options: {
+        plugins: {
+            tooltip: {
+                callbacks: {
+                    titleColor: function(context) {
+                        return "#8F92A1";
+                    },
+                    label: function(context) {
+                        let label = context.dataset.label || "";
+
+                        if (label) {
+                            label += ": ";
+                        }
+                        label += context.parsed.y;
+                        return label;
+                    },
+                },
+                backgroundColor: "#F3F6F8",
+                titleAlign: "center",
+                bodyAlign: "center",
+                titleFont: {
+                    size: 12,
+                    weight: "bold",
+                    color: "#8F92A1",
+                },
+                bodyFont: {
+                    size: 16,
+                    weight: "bold",
+                    color: "#171717",
+                },
+                displayColors: false,
+                padding: {
+                    x: 30,
+                    y: 10,
+                },
+            },
+        },
+        layout: {
+            padding: {
+                top: 15,
+                right: 15,
+                bottom: 15,
+                left: 15,
+            },
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            y: {
+                grid: {
+                    display: false,
+                    drawTicks: false,
+                    drawBorder: false,
+                },
+                ticks: {
+                    padding: 35,
+                    max: 1200,
+                    min: 0,
+                },
+            },
+            x: {
+                grid: {
+                    display: false,
+                    drawBorder: false,
+                    color: "rgba(143, 146, 161, .1)",
+                    drawTicks: false,
+                    zeroLineColor: "rgba(143, 146, 161, .1)"
+                },
+                ticks: {
+                    padding: 20
+                }
+            }
+        },
+        legend: {
+            display: false
+        },
+        title: {
+            display: false
+        }
+    }
+});
+
+}
+
+function SLTVKhoaByTime(){
+    var labels = [];
+    var data = [];
+    if (TVKhoaByTime !== null){
+        for (var i = 0; i < TVKhoaByTime.length; i++) {
+            var item = TVKhoaByTime[i];
+            labels.push(item[0]); // Tên thiết bị
+            data.push(item[1]);   // Số lần mượn
+        }
+    }else{
+        console.log("không có dữ liệu");
+    }
+    var ctx = document.getElementById('Chart2').getContext('2d');
 
     // Hủy biểu đồ cũ nếu tồn tại
     if (myChart) {
@@ -114,39 +277,334 @@ function SLTVKhoa(){
 
     // Tạo biểu đồ mới
     myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: labels, // Tên khoa
-            datasets: [{
-                label: 'Số lượng', // Nhãn của dữ liệu
-                data: data,        // Dữ liệu
-                backgroundColor: 'rgba(54, 162, 235, 1)', // Màu nền của cột
-                borderWidth: 0 // Không có đường viền
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true, // Bắt đầu từ 0 trên trục y
-                    grid: {
-                        display: false // Loại bỏ lưới
-                    }
-                }
-            },
-            maintainAspectRatio: false, // Vô hiệu hóa tỷ lệ giữa chiều rộng và chiều cao
-            responsive: false, // Vô hiệu hóa tính năng phản ứng
-            layout: {
+    type: 'bar',
+    data: {
+        labels: labels, // Tên khoa
+        datasets: [{
+            label: 'Số lượng', // Nhãn của dữ liệu
+            data: data,        // Dữ liệu
+            backgroundColor: "#365CF5", // Màu nền của cột
+            borderWidth: 0, // Không có đường viền
+            borderRadius: 30,
+            barThickness: 6,
+            maxBarThickness: 8
+        }]
+    },
+    options: {
+        plugins: {
+            tooltip: {
+                callbacks: {
+                    titleColor: function(context) {
+                        return "#8F92A1";
+                    },
+                    label: function(context) {
+                        let label = context.dataset.label || "";
+
+                        if (label) {
+                            label += ": ";
+                        }
+                        label += context.parsed.y;
+                        return label;
+                    },
+                },
+                backgroundColor: "#F3F6F8",
+                titleAlign: "center",
+                bodyAlign: "center",
+                titleFont: {
+                    size: 12,
+                    weight: "bold",
+                    color: "#8F92A1",
+                },
+                bodyFont: {
+                    size: 16,
+                    weight: "bold",
+                    color: "#171717",
+                },
+                displayColors: false,
                 padding: {
-                    left: 0,
-                    right: 0,
-                    top: 0,
-                    bottom: 0
-                }
+                    x: 30,
+                    y: 10,
+                },
             },
-            width: 400, // Chiều rộng của biểu đồ
-            height: 400 // Chiều cao của biểu đồ
+        },
+        layout: {
+            padding: {
+                top: 15,
+                right: 15,
+                bottom: 15,
+                left: 15,
+            },
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            y: {
+                grid: {
+                    display: false,
+                    drawTicks: false,
+                    drawBorder: false,
+                },
+                ticks: {
+                    padding: 35,
+                    max: 1200,
+                    min: 0,
+                },
+            },
+            x: {
+                grid: {
+                    display: false,
+                    drawBorder: false,
+                    color: "rgba(143, 146, 161, .1)",
+                    drawTicks: false,
+                    zeroLineColor: "rgba(143, 146, 161, .1)"
+                },
+                ticks: {
+                    padding: 20
+                }
+            }
+        },
+        legend: {
+            display: false
+        },
+        title: {
+            display: false
         }
-    });
+    }
+});
+
+}
+
+function SLTVNganh(){
+    var labels = [];
+    var data = [];
+
+    for (var i = 0; i < nganhAndCount.length; i++) {
+        var item = nganhAndCount[i];
+        labels.push(item[0]); // Tên khoa
+        data.push(item[1]);   // Số lượng
+    }
+    var ctx = document.getElementById('Chart2').getContext('2d');
+
+    // Hủy biểu đồ cũ nếu tồn tại
+    if (myChart) {
+        myChart.destroy();
+    }
+   
+    // Tạo biểu đồ mới
+    myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: labels, // Tên khoa
+        datasets: [{
+            label: 'Số lượng', // Nhãn của dữ liệu
+            data: data,        // Dữ liệu
+            backgroundColor: "#365CF5", // Màu nền của cột
+            borderWidth: 0, // Không có đường viền
+            borderRadius: 30,
+            barThickness: 6,
+            maxBarThickness: 8
+        }]
+    },
+    options: {
+        plugins: {
+            tooltip: {
+                callbacks: {
+                    titleColor: function(context) {
+                        return "#8F92A1";
+                    },
+                    label: function(context) {
+                        let label = context.dataset.label || "";
+
+                        if (label) {
+                            label += ": ";
+                        }
+                        label += context.parsed.y;
+                        return label;
+                    },
+                },
+                backgroundColor: "#F3F6F8",
+                titleAlign: "center",
+                bodyAlign: "center",
+                titleFont: {
+                    size: 12,
+                    weight: "bold",
+                    color: "#8F92A1",
+                },
+                bodyFont: {
+                    size: 16,
+                    weight: "bold",
+                    color: "#171717",
+                },
+                displayColors: false,
+                padding: {
+                    x: 30,
+                    y: 10,
+                },
+            },
+        },
+        layout: {
+            padding: {
+                top: 15,
+                right: 15,
+                bottom: 15,
+                left: 15,
+            },
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            y: {
+                grid: {
+                    display: false,
+                    drawTicks: false,
+                    drawBorder: false,
+                },
+                ticks: {
+                    padding: 35,
+                    max: 1200,
+                    min: 0,
+                },
+            },
+            x: {
+                grid: {
+                    display: false,
+                    drawBorder: false,
+                    color: "rgba(143, 146, 161, .1)",
+                    drawTicks: false,
+                    zeroLineColor: "rgba(143, 146, 161, .1)"
+                },
+                ticks: {
+                    padding: 20
+                }
+            }
+        },
+        legend: {
+            display: false
+        },
+        title: {
+            display: false
+        }
+    }
+});
+
+}
+
+function SLTVNganhByTime(){
+    var labels = [];
+    var data = [];
+    if (nganhAndCountByTime !== null){
+        for (var i = 0; i < nganhAndCountByTime.length; i++) {
+            var item = nganhAndCountByTime[i];
+            labels.push(item[0]); // Tên thiết bị
+            data.push(item[1]);   // Số lần mượn
+        }
+    }else{
+        console.log("không có dữ liệu");
+    }
+    var ctx = document.getElementById('Chart2').getContext('2d');
+
+    // Hủy biểu đồ cũ nếu tồn tại
+    if (myChart) {
+        myChart.destroy();
+    }
+
+    // Tạo biểu đồ mới
+    myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: labels, // Tên khoa
+        datasets: [{
+            label: 'Số lượng', // Nhãn của dữ liệu
+            data: data,        // Dữ liệu
+            backgroundColor: "#365CF5", // Màu nền của cột
+            borderWidth: 0, // Không có đường viền
+            borderRadius: 30,
+            barThickness: 6,
+            maxBarThickness: 8
+        }]
+    },
+    options: {
+        plugins: {
+            tooltip: {
+                callbacks: {
+                    titleColor: function(context) {
+                        return "#8F92A1";
+                    },
+                    label: function(context) {
+                        let label = context.dataset.label || "";
+
+                        if (label) {
+                            label += ": ";
+                        }
+                        label += context.parsed.y;
+                        return label;
+                    },
+                },
+                backgroundColor: "#F3F6F8",
+                titleAlign: "center",
+                bodyAlign: "center",
+                titleFont: {
+                    size: 12,
+                    weight: "bold",
+                    color: "#8F92A1",
+                },
+                bodyFont: {
+                    size: 16,
+                    weight: "bold",
+                    color: "#171717",
+                },
+                displayColors: false,
+                padding: {
+                    x: 30,
+                    y: 10,
+                },
+            },
+        },
+        layout: {
+            padding: {
+                top: 15,
+                right: 15,
+                bottom: 15,
+                left: 15,
+            },
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            y: {
+                grid: {
+                    display: false,
+                    drawTicks: false,
+                    drawBorder: false,
+                },
+                ticks: {
+                    padding: 35,
+                    max: 1200,
+                    min: 0,
+                },
+            },
+            x: {
+                grid: {
+                    display: false,
+                    drawBorder: false,
+                    color: "rgba(143, 146, 161, .1)",
+                    drawTicks: false,
+                    zeroLineColor: "rgba(143, 146, 161, .1)"
+                },
+                ticks: {
+                    padding: 20
+                }
+            }
+        },
+        legend: {
+            display: false
+        },
+        title: {
+            display: false
+        }
+    }
+});
+
 }
 
 function SLTBMuon(){
@@ -158,7 +616,7 @@ function SLTBMuon(){
         labels.push(item[0]); // Tên thiết bị
         data.push(item[1]);   // Số lần mượn
     }
-    var ctx = document.getElementById('myChart').getContext('2d');
+    var ctx = document.getElementById('Chart2').getContext('2d');
 
     // Hủy biểu đồ cũ nếu tồn tại
     if (myChart) {
@@ -167,41 +625,102 @@ function SLTBMuon(){
 
     // Tạo biểu đồ mới
     myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: labels, // Tên thiết bị
-            datasets: [{
-                label: 'Số lần', // Nhãn của dữ liệu
-                data: data,        // Dữ liệu
-                backgroundColor: 'rgba(54, 162, 235, 1)', // Màu nền của cột
-                borderWidth: 0 // Không có đường viền
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true, // Bắt đầu từ 0 trên trục y
-                    grid: {
-                        display: false // Loại bỏ lưới
-                    }
-                }
-            },
-            maintainAspectRatio: false, // Vô hiệu hóa tỷ lệ giữa chiều rộng và chiều cao
-            responsive: false, // Vô hiệu hóa tính năng phản ứng
-            layout: {
-                padding: {
-                    left: 0,
-                    right: 0,
-                    top: 0,
-                    bottom: 0
-                }
-            },
-            width: 400, // Chiều rộng của biểu đồ
-            height: 400 // Chiều cao của biểu đồ
-        }
-    });
-}
+    type: 'bar',
+    data: {
+        labels: labels, // Tên khoa
+        datasets: [{
+            label: 'Số lượng', // Nhãn của dữ liệu
+            data: data,        // Dữ liệu
+            backgroundColor: "#365CF5", // Màu nền của cột
+            borderWidth: 0, // Không có đường viền
+            borderRadius: 30,
+            barThickness: 6,
+            maxBarThickness: 8
+        }]
+    },
+    options: {
+        plugins: {
+            tooltip: {
+                callbacks: {
+                    titleColor: function(context) {
+                        return "#8F92A1";
+                    },
+                    label: function(context) {
+                        let label = context.dataset.label || "";
 
+                        if (label) {
+                            label += ": ";
+                        }
+                        label += context.parsed.y;
+                        return label;
+                    },
+                },
+                backgroundColor: "#F3F6F8",
+                titleAlign: "center",
+                bodyAlign: "center",
+                titleFont: {
+                    size: 12,
+                    weight: "bold",
+                    color: "#8F92A1",
+                },
+                bodyFont: {
+                    size: 16,
+                    weight: "bold",
+                    color: "#171717",
+                },
+                displayColors: false,
+                padding: {
+                    x: 30,
+                    y: 10,
+                },
+            },
+        },
+        layout: {
+            padding: {
+                top: 15,
+                right: 15,
+                bottom: 15,
+                left: 15,
+            },
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            y: {
+                grid: {
+                    display: false,
+                    drawTicks: false,
+                    drawBorder: false,
+                },
+                ticks: {
+                    padding: 35,
+                    max: 1200,
+                    min: 0,
+                },
+            },
+            x: {
+                grid: {
+                    display: false,
+                    drawBorder: false,
+                    color: "rgba(143, 146, 161, .1)",
+                    drawTicks: false,
+                    zeroLineColor: "rgba(143, 146, 161, .1)"
+                },
+                ticks: {
+                    padding: 20
+                }
+            }
+        },
+        legend: {
+            display: false
+        },
+        title: {
+            display: false
+        }
+    }
+});
+
+}
 function SLTBMuonByTime(){
     var labels = [];
     var data = [];
@@ -214,7 +733,7 @@ function SLTBMuonByTime(){
     }else{
         console.log("không có dữ liệu");
     }
-    var ctx = document.getElementById('myChart').getContext('2d');
+    var ctx = document.getElementById('Chart2').getContext('2d');
 
     // Hủy biểu đồ cũ nếu tồn tại
     if (myChart) {
@@ -223,40 +742,103 @@ function SLTBMuonByTime(){
 
     // Tạo biểu đồ mới
     myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: labels, // Tên khoa
-            datasets: [{
-                label: 'Số lượng', // Nhãn của dữ liệu
-                data: data,        // Dữ liệu
-                backgroundColor: 'rgba(54, 162, 235, 1)', // Màu nền của cột
-                borderWidth: 0 // Không có đường viền
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true, // Bắt đầu từ 0 trên trục y
-                    grid: {
-                        display: false // Loại bỏ lưới
-                    }
-                }
-            },
-            maintainAspectRatio: false, // Vô hiệu hóa tỷ lệ giữa chiều rộng và chiều cao
-            responsive: false, // Vô hiệu hóa tính năng phản ứng
-            layout: {
+    type: 'bar',
+    data: {
+        labels: labels, // Tên khoa
+        datasets: [{
+            label: 'Số lượng', // Nhãn của dữ liệu
+            data: data,        // Dữ liệu
+            backgroundColor: "#365CF5", // Màu nền của cột
+            borderWidth: 0, // Không có đường viền
+            borderRadius: 30,
+            barThickness: 6,
+            maxBarThickness: 8
+        }]
+    },
+    options: {
+        plugins: {
+            tooltip: {
+                callbacks: {
+                    titleColor: function(context) {
+                        return "#8F92A1";
+                    },
+                    label: function(context) {
+                        let label = context.dataset.label || "";
+
+                        if (label) {
+                            label += ": ";
+                        }
+                        label += context.parsed.y;
+                        return label;
+                    },
+                },
+                backgroundColor: "#F3F6F8",
+                titleAlign: "center",
+                bodyAlign: "center",
+                titleFont: {
+                    size: 12,
+                    weight: "bold",
+                    color: "#8F92A1",
+                },
+                bodyFont: {
+                    size: 16,
+                    weight: "bold",
+                    color: "#171717",
+                },
+                displayColors: false,
                 padding: {
-                    left: 0,
-                    right: 0,
-                    top: 0,
-                    bottom: 0
-                }
+                    x: 30,
+                    y: 10,
+                },
             },
-            width: 400, // Chiều rộng của biểu đồ
-            height: 400 // Chiều cao của biểu đồ
+        },
+        layout: {
+            padding: {
+                top: 15,
+                right: 15,
+                bottom: 15,
+                left: 15,
+            },
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            y: {
+                grid: {
+                    display: false,
+                    drawTicks: false,
+                    drawBorder: false,
+                },
+                ticks: {
+                    padding: 35,
+                    max: 1200,
+                    min: 0,
+                },
+            },
+            x: {
+                grid: {
+                    display: false,
+                    drawBorder: false,
+                    color: "rgba(143, 146, 161, .1)",
+                    drawTicks: false,
+                    zeroLineColor: "rgba(143, 146, 161, .1)"
+                },
+                ticks: {
+                    padding: 20
+                }
+            }
+        },
+        legend: {
+            display: false
+        },
+        title: {
+            display: false
         }
-    });
+    }
+});
+
 }
+
 function VPDaXuLyTheoNam(){
     /*<![CDATA[*/
     var mydata = dataChart ;

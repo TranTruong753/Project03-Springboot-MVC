@@ -13,6 +13,11 @@ public interface ThongKeService {
     Long countThietBiDangDuocMuonByDate(String date);
     Long countViPhamDangXuLYByDate();
     List<Object[]> getKhoaAndCountKhoa();
+    List <Object[]> getKhoa_and_cout_Khoa_ByDate(String date);
+    
+    List <Object[]> getNganh_and_cout_Nganh();
+    List <Object[]> getNganh_and_cout_Nganh_ByDate(String date);
+    
     List<Object[]> countSoLanThietBiDuocMuon();
     List<Object[]> countSoLanThietBiDuocMuonTheoThoiGian(String date);
     List<String> findAllYearsXuLy();

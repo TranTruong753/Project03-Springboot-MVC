@@ -41,6 +41,33 @@ public interface ThongKeRepository extends JpaRepository<ThongTinSD, Integer>{
     @Query("SELECT tv.khoa, COUNT(tv.id) FROM Thanhvien tv GROUP BY tv.khoa")
     List<Object[]> getKhoaAndCountKhoa();
     
+    @Query("SELECT tv.khoa, COUNT(tv.id) " +
+            "FROM Thanhvien tv " +
+            "INNER JOIN ThongTinSD ttsd ON ttsd.thanhVien.id = tv.id " +
+            "WHERE " +
+            "( DATE_FORMAT(ttsd.thoiGianVao, '%Y-%m-%d') = :date " +
+            "OR DATE_FORMAT(ttsd.thoiGianVao, '%Y-%m') = :date " +
+            "OR DATE_FORMAT(ttsd.thoiGianVao, '%Y') = :date ) " +
+            "GROUP BY tv.khoa")
+    List <Object[]> getKhoa_and_cout_Khoa_ByDate(@Param("date") String date);
+    
+
+    @Query ("SELECT tv.nganh, COUNT(tv.id)  " +
+                     "FROM Thanhvien tv " +
+                     "GROUP BY tv.nganh")
+    List <Object[]> getNganh_and_cout_Nganh();
+    
+
+    @Query("SELECT tv.nganh, COUNT(tv.id) " +
+            "FROM Thanhvien tv " +
+            "INNER JOIN ThongTinSD ttsd ON ttsd.thanhVien.id = tv.id " +
+            "WHERE " +
+            "( DATE_FORMAT(ttsd.thoiGianVao, '%Y-%m-%d') = :date " +
+            "OR DATE_FORMAT(ttsd.thoiGianVao, '%Y-%m') = :date " +
+            "OR DATE_FORMAT(ttsd.thoiGianVao, '%Y') = :date ) " +
+            "GROUP BY tv.nganh")
+    List <Object[]> getNganh_and_cout_Nganh_ByDate(@Param("date") String date);
+    
     @Query("SELECT tb.tenTB, COUNT(ttsd.thietBi.maTB) AS soluong " +
            "FROM ThongTinSD ttsd " +
            "JOIN ttsd.thietBi tb " +

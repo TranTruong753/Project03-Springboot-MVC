@@ -36,6 +36,21 @@ public class ThongKeServiceImpl implements  ThongKeService{
     }
     
     @Override
+    public List <Object[]> getKhoa_and_cout_Khoa_ByDate(String date){
+        return thongKeRepository.getKhoa_and_cout_Khoa_ByDate(date);
+    }
+    
+    @Override
+    public List <Object[]> getNganh_and_cout_Nganh(){
+        return thongKeRepository.getNganh_and_cout_Nganh();
+    }
+    
+    @Override
+    public List <Object[]> getNganh_and_cout_Nganh_ByDate(String date){
+        return thongKeRepository.getNganh_and_cout_Nganh_ByDate(date);
+    }
+    
+    @Override
     public List<Object[]> countSoLanThietBiDuocMuon() {
         return thongKeRepository.countSoLanThietBiDuocMuon();
     }
