@@ -34,4 +34,14 @@ public class ThongKeServiceImpl implements  ThongKeService{
     public List<Object[]> getKhoaAndCountKhoa() {
         return thongKeRepository.getKhoaAndCountKhoa();
     }
+    
+    @Override
+    public List<Object[]> countSoLanThietBiDuocMuon() {
+        return thongKeRepository.countSoLanThietBiDuocMuon();
+    }
+    
+    @Override
+    public List<Object[]> countSoLanThietBiDuocMuonTheoThoiGian(String date) {
+        return thongKeRepository.countSoLanThietBiDuocMuonTheoThoiGian(date);
+    }
 }

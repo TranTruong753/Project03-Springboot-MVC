@@ -10,22 +10,28 @@ import com.webdemo.demospringboot.service.ThongKeService;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 
 @Controller
-
 public class ThongKeController {
     @Autowired
-    private ThongKeService thongKeService;
-   
+    private final ThongKeService thongKeService;
+    public ThongKeController(ThongKeService thongKeService) {
+        this.thongKeService = thongKeService;
+    }
     @GetMapping("/admin")
     public String handleRequest(Model model) {
         LocalDateTime currentTime = LocalDateTime.now();
@@ -43,9 +49,17 @@ public class ThongKeController {
         List<Object[]> khoaAndCount = thongKeService.getKhoaAndCountKhoa();
         model.addAttribute("khoaAndCount", khoaAndCount);
 
-        
-        return "admin/index";
+        List<Object[]> countSoLanThietBiDuocMuon = thongKeService.countSoLanThietBiDuocMuon();
+        model.addAttribute("TBmuonCount", countSoLanThietBiDuocMuon);
+       
+        return "admin/index"; // Trả về view
     }
-    
-   
+
+ @PostMapping(value = "/admin", consumes = "application/json")
+    @ResponseBody
+    public List<Object[]> handleTime(@RequestBody Map<String, String> requestData) {
+        String formattedDate = requestData.get("time");
+        List<Object[]> countSoLanThietBiDuocMuonTheoThoiGian = thongKeService.countSoLanThietBiDuocMuonTheoThoiGian(formattedDate);
+        return countSoLanThietBiDuocMuonTheoThoiGian;
+    }
 }
