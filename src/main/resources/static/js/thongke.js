@@ -2,6 +2,7 @@ var myChart; // Biến lưu trữ biểu đồ
 
 var chart1;
 var element = document.getElementById('change-title-chart');
+var element1 = document.getElementById('change-year');
 
 var getdate;
 
@@ -77,7 +78,8 @@ function checkSelectionQuery(){
                 chart1.destroy();
             }
             SLTVKhoa();
-            element.innerHTML = 'Số lượng thành viên theo khoa'; 
+            element.innerHTML = 'Số lượng thành viên theo khoa';
+            element1.innerHTML = 'Số lượng vi phạm đã xử lý theo năm '; 
         } else if (valueSelect === "1") {
             // Code vẽ biểu đồ cho ngành
             if(chart1){
@@ -85,6 +87,7 @@ function checkSelectionQuery(){
             }
             SLTVNganh();
             element.innerHTML = 'Số lượng thành viên theo ngành';
+            element1.innerHTML = 'Số lượng vi phạm đã xử lý theo năm '
         } else if (valueSelect === "2") {
             // Code vẽ biểu đồ cho thiết bị đã mượn
             if(chart1){
@@ -92,6 +95,7 @@ function checkSelectionQuery(){
             }
             SLTBMuon();
             element.innerHTML = 'Số lần thiết bị đã được mượn';
+            element1.innerHTML = 'Số lượng vi phạm đã xử lý theo năm '
         } else {
             // Code vẽ biểu đồ cho vi phạm đã xử lý
             if(chart1){
@@ -99,6 +103,7 @@ function checkSelectionQuery(){
             }
             SLVPham();
             element.innerHTML = 'Số lượng vi phạm đã xử lý';
+            element1.innerHTML = 'Số lượng vi phạm đã xử lý theo năm '
             
             
 
@@ -129,6 +134,7 @@ function checkSelectionQuery(){
                 }
             });
             element.innerHTML = 'Số lượng thành viên theo khoa vào khu học tập trong '+getdate;
+            element1.innerHTML = 'Số lượng vi phạm đã xử lý theo năm '
         } else if (valueSelect === "1") {
             // Code vẽ biểu đồ cho ngành
             if(chart1){
@@ -153,6 +159,7 @@ function checkSelectionQuery(){
                 }
             });
             element.innerHTML = 'Số lượng thành viên theo ngành vào khu học tập trong '+getdate;
+            element1.innerHTML = 'Số lượng vi phạm đã xử lý theo năm '
         } else if (valueSelect === "2") {
             // Code vẽ biểu đồ cho thiết bị đã mượn
             if(chart1){
@@ -176,6 +183,7 @@ function checkSelectionQuery(){
                 }
             });
             element.innerHTML = 'Số lần thiết bị đã được mượn trong '+getdate;
+            element1.innerHTML = 'Số lượng vi phạm đã xử lý theo năm '
         } else if (valueSelect === "3") {
             // Code vẽ biểu đồ cho vi phạm đã xử lý
             $.ajax({
@@ -196,6 +204,7 @@ function checkSelectionQuery(){
                     console.error("Error: " + error);
                 }
             });
+            element1.innerHTML = 'Số lượng vi phạm đã xử lý theo năm ' + getdate.substr(0, 4);
             element.innerHTML = 'Số lượng vi phạm đã xử lý trong '+getdate;
             $.ajax({
                 type: "POST",
