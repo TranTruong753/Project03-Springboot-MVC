@@ -108,6 +108,7 @@ public class Device_User_Controller {
                     thongTinSD.setThoiGianDatCho(vietnamLocalDateTime);
                     DatchoService.saveThongTinSD(thongTinSD);
                 }
+                session.setAttribute("cartDevice", null);
                 return ResponseEntity.ok("success");
 
             } else {
