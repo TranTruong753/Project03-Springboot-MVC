@@ -269,37 +269,38 @@ public class AdminMemberController {
         String mess = "";
         String MaTV = request.getParameter("MaTV").toString().trim();
         String MaTB = request.getParameter("MaTB").toString().trim();
-        System.out.println("MaTV: "+MaTV);
-        System.out.println("MaTB: "+MaTB);
+        System.out.println("MaTV: " + MaTV);
+        System.out.println("MaTB: " + MaTB);
         boolean checkTTSDNotContaint = true;
         boolean checkTVContaint = false;
         boolean checkTBContaint = false;
+        List<ThongTinSD> listThongTinSDAll = MuonTraThietBiService.findAll();
         List<ThongTinSD> listThongTinSD = MuonTraThietBiService.findTTSDDangMuon();
         List<ThietBi> listThietBi = thietBiService.layDanhSachThietBi();
         List<Thanhvien> listThanhVien = ThanhVienService.GetAll();
 
         System.out.println("Danh Sách Thành Viên");
         for (Thanhvien thanhvien : listThanhVien) {
-            System.out.println("MaTV: "+MaTV);
-             System.out.println("Mã Thành Viên: "+thanhvien.getId());
-             System.out.println("equal: "+MaTV.equals(thanhvien.getId().toString()));
+            System.out.println("MaTV: " + MaTV);
+            System.out.println("Mã Thành Viên: " + thanhvien.getId());
+            System.out.println("equal: " + MaTV.equals(thanhvien.getId().toString()));
             if (MaTV.equals(thanhvien.getId() + "")) {
                 System.out.println("Dô THành Viên");
                 checkTVContaint = true;
                 break;
-            }   
+            }
         }
         System.out.println("Danh Sách Thiết bị");
         for (ThietBi thietBi : listThietBi) {
-            
-            System.out.println("Mã Thiết Bị: "+thietBi.getMaTB());
-             System.out.println("MaTB: "+MaTB);
-            System.out.println("equal: "+MaTV.equals(thietBi.getMaTB() + ""));
+
+            System.out.println("Mã Thiết Bị: " + thietBi.getMaTB());
+            System.out.println("MaTB: " + MaTB);
+            System.out.println("equal: " + MaTV.equals(thietBi.getMaTB() + ""));
             if (MaTB.equals(thietBi.getMaTB() + "")) {
-                 System.out.println("Dô Thiết bị");
+                System.out.println("Dô Thiết bị");
                 checkTBContaint = true;
                 break;
-            } 
+            }
         }
         if (checkTVContaint == true && checkTBContaint == true) {
 //            System.out.println("______________________________________________________________________________________________________________");
@@ -317,25 +318,55 @@ public class AdminMemberController {
                 LocalDateTime currentDateTime = LocalDateTime.now();
                 ttsd.setThietBi(thietBiService.get(Integer.parseInt(MaTB)));
                 ttsd.setThanhVien(ThanhVienService.search(Integer.parseInt(MaTV)));
-                ttsd.setMaTT(listThongTinSD.get(listThongTinSD.size()-1).getMaTT()+1);
+                ttsd.setMaTT(listThongTinSDAll.get(listThongTinSDAll.size() - 1).getMaTT() + 1);
                 ttsd.setThoiGianMuon(currentDateTime);
                 mess = ":";
                 MuonTraThietBiService.save(ttsd);
 
             }
-        }else
-        {
-            if(checkTVContaint == false)
-            {
+        } else {
+            if (checkTVContaint == false) {
                 mess += "Thành viên không tồn tại\n";
             }
-            if(checkTBContaint == false)
-            {
+            if (checkTBContaint == false) {
                 mess += "Thiết bị không tồn tại\n";
             }
         }
-        
 
+        return mess;
+
+    }
+
+//    save_pay_device
+    @RequestMapping(value = "/save_pay_device", method = RequestMethod.POST)
+    public @ResponseBody
+    String save_pay_device(HttpServletRequest request) {
+        String mess = "";
+        String MaTB = request.getParameter("MaTB").toString().trim();
+        boolean checkTTSDContaint = false;
+        List<ThongTinSD> listThongTinSD = MuonTraThietBiService.findTTSDDangMuon();
+
+        ThongTinSD current = null;
+        for (ThongTinSD thongTinSD : listThongTinSD) {
+                System.out.println(thongTinSD.getThietBi().getMaTB());
+
+            if (MaTB.equals(thongTinSD.getThietBi().getMaTB() + "") == true) {
+                checkTTSDContaint = true;
+                current = thongTinSD;
+                break;
+            }
+        }
+        if (checkTTSDContaint == true) {
+            LocalDateTime currentDateTime = LocalDateTime.now();
+            current.setThoiGianTra(currentDateTime);
+            MuonTraThietBiService.save(current);
+            mess = ":";
+        } else {
+            if (checkTTSDContaint == false) {
+                mess += "Thiết bị chưa được mượn\n";
+            }
+
+        }
         return mess;
 
     }

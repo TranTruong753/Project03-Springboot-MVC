@@ -75,10 +75,10 @@
                                         <div class="row mt-3">
                                             <h6 class="mb-2">Trả Thiết Bị</h6>
                                             <div class="input-style-1 col-6 ">
-                                                <input type="text" id="" class="form-control" placeholder="Mã Thiết Bị">
+                                                <input type="text" id="MaTBTra" class="form-control" placeholder="Mã Thiết Bị">
                                             </div>
                                             <div class="col-6">
-                                                <button class="main-btn primary-btn btn-hover">Xác nhận trả</button>
+                                                <button class="main-btn primary-btn btn-hover" onclick="TraThietBi()">Xác nhận trả</button>
                                             </div>
                                         </div>
 
@@ -167,6 +167,50 @@
 //          });
 //    }
 
+    function TraThietBi()
+    {
+        var MaTB = document.getElementById('MaTBTra').value;
+        TraThietBiCurrent(MaTB);
+    }
+
+    function TraThietBiCurrent(MaTB) {
+        $.ajax({
+            url: '/admin/member/save_pay_device',
+            type: 'POST',
+            data: {
+                MaTB: MaTB
+            },
+           success: function (response) {
+                // Trong phần này, response chính là id trả về từ Spring Controller
+//                alert(response);
+                if (response == ":") {
+//              alert( "Xóa thành công!");
+                    swal({
+                        title: "Trả Thành Công!",
+                        text: "Nhấn vào nút để tiếp tục!",
+                        icon: "success"
+                    }).then(function () {
+                        window.location = "http://localhost:8080/admin/member/borrow_device";
+                    });
+                } else {
+                    swal({
+                        title: "error",
+                        text: response,
+                        icon: "error"
+                    });
+                }
+//            alert( response);
+
+
+            },
+            error: function (xhr, status, error) {
+//            console.error("Error occurred while deleting data:", error);
+                alert(response);
+
+            }
+        })
+    }
+
     function ThemThongTinSDMuon() {
         var MaTV = document.getElementById('MaTVMuon').value;
         var MaTB = document.getElementById('MaTBMuon').value;
@@ -186,22 +230,19 @@
                 if (response == ":") {
 //              alert( "Xóa thành công!");
                     swal({
-                        title: "Thêm Thành Công!",
+                        title: "Mượn Thành Công!",
                         text: "Nhấn vào nút để tiếp tục!",
                         icon: "success"
                     }).then(function () {
                         window.location = "http://localhost:8080/admin/member/borrow_device";
                     });
-
-
+                } else {
+                    swal({
+                        title: "error",
+                        text: response,
+                        icon: "error"
+                    });
                 }
-                else {
-            swal({
-                title: "error",
-                text: response,
-                icon: "error"
-            });
-          }
 //            alert( response);
 
 
