@@ -45,10 +45,7 @@ public class AdminTransgressController {
         List<Thanhvien> ThanhvienList = thanhVienService.GetAll();
         model.addAttribute("danhSachThanhVien", ThanhvienList);
         List<Xuly> XulyList = xulyService.layDanhSachXuLi();
-        int maxMaXL = XulyList.stream()
-            .mapToInt(Xuly::getMaXL)
-            .max()
-            .orElse(0);
+        int maxMaXL = XulyList.stream().mapToInt(x -> x.getMaXL()).max().orElse(0);
         model.addAttribute("maxId", maxMaXL+1);
         return "admin/add_transgress";
     }
