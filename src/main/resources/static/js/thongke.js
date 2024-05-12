@@ -66,16 +66,29 @@ function checkSelectionQuery(){
     if (formattedDate === "") {
         // Code truy xuất dữ liệu không có ngày tháng
         if (valueSelect === "0") {
+            if(chart1){
+                chart1.destroy();
+            }
             SLTVKhoa();
         } else if (valueSelect === "1") {
             // Code vẽ biểu đồ cho ngành
+            if(chart1){
+                chart1.destroy();
+            }
             SLTVNganh();
         } else if (valueSelect === "2") {
             // Code vẽ biểu đồ cho thiết bị đã mượn
+            if(chart1){
+                chart1.destroy();
+            }
             SLTBMuon();
         } else {
             // Code vẽ biểu đồ cho vi phạm đã xử lý
+            if(chart1){
+                chart1.destroy();
+            }
             SLVPham();
+            
             
 
 
@@ -84,6 +97,9 @@ function checkSelectionQuery(){
     } else {
         // Code truy xuất dữ liệu có ngày tháng (truyền date = formatted Date)
         if (valueSelect === "0") {
+            if(chart1){
+                chart1.destroy();
+            }
             $.ajax({
                 type: "POST",
                 url: "/admin",
@@ -103,7 +119,11 @@ function checkSelectionQuery(){
             });
         } else if (valueSelect === "1") {
             // Code vẽ biểu đồ cho ngành
+            if(chart1){
+                chart1.destroy();
+            }
             $.ajax({
+                
                 type: "POST",
                 url: "/admin",
                 contentType: "application/json",
@@ -122,6 +142,9 @@ function checkSelectionQuery(){
             });
         } else if (valueSelect === "2") {
             // Code vẽ biểu đồ cho thiết bị đã mượn
+            if(chart1){
+                chart1.destroy();
+            }
             $.ajax({
                 type: "POST",
                 url: "/admin",
