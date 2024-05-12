@@ -126,7 +126,7 @@
                                                     </th>
                                                 </tr>
                                             </thead>
-                                            <tbody id="cartTable" class="bg-white" th:attr="data-length=${cartDevice.size()}">
+                                            <tbody id="cartTable" class="bg-white" th:attr="data-length=${cartDevice == null ? 0 : cartDevice.size()}">
                                                 <tr th:each="thietBi : ${cartDevice}">
                                                     <td>
                                                         <p th:text="${thietBi.maTB}"></p>

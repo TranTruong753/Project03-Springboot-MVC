@@ -30,7 +30,6 @@ public class HomeController {
     @GetMapping({"home", "/"})
     public String index(Model model, HttpSession session) {
         List<ThietBi> cartDevice = (List<ThietBi>) session.getAttribute("cartDevice");
-
         model.addAttribute("danhSachThietBi", thietBiService.findAllThietBi());
         return "ListDevice";
     }
@@ -84,9 +83,9 @@ public class HomeController {
         int maTV = Integer.parseInt(maTVString);
         Thanhvien userLogin = thanhvienservice.search(maTV);
         List<ThietBi> cartDevice = (List<ThietBi>) session.getAttribute("cartDevice");
-        if (cartDevice != null) {
-            model.addAttribute("cartDevice", cartDevice);
-        }
+//        if (cartDevice != null) {
+        model.addAttribute("cartDevice", cartDevice);
+//        }
 //        System.out.println("thanhvien: "+userLogin);
         model.addAttribute("userLogin", userLogin);
         return "cartDevice";
