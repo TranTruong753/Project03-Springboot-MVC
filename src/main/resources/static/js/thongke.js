@@ -1,6 +1,9 @@
 var myChart; // Biến lưu trữ biểu đồ
 
 var chart1;
+var element = document.getElementById('change-title-chart');
+
+var getdate;
 
 function setDefaultDate() {
     // Lấy ngày hiện tại
@@ -31,15 +34,19 @@ function formatDate(date) {
     switch (valueRadioBtn()) {
         case "1":
             formattedDate = timestamp.toISOString().substring(0, 10);
+            getdate = formattedDate;
             break;
         case "2":
             formattedDate = timestamp.toISOString().substring(0, 7);
+            getdate = formattedDate;
             break;
         case "3":
             formattedDate = timestamp.toISOString().substring(0, 4);
+            getdate = formattedDate;
             break;
         default:
             formattedDate = "";
+
             break;
     }
 
@@ -70,24 +77,28 @@ function checkSelectionQuery(){
                 chart1.destroy();
             }
             SLTVKhoa();
+            element.innerHTML = 'Số lượng thành viên theo khoa'; 
         } else if (valueSelect === "1") {
             // Code vẽ biểu đồ cho ngành
             if(chart1){
                 chart1.destroy();
             }
             SLTVNganh();
+            element.innerHTML = 'Số lượng thành viên theo ngành';
         } else if (valueSelect === "2") {
             // Code vẽ biểu đồ cho thiết bị đã mượn
             if(chart1){
                 chart1.destroy();
             }
             SLTBMuon();
+            element.innerHTML = 'Số lần thiết bị đã được mượn';
         } else {
             // Code vẽ biểu đồ cho vi phạm đã xử lý
             if(chart1){
                 chart1.destroy();
             }
             SLVPham();
+            element.innerHTML = 'Số lượng vi phạm đã xử lý';
             
             
 
@@ -117,6 +128,7 @@ function checkSelectionQuery(){
                     console.error("Error: " + error);
                 }
             });
+            element.innerHTML = 'Số lượng thành viên theo khoa vào khu học tập trong '+getdate;
         } else if (valueSelect === "1") {
             // Code vẽ biểu đồ cho ngành
             if(chart1){
@@ -140,6 +152,7 @@ function checkSelectionQuery(){
                     console.error("Error: " + error);
                 }
             });
+            element.innerHTML = 'Số lượng thành viên theo ngành vào khu học tập trong '+getdate;
         } else if (valueSelect === "2") {
             // Code vẽ biểu đồ cho thiết bị đã mượn
             if(chart1){
@@ -162,6 +175,7 @@ function checkSelectionQuery(){
                     console.error("Error: " + error);
                 }
             });
+            element.innerHTML = 'Số lần thiết bị đã được mượn trong '+getdate;
         } else if (valueSelect === "3") {
             // Code vẽ biểu đồ cho vi phạm đã xử lý
             $.ajax({
@@ -182,6 +196,7 @@ function checkSelectionQuery(){
                     console.error("Error: " + error);
                 }
             });
+            element.innerHTML = 'Số lượng vi phạm đã xử lý trong '+getdate;
             $.ajax({
                 type: "POST",
                 url: "/admin",

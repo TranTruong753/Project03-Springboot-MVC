@@ -5,6 +5,7 @@
 </head>
 
 <body>
+    <script src="/src/main/resources/static/js/thongke.js"></script>
     <!-- ======== Preloader =========== -->
     <div th:replace="fragments/spinner :: spinner"></div>
     <!-- ======== Preloader =========== -->
@@ -28,7 +29,7 @@
                     <div class="row align-items-center">
                         <div class="col-md-6">
                             <div class="title">
-                                <h2>eCommerce Dashboard</h2>
+                                <h2>Thống Kê</h2>
                             </div>
                         </div>
                         <!-- end col -->
@@ -88,7 +89,7 @@
                 <!-- ========== title-wrapper end ========== -->
                 <div class="row">
                     <!-- End Col -->
-                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                    <div class="col-xl-6 col-lg-4 col-md-6 col-sm-12">
                         <div class="icon-card mb-30">
 
                             <div class="content">
@@ -100,7 +101,7 @@
                         <!-- End Icon Cart -->
                     </div>
                     <!-- End Col -->
-                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                    <div class="col-xl-6 col-lg-4 col-md-6 col-sm-12">
                         <div class="icon-card mb-30">
                             
                             <div class="content">
@@ -112,7 +113,7 @@
                         <!-- End Icon Cart -->
                     </div>
                     <!-- End Col -->
-                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                    <div class="col-xl-6 col-lg-4 col-md-6 col-sm-12">
                         <div class="icon-card mb-30">
 
                             <div class="content">
@@ -125,7 +126,7 @@
                     </div>
                     <!-- End Col -->
                     
-                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                    <div class="col-xl-6 col-lg-4 col-md-6 col-sm-12">
                         <div class="icon-card mb-30">
 
                             <div class="content">
@@ -161,9 +162,35 @@
                 <h3 class="text-bold mb-10" th:text="${TBmuonCountByDay}">  </h3>
                 <!-- End Row -->
                 <div class="row">
-                    <div class="col-lg-7">
+                    <div class="col-lg-6">
                         <div class="card-style mb-30">
-                            <div class="title d-flex flex-wrap justify-content-between">
+                           <div class="title d-flex flex-wrap align-items-center justify-content-between">
+                                <div class="left">
+                                    <h6 class="text-medium mb-10" id="change-title-chart"></h6>
+                                </div>
+                                <div class="right">
+                                    <div class="select-style-1">
+                                        <!-- <div class="select-position select-sm">
+                                            <select class="light-bg">
+                                                <option value="">Yearly</option>
+                                                <option value="">Monthly</option>
+                                                <option value="">Weekly</option>
+                                            </select>
+                                        </div> -->
+                                    </div>
+                                     <!-- end select  -->
+                                </div>
+                            </div>
+                            <!-- End Title -->
+                            <div class="chart">
+                                <canvas id="Chart2" style="width: 100%; height: 400px; margin-left: -45px;"></canvas>
+                            </div>
+                            <!-- End Chart -->
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card-style mb-30">
+                            <div class="title d-flex flex-wrap align-items-center justify-content-between">
                                 <div class="left">
                                     <h6 class="text-medium mb-10">Số lượng vi phạm đã xử lý theo năm</h6>
                                     <h3 class="text-bold"></h3>
@@ -188,32 +215,7 @@
                         </div>
                     </div>
                     <!-- End Col -->
-                    <div class="col-lg-5">
-                        <div class="card-style mb-30">
-<!--                            <div class="title d-flex flex-wrap align-items-center justify-content-between">
-                                <div class="left">
-                                    <h6 class="text-medium mb-30">Sales/Revenue</h6>
-                                </div>
-                                <div class="right">
-                                    <div class="select-style-1">
-                                        <div class="select-position select-sm">
-                                            <select class="light-bg">
-                                                <option value="">Yearly</option>
-                                                <option value="">Monthly</option>
-                                                <option value="">Weekly</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                     end select 
-                                </div>
-                            </div>-->
-                            <!-- End Title -->
-                            <div class="chart">
-                                <canvas id="Chart2" style="width: 100%; height: 400px; margin-left: -45px;"></canvas>
-                            </div>
-                            <!-- End Chart -->
-                        </div>
-                    </div>
+                    
                     <!-- End Col -->
                 </div>
                 <!-- End Row -->
@@ -232,6 +234,7 @@
 
     <div th:replace="fragments/AdminScript :: AdminScript"></div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
     <script>
         function sendYear() {
     // Lấy giá trị của thẻ input date
