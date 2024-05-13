@@ -30,7 +30,6 @@ public class HomeController {
     @GetMapping({"home", "/"})
     public String index(Model model, HttpSession session) {
         List<ThietBi> cartDevice = (List<ThietBi>) session.getAttribute("cartDevice");
-
         model.addAttribute("danhSachThietBi", thietBiService.findAllThietBi());
         return "ListDevice";
     }
@@ -68,7 +67,12 @@ public class HomeController {
             // Tìm và xóa mục trong giỏ hàng với maTB nhận được
             cartDevice.removeIf(thietBi -> thietBi.getMaTB() == maTB);
             session.setAttribute("cartDevice", cartDevice); // Cập nhật lại giỏ hàng trong session
-            return ResponseEntity.ok("Đã xóa thiết bị khỏi giỏ hàng");
+            int cartDeviceLength = cartDevice.size(); // Lấy độ dài danh sách cartDevice
+
+            // Chuyển đổi int thành String
+            String cartDeviceLengthString = String.valueOf(cartDeviceLength);
+
+            return ResponseEntity.ok(cartDeviceLengthString);
         }
         return ResponseEntity.badRequest().body("Không tìm thấy giỏ hàng");
     }
@@ -79,9 +83,9 @@ public class HomeController {
         int maTV = Integer.parseInt(maTVString);
         Thanhvien userLogin = thanhvienservice.search(maTV);
         List<ThietBi> cartDevice = (List<ThietBi>) session.getAttribute("cartDevice");
-        if (cartDevice != null) {
-            model.addAttribute("cartDevice", cartDevice);
-        }
+//        if (cartDevice != null) {
+        model.addAttribute("cartDevice", cartDevice);
+//        }
 //        System.out.println("thanhvien: "+userLogin);
         model.addAttribute("userLogin", userLogin);
         return "cartDevice";

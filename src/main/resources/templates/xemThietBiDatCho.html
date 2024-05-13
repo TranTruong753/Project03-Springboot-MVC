@@ -85,10 +85,9 @@
                                         <tbody class="bg-white">
                                             <!-- start table row-->
                                             <tr th:each="thongTinSD : ${thongTinSDList}">
-                                                <!-- Truy cập các thuộc tính của từng đối tượng 'thongTinSD' -->
-                                                <td th:text="${thongTinSD.thietBi.maTB}"></td>
-                                                <td th:text="${thongTinSD.thietBi.tenTB}"></td>
-                                                <td th:text="${thongTinSD.thoiGianDatCho}"></td>
+                                                <td th:text="${thongTinSD[0]}"></td>
+                                                <td th:text="${thongTinSD[1]}"></td>
+                                                <td th:text="${thongTinSD[2]}"></td>
                                             </tr>
                                             <!-- end table row-->
                                         </tbody>

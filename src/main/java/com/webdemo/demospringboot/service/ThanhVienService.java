@@ -37,5 +37,7 @@ public class ThanhVienService {
     public void saveAll(List<Thanhvien> tvs) {
         repo.saveAll(tvs);
     }
+    
+  
 
 }

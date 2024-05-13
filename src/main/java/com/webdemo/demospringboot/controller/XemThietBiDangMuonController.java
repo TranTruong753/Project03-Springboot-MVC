@@ -33,11 +33,11 @@ public class XemThietBiDangMuonController {
         int maTV = Integer.parseInt(maTVString);
         System.out.println(maTV);
         List<ThongTinSD> ListDanhSachDangMuon = service.LayDanhSachDangMuon(maTV);
-        for (ThongTinSD ttsd : ListDanhSachDangMuon) {
-            System.out.println(ttsd.getMaTT());
-            System.out.println(ttsd.getThietBi().getTenTB());
-
-        }
+//        for (ThongTinSD ttsd : ListDanhSachDangMuon) {
+//            System.out.println(ttsd.getMaTT());
+//            System.out.println(ttsd.getThietBi().getTenTB());
+//
+//        }
         model.addAttribute("ListDanhSachDangMuon", ListDanhSachDangMuon);
         return "ThietBiDangMuon";
     }

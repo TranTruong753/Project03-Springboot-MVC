@@ -212,6 +212,30 @@
             }
           });
         }
+      }else{
+        $.ajax({
+          url: '/admin/transgress/edit_transgress',
+          type: 'POST',
+          data: 
+          {
+            maXL: maXL,
+            maTV: maTV,
+            hinhThucXuLy: hinhThucXuLy,
+            soTien: soTien,
+            ngayXL: ngayXL,
+            trangThaiXL: trangThaiXL
+          },
+          success: function(response) {
+            swal("Success", "Sửa thành công", "success").then(() => {
+              window.location.href = '/admin/transgress';
+            });
+            
+          },
+          error: function(error) {
+            console.error('Error:', error);
+            swal("Fail", "Sửa thất bại", "error")
+          }
+        });
       }
       
     });

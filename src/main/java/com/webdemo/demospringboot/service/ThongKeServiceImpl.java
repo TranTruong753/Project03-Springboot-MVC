@@ -21,8 +21,8 @@ public class ThongKeServiceImpl implements  ThongKeService{
     }
     
     @Override
-    public Long countThietBiDangDuocMuonByDate(String date) {
-        return thongKeRepository.countThietBiDangDuocMuonByDate(date);
+    public Long countThietBiDangDuocMuonByDate() {
+        return thongKeRepository.countThietBiDangDuocMuonByDate();
     }
     
     @Override
@@ -33,5 +33,58 @@ public class ThongKeServiceImpl implements  ThongKeService{
     @Override
     public List<Object[]> getKhoaAndCountKhoa() {
         return thongKeRepository.getKhoaAndCountKhoa();
+    }
+    
+    @Override
+    public List <Object[]> getKhoa_and_cout_Khoa_ByDate(String date){
+        return thongKeRepository.getKhoa_and_cout_Khoa_ByDate(date);
+    }
+    
+    @Override
+    public List <Object[]> getNganh_and_cout_Nganh(){
+        return thongKeRepository.getNganh_and_cout_Nganh();
+    }
+    
+    @Override
+    public List <Object[]> getNganh_and_cout_Nganh_ByDate(String date){
+        return thongKeRepository.getNganh_and_cout_Nganh_ByDate(date);
+    }
+    
+    @Override
+    public List<Object[]> countSoLanThietBiDuocMuon() {
+        return thongKeRepository.countSoLanThietBiDuocMuon();
+    }
+    
+    @Override
+    public List<Object[]> countSoLanThietBiDuocMuonTheoThoiGian(String date) {
+        return thongKeRepository.countSoLanThietBiDuocMuonTheoThoiGian(date);
+    }
+
+    @Override
+    public List<String> findAllYearsXuLy() {
+        return thongKeRepository.findAllYearsXuLy();
+    }
+
+    @Override
+    public List<Object[]> findRowCountByMonth(String year) {
+        return thongKeRepository.findRowCountByMonth(year);
+    }
+
+    
+    @Override
+    public int sumTienBoiThuong() {
+        return thongKeRepository.sumTienBoiThuong();
+    }
+
+
+    @Override
+    public List<Object[]> getHinhThucXL_and_cout_HinhThucXL() {
+        return thongKeRepository.getHinhThucXL_and_cout_HinhThucXL();
+    }
+
+    @Override
+    public List<Object[]> getHinhThucXL_and_cout_HinhThucXL_ByDate(String date) {
+        return thongKeRepository.getHinhThucXL_and_cout_HinhThucXL_ByDate(date);
+
     }
 }

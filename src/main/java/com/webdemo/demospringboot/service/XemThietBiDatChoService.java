@@ -14,7 +14,7 @@ import org.springframework.data.repository.query.Param;
  * @author ACER
  */
 public interface XemThietBiDatChoService {
-    List<ThongTinSD> layDanhSachThietBiDatCho(int maTV);
+    List<Object[]> findThietBiByMaTVAndThoiGianDatCho(int maTV);
     public void themThongTinSD(ThongTinSD ttsd);
     List<ThongTinSD> getdsvaokhuhoctap();
 }

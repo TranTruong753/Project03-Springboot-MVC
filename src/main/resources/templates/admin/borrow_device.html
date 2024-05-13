@@ -1,158 +1,257 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head th:replace="fragments/AdminHead :: AdminHead"></head>
+    <head th:replace="fragments/AdminHead :: AdminHead"></head>
 
-<body>
-    <!-- ======== Preloader =========== -->
-    <div th:replace="fragments/spinner :: spinner"></div>
-    <!-- ======== Preloader =========== -->
+    <body>
+        <!-- ======== Preloader =========== -->
+        <div th:replace="fragments/spinner :: spinner"></div>
+        <!-- ======== Preloader =========== -->
 
-    <!-- ======== sidebar-nav start =========== -->
-    <aside th:replace="fragments/AdminAside :: AdminAside"></aside>
-    <div class="overlay"></div>
-    <!-- ======== sidebar-nav end =========== -->
+        <!-- ======== sidebar-nav start =========== -->
+        <aside th:replace="fragments/AdminAside :: AdminAside"></aside>
+        <div class="overlay"></div>
+        <!-- ======== sidebar-nav end =========== -->
 
-    <!-- ======== main-wrapper start =========== -->
-    <main class="main-wrapper">
-        <!-- ========== header start ========== -->
-        <header th:replace="fragments/AdminHeader :: AdminHeader"></header>
-        <!-- ========== header end ========== -->
+        <!-- ======== main-wrapper start =========== -->
+        <main class="main-wrapper">
+            <!-- ========== header start ========== -->
+            <header th:replace="fragments/AdminHeader :: AdminHeader"></header>
+            <!-- ========== header end ========== -->
 
-        <!-- ========== section start ========== -->
-        <section class="section">
-            <div class="container-fluid">
-                <!-- ========== title-wrapper start ========== -->
-                <div class="title-wrapper pt-30">
-                    <div class="row align-items-center">
-                        <div class="col-md-6">
-                            <div class="title">
-                                <h2>Quản Lý Mượn Trả</h2>
-                            </div>
-                        </div>
-                        <!-- end col -->
-                        <div class="col-md-6">
-                            <div class="breadcrumb-wrapper">
-                                <nav aria-label="breadcrumb">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item">
-                                            <a href="#0">Dashboard</a>
-                                        </li>
-                                        <li class="breadcrumb-item active" aria-current="page">
-                                            Member
-                                        </li>
-                                    </ol>
-                                </nav>
-                            </div>
-                        </div>
-                        <!-- end col -->
-                    </div>
-                    <!-- end row -->
-                </div>
-                <!-- ========== title-wrapper end ========== -->
-
-                <!-- ========== tables-wrapper start ========== -->
-                <div class="tables-wrapper">
-
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="card-style mb-30">
-                                <div class="card-title mb-3">
-                                    <div class="row mt-3">
-                                        <h6 class="mb-2">Mượn Thiết Bị</h6>
-                                        <div class="input-style-1 col-4 ">
-                                            <input type="text" id="" class="form-control" placeholder="Mã Thành Viên">
-                                        </div>
-                                        <div class="input-style-1 col-4 ">
-                                            <input type="text" id="" class="form-control" placeholder="Mã Thiết Bị">
-                                        </div>
-                                        <div class="col-4">
-                                            <button class="main-btn primary-btn btn-hover">Xác nhận mượn</button>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-3">
-                                        <h6 class="mb-2">Trả Thiết Bị</h6>
-                                        <div class="input-style-1 col-6 ">
-                                            <input type="text" id="" class="form-control" placeholder="Mã Thiết Bị">
-                                        </div>
-                                        <div class="col-6">
-                                            <button class="main-btn primary-btn btn-hover">Xác nhận trả</button>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div
-                                    class="table-wrapper table-responsive d-flex flex-column justify-content-center align-items-center">
-                                    <table class="table mb-3">
-                                        <thead>
-                                            <tr>
-                                                <th>
-                                                    <h6>Mã thông tin </h6>
-                                                </th>
-                                                <th>
-                                                    <h6>Mã thành viên</h6>
-                                                </th>
-                                                <th>
-                                                    <h6>Mã thiết bị</h6>
-                                                </th>
-                                                <th>
-                                                    <h6>Thời gian mượn</h6>
-                                                </th>
-                                                <th>
-                                                    <h6>Thời gian trả</h6>
-                                                </th>
-                                            </tr>
-                                            <!-- end table row-->
-                                        </thead>
-                                        <tbody>
-                                            <!-- start table row-->
-                                            <tr>
-                                                <td>
-                                                    <p>1</p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p>Quách Gia Quy</p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p>3 số bạc</p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p>5/7/2024 - 9:55PM</p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p>10/7/2024 - 9:55PM</p>
-                                                </td>
-                                            </tr>
-                                            <!-- end table row-->
-                                        </tbody>
-                                    </table>
-                                    <!-- end table -->
+            <!-- ========== section start ========== -->
+            <section class="section">
+                <div class="container-fluid">
+                    <!-- ========== title-wrapper start ========== -->
+                    <div class="title-wrapper pt-30">
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                <div class="title">
+                                    <h2>Quản Lý Mượn Trả</h2>
                                 </div>
                             </div>
-                            <!-- end card -->
+                            <!-- end col -->
+                            <div class="col-md-6">
+                                <div class="breadcrumb-wrapper">
+                                    <nav aria-label="breadcrumb">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item">
+                                                <a href="#0">Dashboard</a>
+                                            </li>
+                                            <li class="breadcrumb-item active" aria-current="page">
+                                                Member
+                                            </li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                            </div>
+                            <!-- end col -->
                         </div>
-                        <!-- end col -->
+                        <!-- end row -->
                     </div>
-                    <!-- end row -->
+                    <!-- ========== title-wrapper end ========== -->
+
+                    <!-- ========== tables-wrapper start ========== -->
+                    <div class="tables-wrapper">
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card-style mb-30">
+                                    <!--<form action="#" th:action="@{/save}" th:object="${ttsd}" method="post">-->
+                                    <div class="card-title mb-3">
+                                        <div class="row mt-3">
+                                            <h6 class="mb-2">Mượn Thiết Bị</h6>
+
+                                            <div class="input-style-1 col-4 ">
+                                                <input type="text" id="MaTVMuon" class="form-control" placeholder="Mã Thành Viên" >
+                                            </div>
+                                            <div class="input-style-1 col-4 ">
+                                                <input type="text" id="MaTBMuon" class="form-control" placeholder="Mã Thiết Bị"  >
+                                            </div>
+                                            <div class="col-4">
+                                                <button class="main-btn primary-btn btn-hover" onclick="ThemThongTinSDMuon()">Xác nhận mượn</button>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <h6 class="mb-2">Trả Thiết Bị</h6>
+                                            <div class="input-style-1 col-6 ">
+                                                <input type="text" id="MaTBTra" class="form-control" placeholder="Mã Thiết Bị">
+                                            </div>
+                                            <div class="col-6">
+                                                <button class="main-btn primary-btn btn-hover" onclick="TraThietBi()">Xác nhận trả</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!--</form>-->
+
+                                    <div
+                                        class="table-wrapper table-responsive d-flex flex-column justify-content-center align-items-center">
+                                        <table class="table mb-3">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        <h6>Mã thông tin </h6>
+                                                    </th>
+                                                    <th>
+                                                        <h6>Mã thành viên</h6>
+                                                    </th>
+                                                    <th>
+                                                        <h6>Mã thiết bị</h6>
+                                                    </th>
+                                                    <th>
+                                                        <h6>Thời gian mượn</h6>
+                                                    </th>
+                                                    <th>
+                                                        <h6>Thời gian trả</h6>
+                                                    </th>
+                                                </tr>
+                                                <!-- end table row-->
+                                            </thead>
+                                            <tbody>
+                                                <!-- start table row-->
+                                                <tr th:each="thongTin : ${listMuonTra}">
+                                                    <td th:text="${thongTin.MaTT}">
+                                                    </td>
+                                                    <td class="min-width" th:text="${thongTin.thanhVien.hoTen}">
+                                                    </td>
+                                                    <td class="min-width" th:text="${thongTin.thietBi.tenTB}">
+                                                    </td>
+                                                    <td class="min-width" th:text="${thongTin.thoiGianMuon}">
+                                                    </td>
+                                                    <td class="min-width" th:text="${thongTin.thoiGianTra}">
+                                                    </td>
+                                                </tr>
+                                                <!-- end table row-->
+                                            </tbody>
+                                        </table>
+                                        <!-- end table -->
+                                    </div>
+                                </div>
+                                <!-- end card -->
+                            </div>
+                            <!-- end col -->
+                        </div>
+                        <!-- end row -->
+                    </div>
+                    <!-- ========== tables-wrapper end ========== -->
                 </div>
-                <!-- ========== tables-wrapper end ========== -->
-            </div>
-            <!-- end container -->
-        </section>
+                <!-- end container -->
+            </section>
 
-        <!-- ========== section end ========== -->
+            <!-- ========== section end ========== -->
 
-        <!-- ========== footer start =========== -->
-        <footer th:replace="fragments/AdminFooter :: AdminFooter"></footer>
-        <!-- ========== footer end =========== -->
-    </main>
-    <!-- ======== main-wrapper end =========== -->
+            <!-- ========== footer start =========== -->
+            <footer th:replace="fragments/AdminFooter :: AdminFooter"></footer>
+            <!-- ========== footer end =========== -->
+        </main>
+        <!-- ======== main-wrapper end =========== -->
 
-    <!-- ========= All Javascript files linkup ======== -->
+        <!-- ========= All Javascript files linkup ======== -->
 
-    <div th:replace="fragments/AdminScript :: AdminScript"></div>
+        <div th:replace="fragments/AdminScript :: AdminScript"></div>
 
-</body>
+    </body>
 
 </html>
+
+
+<script>
+//    function xoaNhiuTv(){
+//        swal("Write something here:", {
+//            content: "input",
+//          })
+//          .then((value) => {
+////            swal(`You typed: ${value}`);
+//              deleteData(value);
+//          });
+//    }
+
+    function TraThietBi()
+    {
+        var MaTB = document.getElementById('MaTBTra').value;
+        TraThietBiCurrent(MaTB);
+    }
+
+    function TraThietBiCurrent(MaTB) {
+        $.ajax({
+            url: '/admin/member/save_pay_device',
+            type: 'POST',
+            data: {
+                MaTB: MaTB
+            },
+           success: function (response) {
+                // Trong phần này, response chính là id trả về từ Spring Controller
+//                alert(response);
+                if (response == ":") {
+//              alert( "Xóa thành công!");
+                    swal({
+                        title: "Trả Thành Công!",
+                        text: "Nhấn vào nút để tiếp tục!",
+                        icon: "success"
+                    }).then(function () {
+                        window.location = "http://localhost:8080/admin/member/borrow_device";
+                    });
+                } else {
+                    swal({
+                        title: "error",
+                        text: response,
+                        icon: "error"
+                    });
+                }
+//            alert( response);
+
+
+            },
+            error: function (xhr, status, error) {
+//            console.error("Error occurred while deleting data:", error);
+                alert(response);
+
+            }
+        })
+    }
+
+    function ThemThongTinSDMuon() {
+        var MaTV = document.getElementById('MaTVMuon').value;
+        var MaTB = document.getElementById('MaTBMuon').value;
+        ThemThongTinSDMuonCurrent(MaTV, MaTB);
+    }
+
+    function ThemThongTinSDMuonCurrent(MaTV, MaTB) {
+        $.ajax({
+            url: '/admin/member/save_borrow_device', // Địa chỉ URL của endpoint để xử lý việc xóa dữ liệu
+            type: 'POST', // Phương thức HTTP sử dụng là POST
+            data: {MaTV: MaTV,
+                MaTB: MaTB
+            }, // Dữ liệu cần gửi đến máy chủ, ở đây là id của dữ liệu cần xóa
+            success: function (response) {
+                // Trong phần này, response chính là id trả về từ Spring Controller
+//                alert(response);
+                if (response == ":") {
+//              alert( "Xóa thành công!");
+                    swal({
+                        title: "Mượn Thành Công!",
+                        text: "Nhấn vào nút để tiếp tục!",
+                        icon: "success"
+                    }).then(function () {
+                        window.location = "http://localhost:8080/admin/member/borrow_device";
+                    });
+                } else {
+                    swal({
+                        title: "error",
+                        text: response,
+                        icon: "error"
+                    });
+                }
+//            alert( response);
+
+
+            },
+            error: function (xhr, status, error) {
+//            console.error("Error occurred while deleting data:", error);
+                alert(response);
+
+            }
+        });
+    }
+</script>

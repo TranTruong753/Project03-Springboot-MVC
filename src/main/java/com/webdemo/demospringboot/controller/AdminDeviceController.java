@@ -42,12 +42,14 @@ public class AdminDeviceController {
         return "admin/device";
     }
     
+    
     @GetMapping("add_device")
     public String add_device(Model model) {
         ThietBi tb= new ThietBi();
         model.addAttribute("thietbi", tb);
         return "admin/add_device";
     }
+    
     
      @RequestMapping(value="/save",method = RequestMethod.POST)
     public String add_device(@ModelAttribute("thietbi") ThietBi thietbi ,Model model,@RequestParam(name="pageNo",defaultValue = "1") Integer pageNo) {
@@ -162,4 +164,5 @@ public class AdminDeviceController {
                 }
           return mess;
     }
+    
 }

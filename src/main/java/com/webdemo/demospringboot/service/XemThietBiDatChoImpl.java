@@ -24,7 +24,7 @@ public class XemThietBiDatChoImpl implements  XemThietBiDatChoService{
 
     
     @Override
-    public List<ThongTinSD> layDanhSachThietBiDatCho(int maTV) {
+    public List<Object[]> findThietBiByMaTVAndThoiGianDatCho(int maTV) {
         // Call the repository method to fetch the list of ThongTinSD entities
         return xemThietBiDatChoRepository.findThietBiByMaTVAndThoiGianDatCho(maTV);
     }

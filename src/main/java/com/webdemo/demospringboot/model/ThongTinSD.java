@@ -42,6 +42,13 @@ public class ThongTinSD {
     public ThongTinSD() {
     }
 
+    public ThongTinSD(Thanhvien thanhVien, ThietBi thietBi, LocalDateTime thoiGianMuon, LocalDateTime thoiGianTra) {
+        this.thanhVien = thanhVien;
+        this.thietBi = thietBi;
+        this.thoiGianMuon = thoiGianMuon;
+        this.thoiGianTra = thoiGianTra;
+    }
+
     public ThongTinSD(Thanhvien thanhVien, ThietBi thietBi, LocalDateTime thoiGianVao, LocalDateTime thoiGianMuon, LocalDateTime thoiGianTra, LocalDateTime thoiGianDatCho) {
         this.thanhVien = thanhVien;
         this.thietBi = thietBi;

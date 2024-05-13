@@ -126,7 +126,7 @@
                                                     </th>
                                                 </tr>
                                             </thead>
-                                            <tbody id="cartTable" class="bg-white" th:attr="data-length=${cartDevice.size()}">
+                                            <tbody id="cartTable" class="bg-white" th:attr="data-length=${cartDevice == null ? 0 : cartDevice.size()}">
                                                 <tr th:each="thietBi : ${cartDevice}">
                                                     <td>
                                                         <p th:text="${thietBi.maTB}"></p>
@@ -166,6 +166,7 @@
                                     var selectedDateTimeValue = selectedDateTimeInput.value;
                                     var cartTable = document.getElementById("cartTable");
                                     var cartLength = cartTable.getAttribute("data-length");
+//                                    console.log(cartLength)
                                     if (cartLength === "0") {
                                         swal("Giỏ hàng trống. Vui lòng thêm thiết bị vào giỏ hàng trước khi đặt chỗ.", "", "warning");
                                         event.preventDefault();
@@ -237,10 +238,10 @@
                                                                 // Tô màu đỏ cho dòng
                                                                 row.style.color = 'red';
                                                                 // Hiển thị thông báo
-                                                                swal(statusMessage, "", "warning");
                                                             }
                                                         });
                                                     });
+                                                    swal("Có thiết bị trong giỏ hàng đang được mượn hoặc đặt chổ", "", "warning");
                                                 }
                                             })
                                             .catch(error => {
@@ -250,8 +251,10 @@
                                 );
                             }
                         });
+
                         function removeFromCart(button, event) {
                             event.preventDefault();
+                            var scrollPosition = window.scrollY;
                             var maTB = button.getAttribute('data-maTB');
                             var tenTB = button.getAttribute('data-tenTB');
                             fetch('/removeFromCart', {
@@ -269,10 +272,10 @@
                                         }
                                     })
                                     .then(data => {
+//                                        console.log(data)
                                         // Lấy danh sách các dòng trong bảng
                                         var cartTableBody = document.getElementById('cartTable');
                                         var rows = cartTableBody.getElementsByTagName('tr');
-
                                         // Tìm và xóa hàng có id là maTB
                                         for (var i = 0; i < rows.length; i++) {
                                             var cells = rows[i].getElementsByTagName('td');
@@ -283,9 +286,15 @@
                                                 }
                                             }
                                         }
-
                                         // Hiển thị thông báo xóa thành công
                                         swal(`${tenTB} đã được xóa khỏi giỏ hàng`, '', 'success');
+                                        // Cập nhật thuộc tính data-length của tbody
+                                        var cartDeviceSize = parseInt(data); // Chuyển đổi data sang số nguyên
+                                        if (!isNaN(cartDeviceSize)) {
+                                            cartTableBody.setAttribute('data-length', cartDeviceSize.toString());
+                                        } else {
+                                            console.error('Dữ liệu không hợp lệ:', data);
+                                        }
                                     })
                                     .catch(error => {
                                         console.error('Lỗi:', error);

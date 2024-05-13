@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.webdemo.demospringboot.service.XemThietBiDatChoService;
 import jakarta.servlet.http.HttpSession;
+import java.time.format.DateTimeFormatter;
 /**
  *
  * @author ACER
@@ -41,8 +42,20 @@ public class XemThietBiDatChoController {
         String maTVString = (String) httpSession.getAttribute("maTV");
         int maTV = Integer.parseInt(maTVString);
   
-        List<ThongTinSD> thongTinSDList = xemThietBiDatChoService.layDanhSachThietBiDatCho(maTV);
-        model.addAttribute("thongTinSDList", thongTinSDList);
+        List<Object[]> thongTinSDList = xemThietBiDatChoService.findThietBiByMaTVAndThoiGianDatCho(maTV);
+        
+        List<String[]> formattedThongTinSDList = new ArrayList<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        for (Object[] thongTinSD : thongTinSDList) {
+            int maTBInt = (Integer) thongTinSD[0];
+            String maTB = String.valueOf(maTBInt);
+
+            String tenTB = (String) thongTinSD[1];
+            LocalDateTime thoiGianDatCho = (LocalDateTime) thongTinSD[2];
+            String formattedThoiGianDatCho = thoiGianDatCho.format(formatter);
+            formattedThongTinSDList.add(new String[]{maTB, tenTB, formattedThoiGianDatCho});
+        }
+        model.addAttribute("thongTinSDList", formattedThongTinSDList);
         return "xemThietBiDatCho";
     }
 }
