@@ -128,7 +128,7 @@
                             return false;
                         }
 
-                        else if (!/\S+@\S+\.\S+/.test(email.trim())) {
+                        else if (!/\S+@\S+\.\S+/.test(email.trim()) ||email.length>25) {
                             //alert('Email không hợp lệ');
                             swal({
                                 title: 'Email không hợp lệ',

@@ -118,7 +118,7 @@
                             });
                             return false;
                         }
-                        else if (!/\S+@\S+\.\S+/.test(email.trim())) {
+                        else if (!/\S+@\S+\.\S+/.test(email.trim())||email.length>25) {
                             //alert('Email không hợp lệ');
                             swal({
                                 title: 'Số điện thoại phải là số có độ dài là 10 và bắt đầu từ số 0',
