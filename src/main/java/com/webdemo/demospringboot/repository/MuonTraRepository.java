@@ -20,9 +20,19 @@ public interface MuonTraRepository extends JpaRepository<ThongTinSD, Integer>{
     @Query("SELECT ttsd FROM ThongTinSD ttsd " +
            "INNER JOIN ttsd.thietBi tb " +
            "INNER JOIN ttsd.thanhVien tv " +
-           "WHERE  ttsd.thoiGianMuon IS NOT NULL ")
+           "WHERE  ttsd.thoiGianMuon IS NOT NULL" +
+            "")
     List<ThongTinSD> findAllThongTinSD();
     
     @Query("SELECT t FROM ThongTinSD t  WHERE t.thoiGianTra IS NULL AND t.thoiGianMuon IS NOT NULL")
     List<ThongTinSD> findTTSDDangMuon();
+
+    @Query("SELECT t FROM ThongTinSD t "
+            + "where t.thoiGianTra IS NULL "
+            + "AND t.thoiGianMuon IS NULL "
+            + "AND t.thoiGianVao IS NULL "
+            + "AND t.thoiGianDatCho IS NOT NULL "
+            + "AND DATE(t.thoiGianDatCho) = CURRENT_DATE()"
+            + "AND t.thoiGianDatCho > DATEADD(HOUR, -1, CURRENT_TIMESTAMP)")
+    List<ThongTinSD> findDatCho();
 }
