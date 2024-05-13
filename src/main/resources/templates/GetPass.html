@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -62,23 +64,23 @@
                                     var newpass = document.getElementById("newpass").value;
                                     var repass = document.getElementById("repass").value;
                                     
-                                    if (newpass.trim() ==='' || repass.trim()==='' ) {
-                                       
-                                        //alert('new PassWord và Re PassWord không được để trống');
+                                    if(newpass.trim() =='' || repass.trim()=='' )
+                                    {
                                         swal({
-                                            title: "new PassWord và Re PassWord không được để trống ",
+                                            title: "new PassWord và Re PassWord không được để trống",
                                             text: "Nhấn vào nút để tiếp tục!",
-                                            icon: "error"
+                                            icon: "error"// làm sao cho nó chạy
                                         });
                                         return false;
                                     }
-                                    else if (newpass.trim() !== repass.trim() ) {
+                                    else
+                                    if (newpass.trim() !== repass.trim() ) {
                                        
-                                        //alert('Xác nhận mật khẩu không chính xác')
+                                        //alert('Xác nhận mật khẩu không chính xác');
                                         swal({
                                             title: "Xác nhận mật khẩu không chính xác",
                                             text: "Nhấn vào nút để tiếp tục!",
-                                            icon: "error"
+                                            icon: "error"// làm sao cho nó chạy
                                         });
                                         return false;
                                     }

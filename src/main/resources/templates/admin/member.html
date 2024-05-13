@@ -71,11 +71,12 @@
                                 <div class="">
                                     <a href="/admin/member/add_member" class="main-btn primary-btn btn-hover"><i class="fa-solid fa-circle-plus"></i> Thêm</a>
                                     <label class="main-btn success-btn btn-hover"><i class="fa-solid fa-file-excel"></i> Nhập excel
-                                        <form action="/admin/member/upload_excel" method="post" enctype="multipart/form-data">
+                                        <form id = "form" action="/admin/member/upload_excel" method="post" enctype="multipart/form-data">
                                             <input type="file" name="file" id="excelFileInput" style="display: none;" accept=".xls,.xlsx">
-                                            <button type="submit">Upload</button>
+<!--                                            <button type="button">Upload</button>-->
                                         </form>
                                     </label>
+                                    <button class="main-btn" form="form" type="submit">Upload</button>
                                     <input type="hidden" th:value="${message}" id="message1" >
                                     <button class="main-btn danger-btn btn-hover" onclick="xoaNhiuTv()"><i class="fa-solid fa-trash"></i> Xóa theo năm</button>
 
