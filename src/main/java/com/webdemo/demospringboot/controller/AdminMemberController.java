@@ -346,11 +346,11 @@ public class AdminMemberController {
         String mess = "";
         String MaTB = request.getParameter("MaTB").toString().trim();
         boolean checkTTSDContaint = false;
+        boolean checkTTSDDatCho = false;
         List<ThongTinSD> listThongTinSD = MuonTraThietBiService.findTTSDDangMuon();
-
+        List<ThongTinSD> listThongTinSDDatCho = MuonTraThietBiService.findDatCho();
         ThongTinSD current = null;
-        for (ThongTinSD thongTinSD : listThongTinSD) {
-                System.out.println(thongTinSD.getThietBi().getMaTB());
+        for (ThongTinSD thongTinSD : listThongTinSDDatCho) {
 
             if (MaTB.equals(thongTinSD.getThietBi().getMaTB() + "") == true) {
                 checkTTSDContaint = true;
@@ -358,6 +358,21 @@ public class AdminMemberController {
                 break;
             }
         }
+        if(checkTTSDDatCho == false)
+        {
+            for (ThongTinSD thongTinSD : listThongTinSD) {
+                System.out.println(thongTinSD.getThietBi().getMaTB());
+
+                if (MaTB.equals(thongTinSD.getThietBi().getMaTB() + "") == true) {
+                    checkTTSDContaint = true;
+                    current = thongTinSD;
+                    break;
+                }
+            }
+        }
+
+
+
         if (checkTTSDContaint == true) {
             LocalDateTime currentDateTime = LocalDateTime.now();
             current.setThoiGianTra(currentDateTime);

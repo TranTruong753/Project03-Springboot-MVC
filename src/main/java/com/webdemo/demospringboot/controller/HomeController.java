@@ -27,7 +27,7 @@ public class HomeController {
     @Autowired
     private ThanhVienService thanhvienservice;
 
-    @GetMapping({"home", "/"})
+    @GetMapping({"home"})
     public String index(Model model, HttpSession session) {
         List<ThietBi> cartDevice = (List<ThietBi>) session.getAttribute("cartDevice");
         model.addAttribute("danhSachThietBi", thietBiService.findAllThietBi());

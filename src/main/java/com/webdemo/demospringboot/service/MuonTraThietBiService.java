@@ -4,7 +4,6 @@
  */
 package com.webdemo.demospringboot.service;
 
-import com.webdemo.demospringboot.model.ThietBi;
 import com.webdemo.demospringboot.model.ThongTinSD;
 import com.webdemo.demospringboot.repository.MuonTraRepository;
 import java.util.List;
@@ -33,6 +32,16 @@ public class MuonTraThietBiService {
     public List<ThongTinSD> findTTSDDangMuon()
     {
         return muonTraRepository.findTTSDDangMuon();
+    }
+
+    public List<ThongTinSD> findTTSDMuonVaDatCho()
+    {
+        return muonTraRepository.findTTSDDangMuon();
+    }
+
+    public List<ThongTinSD> findDatCho()
+    {
+        return muonTraRepository.findDatCho();
     }
     
     public void save(ThongTinSD ttsd){

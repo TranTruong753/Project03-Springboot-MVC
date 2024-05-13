@@ -19,7 +19,7 @@ public class LoginController {
     @Autowired
     private HttpSession httpSession;
     
-    @GetMapping({"", "/login"})
+    @GetMapping({"/", "/login"})
     public String index() {
         httpSession.invalidate();
         return "login";
@@ -50,7 +50,7 @@ public class LoginController {
                 httpSession.setAttribute("Hoten", loginService.get_Hoten(maThanhVienInt));
                 httpSession.setAttribute("Email", loginService.get_Email(maThanhVienInt));
                 model.remove("message");
-                return "redirect:/";
+                return "redirect:/home";
             } else {
                 model.addAttribute("message", "Đăng nhập thất bại do Mã Thành Viên hoặc Mật Khẩu sai");
                 model.addAttribute("username", maThanhVien);
@@ -63,3 +63,4 @@ public class LoginController {
         }
     }
 }
+L
