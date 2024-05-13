@@ -195,14 +195,16 @@ public class AdminMemberController {
                     if (row.getRowNum() == 0) continue;
 
                     Thanhvien thanhvien = new Thanhvien();
-                    int matv = Integer.parseInt(row.getCell(0).getStringCellValue());
+                    int matv = (int) row.getCell(0).getNumericCellValue();
                     thanhvien.setId(matv);
                     thanhvien.setHoTen(row.getCell(1).getStringCellValue());
                     thanhvien.setKhoa(row.getCell(2).getStringCellValue());
                     thanhvien.setNganh(row.getCell(3).getStringCellValue());
                     thanhvien.setSdt(row.getCell(4).getStringCellValue());
-                    thanhvien.setEmail(row.getCell(5).getStringCellValue());
-                    thanhvien.setPassword(row.getCell(6).getStringCellValue());
+                    int pass = (int) row.getCell(5).getNumericCellValue();
+                    thanhvien.setPassword(pass+"");
+                    thanhvien.setEmail(row.getCell(6).getStringCellValue());
+                    
 
                     listthanhvien.add(thanhvien);
                 }

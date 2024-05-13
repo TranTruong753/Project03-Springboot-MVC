@@ -62,10 +62,24 @@
                                     var newpass = document.getElementById("newpass").value;
                                     var repass = document.getElementById("repass").value;
                                     
-
-                                    if (newpass.trim() !== repass.trim() ) {
+                                    if (newpass.trim() ==='' || repass.trim()==='' ) {
                                        
-                                        alert('Xác nhận mật khẩu không chính xác')
+                                        //alert('new PassWord và Re PassWord không được để trống');
+                                        swal({
+                                            title: "new PassWord và Re PassWord không được để trống ",
+                                            text: "Nhấn vào nút để tiếp tục!",
+                                            icon: "error"
+                                        });
+                                        return false;
+                                    }
+                                    else if (newpass.trim() !== repass.trim() ) {
+                                       
+                                        //alert('Xác nhận mật khẩu không chính xác')
+                                        swal({
+                                            title: "Xác nhận mật khẩu không chính xác",
+                                            text: "Nhấn vào nút để tiếp tục!",
+                                            icon: "error"
+                                        });
                                         return false;
                                     }
 
